@@ -1,13 +1,21 @@
 ﻿using MovieForum.Data.Models.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace MovieForum.Data.Models
 {
-    internal class Tag : ITag
+    public class Tag : ITag
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        string ITag.Tag { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Tag(int id, string tagName)
+        {
+            this.TagName = tagName;
+            this.Id = id;
+        }
+        public int Id { get; set; }
+
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Comment title length must be between {0} and {1} characters!")]
+        public string TagName { get; set; }
     }
 }

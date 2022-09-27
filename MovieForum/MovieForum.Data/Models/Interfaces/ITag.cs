@@ -4,8 +4,8 @@ using System.Text;
 
 namespace MovieForum.Data.Models.Interfaces
 {
-    interface ITag : IHasId
+    public interface ITag : IHasId
     {
-        public string Tag { get; set; }
+        public string TagName { get; set; }
     }
 }

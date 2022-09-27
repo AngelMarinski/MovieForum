@@ -8,11 +8,16 @@ namespace MovieForum.Data.Models.Interfaces
     {
         public string Title { get; set; }
 
-        //Content
-        //AuthorId
-        //MovieId
-        //LikesCount
-        //DislikeCount
+        public string Content { get; set; }
+
+        public int AuthorID { get; set; }
+    
+        public int MovieId { get; set; } 
+
+        public int LikesCount { get; set; }
+
+        public int DisLikesCount { get; set; }
+
 
 
     }
