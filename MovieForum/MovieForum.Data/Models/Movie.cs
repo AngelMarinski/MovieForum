@@ -8,7 +8,7 @@ namespace MovieForum.Models
 {
     public class Movie : IMovie
     {
-        public int ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string Title { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public DateTime ReleaseDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Genres Genre { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

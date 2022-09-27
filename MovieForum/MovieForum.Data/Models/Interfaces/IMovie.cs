@@ -1,4 +1,5 @@
-﻿using MovieForum.Enums;
+﻿using MovieForum.Data.Models.Interfaces;
+using MovieForum.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace MovieForum.Models
 {
-    public interface IMovie
+    public interface IMovie : IHasId
     {
-        public int ID { get; set; }
         public string Title { get; set; }
         public DateTime ReleaseDate { get; set; }
         public Genres Genre { get; set; }
