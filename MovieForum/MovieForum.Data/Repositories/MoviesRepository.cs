@@ -4,47 +4,80 @@ using MovieForum.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MovieForum.Repositories
 {
     public class MoviesRepository : IMoviesRepository
     {
-        private readonly List<Movie> movies;
+        private readonly List<IMovie> movies;
 
-        public Movie Create(IMovie movie)
+        public MoviesRepository()
         {
-            throw new NotImplementedException();
+            this.movies = new List<IMovie>();
         }
 
-        public Movie Delete(IMovie movie)
+        public IMovie Create(IMovie movie)
         {
-            throw new NotImplementedException();
+            movies.Add(movie);
+
+            return movie;
         }
 
-        public List<Movie> GetAll()
+        public IMovie Delete(int id)
         {
-            throw new NotImplementedException();
+            var movie = movies.FirstOrDefault(m => m.Id == id);
+
+            if(movie == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            movies.Remove(movie);
+
+            return movie;
         }
 
-        public List<Movie> FilterByGenres(Genres genre)
+        public List<IMovie> GetAll()
         {
-            throw new NotImplementedException();
+            return movies;
+        }
+
+        public List<IMovie> FilterByGenres(Genres genre)
+        {
+            var moviesByGenre = movies.Where(movie => movie.Genre == genre).ToList();
+
+            return moviesByGenre;
         }
 
         public Movie GetById(int id)
         {
-            throw new NotImplementedException();
+            var movie = movies.FirstOrDefault(m => m.Id == id) as Movie;
+
+            return movie ?? throw new InvalidOperationException();
         }
 
-        public List<Movie> GetByName(string name)
+        public List<IMovie> GetByName(string name)
         {
-            throw new NotImplementedException();
+            var regex = new Regex(@"^.*" + name + ".*$");
+            var filtered = movies.Where(movie => regex.IsMatch(movie.Title)).ToList();
+
+            return filtered;
         }
 
-        public Movie Update(int id, IMovie movie)
+        public IMovie Update(int id, IMovie movie)
         {
-            throw new NotImplementedException();
+            var movieToUpdate = movies.FirstOrDefault(m => m.Id == id);
+
+            movieToUpdate.Title = movie.Title;
+            movieToUpdate.Rating = movie.Rating;
+            movieToUpdate.Genre = movie.Genre;
+            movieToUpdate.Actors = movie.Actors;
+            movieToUpdate.LikesCount = movie.LikesCount;
+            movieToUpdate.DislikesCount = movie.DislikesCount;
+
+            return movieToUpdate;
         }
     }
 }

@@ -9,12 +9,12 @@ namespace MovieForum.Repositories.Interfaces
 {
     public interface IMoviesRepository
     {
-        public List<Movie> GetAll();
-        public List<Movie> FilterByGenres(Genres genre);
-        public List<Movie> GetByName(string name);
+        public List<IMovie> GetAll();
+        public List<IMovie> FilterByGenres(Genres genre);
+        public List<IMovie> GetByName(string name);
         public Movie GetById(int id);
-        public Movie Create(IMovie movie);
-        public Movie Update(int id, IMovie movie);
-        public Movie Delete(IMovie movie);
+        public IMovie Create(IMovie movie);
+        public IMovie Update(int id, IMovie movie);
+        public IMovie Delete(int id);
     }
 }

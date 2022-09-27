@@ -4,5 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MovieForum.Services\MovieForum.Services.csproj" />
+  </ItemGroup>
+
 
 </Project>

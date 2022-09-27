@@ -8,21 +8,23 @@ namespace MovieForum.Models
 {
     public class Movie : IMovie
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Title { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime ReleaseDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Genres Genre { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public List<string> Actors { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Rating { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get; set; }
+        public int AuthorID { get; set; }
 
-        public void Dislike()
-        {
-            throw new NotImplementedException();
-        }
+        public string Title { get; set; }
 
-        public void Like()
-        {
-            throw new NotImplementedException();
-        }
+        public DateTime ReleaseDate { get; set; }
+
+        public DateTime Posted { get; set ; }
+
+        public Genres Genre { get; set; }
+
+        public List<string> Actors { get; set; }
+
+        public int Rating { get; set; }
+
+        public int LikesCount { get; set; }
+
+        public int DislikesCount { get; set ; }
     }
 }

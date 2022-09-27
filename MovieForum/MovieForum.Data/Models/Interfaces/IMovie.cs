@@ -10,11 +10,13 @@ namespace MovieForum.Models
     public interface IMovie : IHasId
     {
         public string Title { get; set; }
+        public int AuthorID { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public DateTime Posted { get; set; }
         public Genres Genre { get; set; }
         public List<string> Actors { get; set; }
         public int Rating { get; set; }
-        public void Like();
-        public void Dislike();
+        public int LikesCount { get; set; }
+        public int DislikesCount { get; set; }
     }
 }

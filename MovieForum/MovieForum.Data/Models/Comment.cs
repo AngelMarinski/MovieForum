@@ -8,9 +8,6 @@ namespace MovieForum.Data.Models
 {
     public class Comment : IComment
     {
-        private int likesCount;
-        private int dislikesCount;
-
         public Comment(string title, int id, string content, int authorId, int movieId)
         {
             this.Title = title;
