@@ -23,6 +23,7 @@ namespace MovieForum.Controllers
         [HttpGet("")]
         public IActionResult Get()
         {
+         
             return Ok("Hello Maggie, How are ya?");
         }
     }
