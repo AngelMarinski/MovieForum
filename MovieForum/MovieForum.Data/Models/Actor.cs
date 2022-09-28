@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MovieForum.Data.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace MovieForum.Data.Models
 {
-    public class Actor
+    public class Actor: IHasId
     {
         public int Id { get; set; }
 

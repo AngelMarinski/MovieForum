@@ -219,6 +219,9 @@ namespace MovieForum.Data.DataInitializing
                     }
                 }
             };
+            db.Entity<Comment>().HasData(movies);
         }
+
+
     }
 }

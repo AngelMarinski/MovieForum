@@ -31,6 +31,7 @@ namespace MovieForum
             services.AddDbContext<MovieForumContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
+                options.EnableSensitiveDataLogging();
             });
 
             services.AddControllers();
