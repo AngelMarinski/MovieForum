@@ -6,16 +6,12 @@ using System.Text;
 
 namespace MovieForum.Data.Models
 {
-    public class Tag : ITag
+    public class Tag : IHasId, IDeletable
     {
-        public Tag(int id, string tagName)
-        {
-            this.TagName = tagName;
-            this.Id = id;
-        }
         public int Id { get; set; }
 
-        [StringLength(20, MinimumLength = 2, ErrorMessage = "Comment title length must be between {0} and {1} characters!")]
+        [Required]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Tag name length must be between {0} and {1} characters!")]
         public string TagName { get; set; }
 
         [Required]
@@ -24,6 +20,7 @@ namespace MovieForum.Data.Models
         [Required]
         public bool IsDeleted { get; set; }
 
+        [Required]
         public DateTime? DeletedOn { get; set; }
     }
 }

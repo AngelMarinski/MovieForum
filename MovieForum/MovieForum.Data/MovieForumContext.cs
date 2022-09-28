@@ -31,15 +31,8 @@ namespace MovieForum.Data
         public DbSet<MovieTags> MoviesTags { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
-
+        
         // public DbSet<Genres> Genres { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Seed();
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

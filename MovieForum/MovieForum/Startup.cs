@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MovieForum.Repositories;
-using MovieForum.Repositories.Interfaces;
+using MovieForum.Data;
 using MovieForum.Services;
 using MovieForum.Services.Interfaces;
 using System;
@@ -28,10 +28,14 @@ namespace MovieForum
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MovieForumContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+            });
+
             services.AddControllers();
 
             services.AddScoped<IMoviesServices, MoviesServices>();
-            services.AddSingleton<IMoviesRepository, MoviesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
