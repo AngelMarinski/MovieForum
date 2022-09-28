@@ -23,9 +23,23 @@ namespace MovieForum.Data.Models
 
         [StringLength(2000, MinimumLength = 10, ErrorMessage = "Comment content length must be between {0} and {1} characters!")]
         public string Content { get; set; }
-        public int AuthorID { get; set; }
-        public int MovieId { get; set; }
+
+        [Required]
+        public int UserID { get; set; }
+
+        [Required]
+        public virtual User Author { get; set; }
+                
         public int LikesCount { get; set; }
+
         public int DisLikesCount { get; set; }
+
+        [Required]
+        public DateTime? PostedOn { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

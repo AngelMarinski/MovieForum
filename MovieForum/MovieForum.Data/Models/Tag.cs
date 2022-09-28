@@ -17,5 +17,13 @@ namespace MovieForum.Data.Models
 
         [StringLength(20, MinimumLength = 2, ErrorMessage = "Comment title length must be between {0} and {1} characters!")]
         public string TagName { get; set; }
+
+        [Required]
+        public virtual ICollection<MovieTags> Movies { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }
