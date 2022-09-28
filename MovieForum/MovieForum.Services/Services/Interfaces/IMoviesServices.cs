@@ -13,8 +13,8 @@ namespace MovieForum.Services.Interfaces
         public List<Movie> FilterByGenres(Genres genre);
         public List<Movie> GetByName(string name);
         public Movie GetById(int id);
-        public Movie Create(IMovie movie);
-        public void Delete(IMovie movie);
-        public Movie Update(int id, IMovie movie);
+        public Movie Create(Movie movie);
+        public void Delete(Movie movie);
+        public Movie Update(int id, Movie movie);
     }
 }

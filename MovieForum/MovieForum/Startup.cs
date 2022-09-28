@@ -7,8 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MovieForum.Data;
-using MovieForum.Repositories;
-using MovieForum.Repositories.Interfaces;
 using MovieForum.Services;
 using MovieForum.Services.Interfaces;
 using System;
@@ -38,7 +36,6 @@ namespace MovieForum
             services.AddControllers();
 
             services.AddScoped<IMoviesServices, MoviesServices>();
-            services.AddSingleton<IMoviesRepository, MoviesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

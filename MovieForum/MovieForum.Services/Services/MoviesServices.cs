@@ -1,6 +1,5 @@
 ﻿using MovieForum.Enums;
 using MovieForum.Models;
-using MovieForum.Repositories.Interfaces;
 using MovieForum.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,19 +10,12 @@ namespace MovieForum.Services
 {
     public class MoviesServices : IMoviesServices
     {
-        private readonly IMoviesRepository repository;
-
-        public MoviesServices(IMoviesRepository repository)
-        {
-            this.repository = repository;
-        }
-
-        public Movie Create(IMovie movie)
+        public Movie Create(Movie movie)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(IMovie movie)
+        public void Delete(Movie movie)
         {
             throw new NotImplementedException();
         }
@@ -48,7 +40,7 @@ namespace MovieForum.Services
             throw new NotImplementedException();
         }
 
-        public Movie Update(int id, IMovie movie)
+        public Movie Update(int id, Movie movie)
         {
             throw new NotImplementedException();
         }

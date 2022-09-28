@@ -22,6 +22,12 @@ namespace MovieForum.Data
         
         public DbSet<Role> Roles { get; set; }
         
+        public DbSet<Actor> Actors { get; set; }
+
+        public DbSet<MovieActor> MovieActors { get; set; }
+
+        public DbSet<MovieTags> MoviesTags { get; set; }
+
         public DbSet<Tag> Tags { get; set; }
         
         // public DbSet<Genres> Genres { get; set; }
