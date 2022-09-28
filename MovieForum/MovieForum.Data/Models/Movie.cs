@@ -43,5 +43,8 @@ namespace MovieForum.Models
         public int LikesCount { get; set; }
 
         public int DislikesCount { get; set ; }
+
+        [Required]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

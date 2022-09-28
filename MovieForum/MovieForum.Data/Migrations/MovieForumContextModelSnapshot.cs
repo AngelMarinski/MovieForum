@@ -64,7 +64,7 @@ namespace MovieForum.Data.Migrations
                     b.Property<int>("LikesCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieId")
+                    b.Property<int?>("MovieId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("PostedOn")
@@ -262,21 +262,17 @@ namespace MovieForum.Data.Migrations
 
             modelBuilder.Entity("MovieForum.Data.Models.Comment", b =>
                 {
-                    b.HasOne("MovieForum.Models.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("MovieForum.Models.Movie", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("MovieId");
 
-                    b.HasOne("MovieForum.Data.Models.User", "User")
+                    b.HasOne("MovieForum.Data.Models.User", "Author")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Movie");
-
-                    b.Navigation("User");
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.MovieActor", b =>
@@ -344,6 +340,8 @@ namespace MovieForum.Data.Migrations
             modelBuilder.Entity("MovieForum.Models.Movie", b =>
                 {
                     b.Navigation("Cast");
+
+                    b.Navigation("Comments");
 
                     b.Navigation("Tags");
                 });

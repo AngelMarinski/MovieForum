@@ -39,6 +39,7 @@ bld/
 
 #Ignore Migrations
 Migrations/
+MovieForum/MovieForum.Data/Migrations/MovieForumContextModelSnapshot.cs
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
