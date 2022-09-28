@@ -1,6 +1,7 @@
 ﻿using MovieForum.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace MovieForum.Models
 
         public Genres Genre { get; set; }
 
+        [NotMapped]
         public List<string> Actors { get; set; }
 
         public int Rating { get; set; }

@@ -8,14 +8,14 @@ namespace MovieForum.Data.Models
 {
     public class Comment : IComment
     {
-        public Comment(string title, int id, string content, int authorId, int movieId)
-        {
-            this.Title = title;
-            this.Id = id;
-            this.Content = content;
-            this.AuthorID = authorId;
-            this.MovieId = movieId;
-        }
+        //public Comment(string title, int id, string content, int authorId, int movieId)
+        //{
+        //    this.Title = title;
+        //    this.Id = id;
+        //    this.Content = content;
+        //    this.AuthorID = authorId;
+        //    this.MovieId = movieId;
+        //}
         public int Id { get; set; }
 
         [StringLength(64, MinimumLength = 5, ErrorMessage = "Comment title length must be between {0} and {1} characters!")]

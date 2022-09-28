@@ -5,9 +5,9 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieForum.Web", "MovieForum\MovieForum.Web.csproj", "{B0EE07A3-9452-4DF3-A118-F7977CA85BA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieForum.Services", "MovieForum.Services\MovieForum.Services.csproj", "{0A533F61-7DA2-4996-8110-9A001D8B704F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieForum.Services", "MovieForum.Services\MovieForum.Services.csproj", "{0A533F61-7DA2-4996-8110-9A001D8B704F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieForum.Data", "MovieForum.Data\MovieForum.Data.csproj", "{CB37B480-C941-407E-A4A9-5CA0582E6C7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieForum.Data", "MovieForum.Data\MovieForum.Data.csproj", "{CB37B480-C941-407E-A4A9-5CA0582E6C7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

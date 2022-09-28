@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MovieForum.Data.Models
 {
-    internal class User : IDeletable
+    public class User : IDeletable
     {
         public int Id { get; set; }
 
@@ -29,6 +29,9 @@ namespace MovieForum.Data.Models
         [Required]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
+
+        [Required]
+        public int RoleId { get; set; }
 
         [Required]
         public virtual Role Role { get; set; }
