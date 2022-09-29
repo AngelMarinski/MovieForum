@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using MovieForum.Data;
 using MovieForum.Services;
 using MovieForum.Services.Interfaces;
+using MovieForum.Web.MappingConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace MovieForum
             });
 
             services.AddControllers();
+            services.AddAutoMapper(cfg => cfg.AddProfile<MovieForumProfile>());
 
             services.AddScoped<IMoviesServices, MoviesServices>();
         }

@@ -31,6 +31,11 @@ namespace MovieForum.Data.Models
         public string Email { get; set; }
 
         [Required]
+        public bool IsBlocked { get; set; }
+
+        public string ImagePath { get; set; }
+
+        [Required]
         public int RoleId { get; set; }
 
         [Required]
@@ -41,8 +46,9 @@ namespace MovieForum.Data.Models
 
         [Required]
         public bool IsDeleted { get ; set; }
-        
+
         public DateTime? DeletedOn { get; set; }
+
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
