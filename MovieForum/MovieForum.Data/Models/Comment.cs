@@ -20,11 +20,16 @@ namespace MovieForum.Data.Models
         public string Content { get; set; }
 
         [Required]
-        public int UserID { get; set; }
+        public int? AuthorId { get; set; }
 
         [Required]
         public virtual User Author { get; set; }
-                
+
+        [Required]
+        public int MovieId { get; set; }
+
+        [Required]
+        public virtual Movie Movie { get; set; }
 
         [Required]
         public int LikesCount { get; set; }
@@ -38,7 +43,7 @@ namespace MovieForum.Data.Models
         [Required]
         public bool IsDeleted { get; set; }
 
-        [Required]
+        
         public DateTime? DeletedOn { get; set; }
     }
 }

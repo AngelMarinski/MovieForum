@@ -15,7 +15,7 @@ namespace MovieForum.Models
         public int Id { get; set; }
 
         [Required]
-        public int AuthorID { get; set; }
+        public int? AuthorID { get; set; }
 
         [Required]
         public virtual User Author { get; set; }
@@ -31,10 +31,8 @@ namespace MovieForum.Models
         [Required]
         public Genres Genre { get; set; }
 
-        [Required]
         public virtual ICollection<MovieActor> Cast { get; set; }
 
-        [Required]
         public virtual ICollection<MovieTags> Tags { get; set; }
 
         [Required]
@@ -44,7 +42,6 @@ namespace MovieForum.Models
 
         public int DislikesCount { get; set ; }
 
-        [Required]
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }

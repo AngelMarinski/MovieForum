@@ -37,6 +37,20 @@ namespace MovieForum.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "Tom",
+                            LastName = "Cruize"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FirstName = "Tom",
+                            LastName = "Holand"
+                        });
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.Comment", b =>
@@ -46,13 +60,16 @@ namespace MovieForum.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
                     b.Property<DateTime?>("DeletedOn")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DisLikesCount")
@@ -64,7 +81,7 @@ namespace MovieForum.Data.Migrations
                     b.Property<int>("LikesCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MovieId")
+                    b.Property<int>("MovieId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("PostedOn")
@@ -76,60 +93,93 @@ namespace MovieForum.Data.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("MovieId");
 
-                    b.HasIndex("UserID");
-
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AuthorId = 1,
+                            Content = "Pulna Boza",
+                            DisLikesCount = 0,
+                            IsDeleted = false,
+                            LikesCount = 0,
+                            MovieId = 1,
+                            PostedOn = new DateTime(2022, 9, 29, 12, 45, 7, 999, DateTimeKind.Local).AddTicks(6601),
+                            Title = "Ebati tupiq film"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AuthorId = 3,
+                            Content = "unikalna produkciq siujeta e ubiec",
+                            DisLikesCount = 0,
+                            IsDeleted = false,
+                            LikesCount = 0,
+                            MovieId = 2,
+                            PostedOn = new DateTime(2022, 9, 29, 12, 45, 8, 3, DateTimeKind.Local).AddTicks(2981),
+                            Title = "Lol mnogo gotino"
+                        });
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.MovieActor", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ActorId")
+                    b.Property<int?>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieId")
+                    b.Property<int?>("ActorId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("MovieId", "ActorId");
 
                     b.HasIndex("ActorId");
 
-                    b.HasIndex("MovieId");
-
                     b.ToTable("MovieActors");
+
+                    b.HasData(
+                        new
+                        {
+                            MovieId = 1,
+                            ActorId = 1
+                        },
+                        new
+                        {
+                            MovieId = 1,
+                            ActorId = 2
+                        });
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.MovieTags", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("MovieId")
+                    b.Property<int?>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TagId")
+                    b.Property<int?>("TagId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
+                    b.HasKey("MovieId", "TagId");
 
                     b.HasIndex("TagId");
 
                     b.ToTable("MoviesTags");
+
+                    b.HasData(
+                        new
+                        {
+                            MovieId = 1,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            MovieId = 2,
+                            TagId = 1
+                        });
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.Role", b =>
@@ -145,6 +195,18 @@ namespace MovieForum.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.Tag", b =>
@@ -155,7 +217,6 @@ namespace MovieForum.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("DeletedOn")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -169,6 +230,20 @@ namespace MovieForum.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            TagName = "drama"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = false,
+                            TagName = "action"
+                        });
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.User", b =>
@@ -219,6 +294,41 @@ namespace MovieForum.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "fakeemail@gmail.com",
+                            FirstName = "Angel",
+                            IsDeleted = false,
+                            LastName = "Marinski",
+                            Password = "12345678",
+                            RoleId = 2,
+                            Username = "AngelMarinski"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "adminsemail@gmail.com",
+                            FirstName = "Maggie",
+                            IsDeleted = false,
+                            LastName = "TheBoss",
+                            Password = "12345678",
+                            RoleId = 1,
+                            Username = "Maggie"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "morefakeemails@gmail.com",
+                            FirstName = "Radoslav",
+                            IsDeleted = false,
+                            LastName = "Berov",
+                            Password = "12345678",
+                            RoleId = 1,
+                            Username = "Rado561"
+                        });
                 });
 
             modelBuilder.Entity("MovieForum.Models.Movie", b =>
@@ -228,7 +338,8 @@ namespace MovieForum.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuthorID")
+                    b.Property<int?>("AuthorID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("DislikesCount")
@@ -258,51 +369,89 @@ namespace MovieForum.Data.Migrations
                     b.HasIndex("AuthorID");
 
                     b.ToTable("Movies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AuthorID = 1,
+                            DislikesCount = 0,
+                            Genre = 0,
+                            LikesCount = 0,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Rating = 0,
+                            ReleaseDate = new DateTime(2022, 9, 29, 12, 45, 8, 3, DateTimeKind.Local).AddTicks(5828),
+                            Title = "Top Gun"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AuthorID = 2,
+                            DislikesCount = 0,
+                            Genre = 0,
+                            LikesCount = 0,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Rating = 0,
+                            ReleaseDate = new DateTime(2022, 9, 29, 12, 45, 8, 3, DateTimeKind.Local).AddTicks(6381),
+                            Title = "Spiderman: Far From Home"
+                        });
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.Comment", b =>
                 {
-                    b.HasOne("MovieForum.Models.Movie", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("MovieId");
-
                     b.HasOne("MovieForum.Data.Models.User", "Author")
-                        .WithMany()
-                        .HasForeignKey("UserID")
+                        .WithMany("Comments")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("MovieForum.Models.Movie", "Movie")
+                        .WithMany("Comments")
+                        .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.MovieActor", b =>
                 {
-                    b.HasOne("MovieForum.Data.Models.Actor", null)
+                    b.HasOne("MovieForum.Data.Models.Actor", "Actor")
                         .WithMany("Roles")
                         .HasForeignKey("ActorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("MovieForum.Models.Movie", null)
+                    b.HasOne("MovieForum.Models.Movie", "Movie")
                         .WithMany("Cast")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Actor");
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.MovieTags", b =>
                 {
-                    b.HasOne("MovieForum.Models.Movie", null)
+                    b.HasOne("MovieForum.Models.Movie", "Movie")
                         .WithMany("Tags")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("MovieForum.Data.Models.Tag", null)
+                    b.HasOne("MovieForum.Data.Models.Tag", "Tag")
                         .WithMany("Movies")
                         .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.User", b =>
@@ -335,6 +484,11 @@ namespace MovieForum.Data.Migrations
             modelBuilder.Entity("MovieForum.Data.Models.Tag", b =>
                 {
                     b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieForum.Data.Models.User", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("MovieForum.Models.Movie", b =>

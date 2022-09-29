@@ -43,5 +43,6 @@ namespace MovieForum.Data.Models
         public bool IsDeleted { get ; set; }
         
         public DateTime? DeletedOn { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

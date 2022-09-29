@@ -65,94 +65,7 @@ namespace MovieForum.Data.DataInitializing
             };
 
             db.Entity<Role>().HasData(roles);
-
-            var movietags = new List<MovieTags>()
-            {
-                new MovieTags
-                {
-                    Id = 1,
-                    MovieId = 1,
-                    TagId = 2,
-                },
-                new MovieTags
-                {
-                    Id = 2,
-                    MovieId = 2,
-                    TagId = 1,
-                }
-            };
-
-            db.Entity<MovieTags>().HasData(movietags);
-
-            var tags = new List<Tag>()
-            {
-                new Tag
-                {
-                    Id = 1,
-                    TagName = "drama",
-                    Movies = new List<MovieTags>()
-                    {
-                        movietags[1]
-                    },
-                    IsDeleted = false
-                },
-                new Tag
-                {
-                    Id = 2,
-                    TagName = "action",
-                    Movies = new List<MovieTags>()
-                    {
-                        movietags[0]
-                    },
-                    IsDeleted = false
-                }
-            };
-
-            db.Entity<Tag>().HasData(tags);
-
-            var movieActors = new List<MovieActor>()
-            {
-                new MovieActor
-                {
-                    Id = 1,
-                    MovieId = 1,
-                    ActorId = 1
-                },
-                new MovieActor
-                {
-                    Id = 2,
-                    MovieId = 2,
-                    ActorId = 2
-                }
-            };
-
-            db.Entity<MovieActor>().HasData(movieActors);
-
-            var actors = new List<Actor>()
-            {
-                new Actor
-                {
-                    Id=1,
-                    FirstName = "Tom",
-                    LastName = "Cruize",
-                    Roles = new List<MovieActor>()
-                    {
-                        movieActors[0]
-                    }
-                },
-                new Actor
-                {
-                    Id=2,
-                    FirstName = "Tom",
-                    LastName = "Holand",
-                    Roles = new List<MovieActor>()
-                    {
-                        movieActors[1]
-                    }
-                }
-            };
-
-            db.Entity<Actor>().HasData(actors);
+          
 
             var comments = new List<Comment>()
             {
@@ -161,16 +74,18 @@ namespace MovieForum.Data.DataInitializing
                     Id = 1,
                     Title = "Ebati tupiq film",
                     Content = "Pulna Boza",
-                    UserID = 1,
+                    AuthorId = 1,
+                    MovieId = 1,
                     PostedOn = DateTime.Now,
-                    IsDeleted = false
+                    IsDeleted = false,
                 },
                 new Comment
                 {
                     Id = 2,
                     Title = "Lol mnogo gotino",
                     Content = "unikalna produkciq siujeta e ubiec",
-                    UserID = 3,
+                    AuthorId = 3,
+                    MovieId = 2,
                     PostedOn = DateTime.Now,
                     IsDeleted = false
                 }
@@ -186,18 +101,7 @@ namespace MovieForum.Data.DataInitializing
                     AuthorID = 1,
                     Title = "Top Gun",
                     ReleaseDate = DateTime.Now,
-                    Cast = new List<MovieActor>()
-                    {
-                        movieActors[0]
-                    },
-                    Tags = new List<MovieTags>()
-                    {
-                        movietags[0]
-                    },
-                    Comments = new List<Comment>()
-                    {
-                        comments[0]
-                    }
+
                 },
                 new Movie
                 {
@@ -205,22 +109,88 @@ namespace MovieForum.Data.DataInitializing
                     AuthorID = 2,
                     Title = "Spiderman: Far From Home",
                     ReleaseDate = DateTime.Now,
-                    Cast = new List<MovieActor>()
-                    {
-                        movieActors[1]
-                    },
-                    Tags = new List<MovieTags>()
-                    {
-                        movietags[1]
-                    },
-                    Comments = new List<Comment>()
-                    {
-                        comments[1]
-                    }
+
                 }
             };
-            db.Entity<Comment>().HasData(movies);
+            db.Entity<Movie>().HasData(movies);
+
+
+
+
+            var tags = new List<Tag>()
+            {
+                new Tag
+                {
+                    Id = 1,
+                    TagName = "drama",
+                    IsDeleted = false
+                },
+                new Tag
+                {
+                    Id = 2,
+                    TagName = "action",
+
+                    IsDeleted = false
+                }
+            };
+
+            db.Entity<Tag>().HasData(tags);
+
+
+
+            var actors = new List<Actor>()
+            {
+                new Actor
+                {
+                    Id=1,
+                    FirstName = "Tom",
+                    LastName = "Cruize",
+
+                },
+                new Actor
+                {
+                    Id=2,
+                    FirstName = "Tom",
+                    LastName = "Holand",
+                    
+
+                }
+            };
+
+            db.Entity<Actor>().HasData(actors);
+            var movieActors = new List<MovieActor>()
+            {
+                new MovieActor
+                {
+                    MovieId = 1,
+                    ActorId = 1
+                },
+                new MovieActor
+                {
+
+                    MovieId = 1,
+                    ActorId = 2
+                }
+            };
+
+            db.Entity<MovieActor>().HasData(movieActors);
+
+            var movietags = new List<MovieTags>()
+            {
+                new MovieTags
+                {
+                    MovieId = 1,
+                    TagId = 2,
+                },
+                new MovieTags
+                {
+                    MovieId = 2,
+                    TagId = 1,
+                }
+            };
+            db.Entity<MovieTags>().HasData(movietags);
         }
+
 
 
     }
