@@ -1,6 +1,5 @@
 ﻿using MovieForum.Data.Models;
 using MovieForum.Data.Models.Interfaces;
-using MovieForum.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieForum.Models
 {
-    public class Movie : IHasId
+    public class Movie : IHasId, IDeletable
     {
         public int Id { get; set; }
 
@@ -29,7 +28,10 @@ namespace MovieForum.Models
         public DateTime Posted { get; set ; }
 
         [Required]
-        public Genres Genre { get; set; }
+        public int GenreId { get; set; }
+
+        [Required]
+        public virtual Genre Genre { get; set; }
 
         public virtual ICollection<MovieActor> Cast { get; set; }
 
@@ -41,6 +43,11 @@ namespace MovieForum.Models
         public int LikesCount { get; set; }
 
         public int DislikesCount { get; set ; }
+
+        [Required]
+        public bool IsDeleted { get ; set ; }
+
+        public DateTime? DeletedOn { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
     }

@@ -50,6 +50,77 @@ namespace MovieForum.Data.DataInitializing
 
             db.Entity<User>().HasData(users);
 
+            var genres = new List<Genre>()
+            {
+                new Genre
+                {
+                    Id = 1,
+                    Name = "Comedy"
+                },
+                new Genre
+                {
+                    Id = 2,
+                    Name = "Sci-Fi"
+                },
+                new Genre
+                {
+                    Id = 3,
+                    Name = "Horror"
+                },
+                new Genre
+                {
+                    Id = 4,
+                    Name = "Romance"
+                },
+                new Genre
+                {
+                    Id = 5,
+                    Name = "Action"
+                },
+                new Genre
+                {
+                    Id = 6,
+                    Name = "Thriller"
+                },
+                new Genre
+                {
+                    Id = 7,
+                    Name = "Drama"
+                },
+                new Genre
+                {
+                    Id = 8,
+                    Name = "Mystery"
+                },
+                new Genre
+                {
+                    Id = 9,
+                    Name = "Crime"
+                },
+                new Genre
+                {
+                    Id = 10,
+                    Name = "Animation"
+                },
+                new Genre
+                {
+                    Id = 11,
+                    Name = "Adventure"
+                },
+                new Genre
+                {
+                    Id = 12,
+                    Name = "Fantasy"
+                },
+                new Genre
+                {
+                    Id = 13,
+                    Name = "Superhero"
+                }
+            };
+
+            db.Entity<Genre>().HasData(genres);
+
             var roles = new List<Role>()
             {
                 new Role
@@ -65,7 +136,7 @@ namespace MovieForum.Data.DataInitializing
             };
 
             db.Entity<Role>().HasData(roles);
-          
+
 
             var comments = new List<Comment>()
             {
@@ -100,21 +171,20 @@ namespace MovieForum.Data.DataInitializing
                     Id = 1,
                     AuthorID = 1,
                     Title = "Top Gun",
+                    GenreId = 5,
                     ReleaseDate = DateTime.Now,
-
                 },
                 new Movie
                 {
                     Id = 2,
                     AuthorID = 2,
                     Title = "Spiderman: Far From Home",
+                    GenreId = 13,
                     ReleaseDate = DateTime.Now,
 
                 }
             };
             db.Entity<Movie>().HasData(movies);
-
-
 
 
             var tags = new List<Tag>()
@@ -137,7 +207,6 @@ namespace MovieForum.Data.DataInitializing
             db.Entity<Tag>().HasData(tags);
 
 
-
             var actors = new List<Actor>()
             {
                 new Actor
@@ -152,12 +221,13 @@ namespace MovieForum.Data.DataInitializing
                     Id=2,
                     FirstName = "Tom",
                     LastName = "Holand",
-                    
+
 
                 }
             };
 
             db.Entity<Actor>().HasData(actors);
+
             var movieActors = new List<MovieActor>()
             {
                 new MovieActor
