@@ -26,15 +26,15 @@ namespace MovieForum.Data.Models
         public virtual User Author { get; set; }
 
         [Required]
-        public int MovieId { get; set; }
+        public int? MovieId { get; set; }
 
         [Required]
         public virtual Movie Movie { get; set; }
 
-        [Required]
+
         public int LikesCount { get; set; }
 
-        [Required]
+       
         public int DisLikesCount { get; set; }
 
         [Required]
