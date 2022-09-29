@@ -10,7 +10,7 @@ using MovieForum.Data;
 namespace MovieForum.Data.Migrations
 {
     [DbContext(typeof(MovieForumContext))]
-    [Migration("20220929121641_Init")]
+    [Migration("20220929123445_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,7 +113,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 9, 29, 15, 16, 40, 278, DateTimeKind.Local).AddTicks(7842),
+                            PostedOn = new DateTime(2022, 9, 29, 15, 34, 44, 244, DateTimeKind.Local).AddTicks(9491),
                             Title = "Ebati tupiq film"
                         },
                         new
@@ -125,7 +125,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 9, 29, 15, 16, 40, 284, DateTimeKind.Local).AddTicks(7188),
+                            PostedOn = new DateTime(2022, 9, 29, 15, 34, 44, 247, DateTimeKind.Local).AddTicks(8736),
                             Title = "Lol mnogo gotino"
                         });
                 });
@@ -473,7 +473,7 @@ namespace MovieForum.Data.Migrations
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 29, 15, 16, 40, 285, DateTimeKind.Local).AddTicks(1276),
+                            ReleaseDate = new DateTime(2022, 9, 29, 15, 34, 44, 248, DateTimeKind.Local).AddTicks(1408),
                             Title = "Top Gun"
                         },
                         new
@@ -486,7 +486,7 @@ namespace MovieForum.Data.Migrations
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 29, 15, 16, 40, 285, DateTimeKind.Local).AddTicks(1877),
+                            ReleaseDate = new DateTime(2022, 9, 29, 15, 34, 44, 248, DateTimeKind.Local).AddTicks(1791),
                             Title = "Spiderman: Far From Home"
                         });
                 });

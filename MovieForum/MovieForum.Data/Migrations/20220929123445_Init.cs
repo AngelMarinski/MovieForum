@@ -22,6 +22,19 @@ namespace MovieForum.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Genres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genres", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -86,14 +99,22 @@ namespace MovieForum.Data.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Posted = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Genre = table.Column<int>(type: "int", nullable: false),
+                    GenreId = table.Column<int>(type: "int", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     LikesCount = table.Column<int>(type: "int", nullable: false),
-                    DislikesCount = table.Column<int>(type: "int", nullable: false)
+                    DislikesCount = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Movies_Genres_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Movies_Users_AuthorID",
                         column: x => x.AuthorID,
@@ -188,6 +209,26 @@ namespace MovieForum.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 13, "Superhero" },
+                    { 12, "Fantasy" },
+                    { 11, "Adventure" },
+                    { 10, "Animation" },
+                    { 9, "Crime" },
+                    { 7, "Drama" },
+                    { 8, "Mystery" },
+                    { 5, "Action" },
+                    { 4, "Romance" },
+                    { 3, "Horror" },
+                    { 2, "Sci-Fi" },
+                    { 1, "Comedy" },
+                    { 6, "Thriller" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -222,21 +263,21 @@ namespace MovieForum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "Id", "AuthorID", "DislikesCount", "Genre", "LikesCount", "Posted", "Rating", "ReleaseDate", "Title" },
-                values: new object[] { 2, 2, 0, 0, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 9, 29, 14, 55, 11, 623, DateTimeKind.Local).AddTicks(6361), "Spiderman: Far From Home" });
+                columns: new[] { "Id", "AuthorID", "DeletedOn", "DislikesCount", "GenreId", "IsDeleted", "LikesCount", "Posted", "Rating", "ReleaseDate", "Title" },
+                values: new object[] { 2, 2, null, 0, 13, false, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 9, 29, 15, 34, 44, 248, DateTimeKind.Local).AddTicks(1791), "Spiderman: Far From Home" });
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "Id", "AuthorID", "DislikesCount", "Genre", "LikesCount", "Posted", "Rating", "ReleaseDate", "Title" },
-                values: new object[] { 1, 1, 0, 0, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 9, 29, 14, 55, 11, 623, DateTimeKind.Local).AddTicks(5988), "Top Gun" });
+                columns: new[] { "Id", "AuthorID", "DeletedOn", "DislikesCount", "GenreId", "IsDeleted", "LikesCount", "Posted", "Rating", "ReleaseDate", "Title" },
+                values: new object[] { 1, 1, null, 0, 5, false, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 9, 29, 15, 34, 44, 248, DateTimeKind.Local).AddTicks(1408), "Top Gun" });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "AuthorId", "Content", "DeletedOn", "DisLikesCount", "IsDeleted", "LikesCount", "MovieId", "PostedOn", "Title" },
                 values: new object[,]
                 {
-                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 9, 29, 14, 55, 11, 623, DateTimeKind.Local).AddTicks(4174), "Lol mnogo gotino" },
-                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 9, 29, 14, 55, 11, 621, DateTimeKind.Local).AddTicks(392), "Ebati tupiq film" }
+                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 9, 29, 15, 34, 44, 247, DateTimeKind.Local).AddTicks(8736), "Lol mnogo gotino" },
+                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 9, 29, 15, 34, 44, 244, DateTimeKind.Local).AddTicks(9491), "Ebati tupiq film" }
                 });
 
             migrationBuilder.InsertData(
@@ -278,6 +319,11 @@ namespace MovieForum.Data.Migrations
                 column: "AuthorID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Movies_GenreId",
+                table: "Movies",
+                column: "GenreId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MoviesTags_TagId",
                 table: "MoviesTags",
                 column: "TagId");
@@ -307,6 +353,9 @@ namespace MovieForum.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tags");
+
+            migrationBuilder.DropTable(
+                name: "Genres");
 
             migrationBuilder.DropTable(
                 name: "Users");
