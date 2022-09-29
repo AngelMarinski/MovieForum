@@ -10,7 +10,7 @@ using MovieForum.Data;
 namespace MovieForum.Data.Migrations
 {
     [DbContext(typeof(MovieForumContext))]
-    [Migration("20220929123445_Init")]
+    [Migration("20220929201354_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,7 +113,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 9, 29, 15, 34, 44, 244, DateTimeKind.Local).AddTicks(9491),
+                            PostedOn = new DateTime(2022, 9, 29, 23, 13, 53, 824, DateTimeKind.Local).AddTicks(8557),
                             Title = "Ebati tupiq film"
                         },
                         new
@@ -125,7 +125,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 9, 29, 15, 34, 44, 247, DateTimeKind.Local).AddTicks(8736),
+                            PostedOn = new DateTime(2022, 9, 29, 23, 13, 53, 829, DateTimeKind.Local).AddTicks(3923),
                             Title = "Lol mnogo gotino"
                         });
                 });
@@ -349,6 +349,12 @@ namespace MovieForum.Data.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -385,6 +391,7 @@ namespace MovieForum.Data.Migrations
                             Id = 1,
                             Email = "fakeemail@gmail.com",
                             FirstName = "Angel",
+                            IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Marinski",
                             Password = "12345678",
@@ -396,6 +403,7 @@ namespace MovieForum.Data.Migrations
                             Id = 2,
                             Email = "adminsemail@gmail.com",
                             FirstName = "Maggie",
+                            IsBlocked = false,
                             IsDeleted = false,
                             LastName = "TheBoss",
                             Password = "12345678",
@@ -407,6 +415,7 @@ namespace MovieForum.Data.Migrations
                             Id = 3,
                             Email = "morefakeemails@gmail.com",
                             FirstName = "Radoslav",
+                            IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Berov",
                             Password = "12345678",
@@ -473,7 +482,7 @@ namespace MovieForum.Data.Migrations
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 29, 15, 34, 44, 248, DateTimeKind.Local).AddTicks(1408),
+                            ReleaseDate = new DateTime(2022, 9, 29, 23, 13, 53, 829, DateTimeKind.Local).AddTicks(7105),
                             Title = "Top Gun"
                         },
                         new
@@ -486,7 +495,7 @@ namespace MovieForum.Data.Migrations
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 29, 15, 34, 44, 248, DateTimeKind.Local).AddTicks(1791),
+                            ReleaseDate = new DateTime(2022, 9, 29, 23, 13, 53, 829, DateTimeKind.Local).AddTicks(7554),
                             Title = "Spiderman: Far From Home"
                         });
                 });

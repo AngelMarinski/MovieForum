@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using MovieForum.Data;
 using MovieForum.Services;
 using MovieForum.Services.Interfaces;
+using MovieForum.Services.Services;
 using MovieForum.Web.MappingConfig;
 using System;
 using System.Collections.Generic;
@@ -34,11 +35,16 @@ namespace MovieForum
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
                 options.EnableSensitiveDataLogging();
             });
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
+            services.AddSwaggerGen();
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddProfile<MovieForumProfile>());
-
             services.AddScoped<IMoviesServices, MoviesServices>();
+            services.AddScoped<IUserServices, UserServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +54,12 @@ namespace MovieForum
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieForum V1");
+            });
 
             app.UseRouting();
 
