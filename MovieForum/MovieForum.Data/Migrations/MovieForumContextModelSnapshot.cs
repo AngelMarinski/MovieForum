@@ -111,7 +111,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 9, 29, 12, 45, 7, 999, DateTimeKind.Local).AddTicks(6601),
+                            PostedOn = new DateTime(2022, 9, 29, 15, 16, 40, 278, DateTimeKind.Local).AddTicks(7842),
                             Title = "Ebati tupiq film"
                         },
                         new
@@ -123,8 +123,90 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 9, 29, 12, 45, 8, 3, DateTimeKind.Local).AddTicks(2981),
+                            PostedOn = new DateTime(2022, 9, 29, 15, 16, 40, 284, DateTimeKind.Local).AddTicks(7188),
                             Title = "Lol mnogo gotino"
+                        });
+                });
+
+            modelBuilder.Entity("MovieForum.Data.Models.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sci-Fi"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Thriller"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Drama"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Mystery"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Crime"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Animation"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Adventure"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Superhero"
                         });
                 });
 
@@ -342,11 +424,17 @@ namespace MovieForum.Data.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("DislikesCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Genre")
+                    b.Property<int>("GenreId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("LikesCount")
                         .HasColumnType("int");
@@ -368,6 +456,8 @@ namespace MovieForum.Data.Migrations
 
                     b.HasIndex("AuthorID");
 
+                    b.HasIndex("GenreId");
+
                     b.ToTable("Movies");
 
                     b.HasData(
@@ -376,11 +466,12 @@ namespace MovieForum.Data.Migrations
                             Id = 1,
                             AuthorID = 1,
                             DislikesCount = 0,
-                            Genre = 0,
+                            GenreId = 5,
+                            IsDeleted = false,
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 29, 12, 45, 8, 3, DateTimeKind.Local).AddTicks(5828),
+                            ReleaseDate = new DateTime(2022, 9, 29, 15, 16, 40, 285, DateTimeKind.Local).AddTicks(1276),
                             Title = "Top Gun"
                         },
                         new
@@ -388,11 +479,12 @@ namespace MovieForum.Data.Migrations
                             Id = 2,
                             AuthorID = 2,
                             DislikesCount = 0,
-                            Genre = 0,
+                            GenreId = 13,
+                            IsDeleted = false,
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 29, 12, 45, 8, 3, DateTimeKind.Local).AddTicks(6381),
+                            ReleaseDate = new DateTime(2022, 9, 29, 15, 16, 40, 285, DateTimeKind.Local).AddTicks(1877),
                             Title = "Spiderman: Far From Home"
                         });
                 });
@@ -473,7 +565,15 @@ namespace MovieForum.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MovieForum.Data.Models.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Author");
+
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.Actor", b =>

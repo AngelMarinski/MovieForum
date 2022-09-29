@@ -34,7 +34,7 @@ namespace MovieForum.Data
 
         public DbSet<Tag> Tags { get; set; }
 
-        // public DbSet<Genres> Genres { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

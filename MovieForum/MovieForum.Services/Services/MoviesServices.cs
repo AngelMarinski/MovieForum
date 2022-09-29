@@ -1,4 +1,4 @@
-﻿using MovieForum.Enums;
+﻿using MovieForum.Data.Models;
 using MovieForum.Models;
 using MovieForum.Services.Interfaces;
 using System;
@@ -20,7 +20,7 @@ namespace MovieForum.Services
             throw new NotImplementedException();
         }
 
-        public List<Movie> FilterByGenres(Genres genre)
+        public List<Movie> FilterByGenres(Genre genre)
         {
             throw new NotImplementedException();
         }
