@@ -37,7 +37,15 @@ namespace MovieForum.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Seed();
+            modelBuilder.Entity<MovieActor>()
+                .HasOne(m => m.Movie)
+                .WithMany(ma => ma.Cast)
+                .HasForeignKey(mi => mi.MovieId);
+            modelBuilder.Entity<MovieActor>()
+                .HasOne(m => m.Actor)
+                .WithMany(ma => ma.Roles)
+                .HasForeignKey(mi => mi.ActorId);
+            modelBuilder.Seed();
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
