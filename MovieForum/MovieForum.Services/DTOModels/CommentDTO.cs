@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieForum.Services.Services.DTOModels
+namespace MovieForum.Services.DTOModels
 {
     public class CommentDTO
     {
@@ -21,4 +21,4 @@ namespace MovieForum.Services.Services.DTOModels
         public DateTime? PostedOn { get; set; }
     }
 }
-}
+

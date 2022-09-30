@@ -1,9 +1,9 @@
 ﻿using MovieForum.Data.Models;
-using MovieForum.Services.Services.Interfaces;
+using MovieForum.Services.DTOModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MovieForum.Services.Services
+namespace MovieForum.Services.Interfaces
 {
     public interface IUserServices : ICRUDOperations<UserDTO>
     {

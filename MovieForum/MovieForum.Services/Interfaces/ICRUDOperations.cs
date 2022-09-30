@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieForum.Services.Services.Interfaces
+namespace MovieForum.Services.Interfaces
 {
     public interface ICRUDOperations<T> where T : class
     {

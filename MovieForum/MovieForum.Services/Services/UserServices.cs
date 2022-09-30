@@ -2,8 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using MovieForum.Data;
 using MovieForum.Data.Models;
+using MovieForum.Services.DTOModels;
 using MovieForum.Services.Helpers;
-using MovieForum.Services.Services.Interfaces;
+using MovieForum.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

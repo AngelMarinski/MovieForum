@@ -1,10 +1,10 @@
-﻿using MovieForum.Services.Services.DTOModels;
+﻿using MovieForum.Services.DTOModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieForum.Services.Services.Interfaces
+namespace MovieForum.Services.Interfaces
 {
     public interface ICommentServices : ICRUDOperations<CommentDTO>
     {

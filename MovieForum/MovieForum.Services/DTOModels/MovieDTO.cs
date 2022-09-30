@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieForum.Services.Services.DTOModels
+namespace MovieForum.Services.DTOModels
 {
     public class MovieDTO
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieForum.Services.Services.Models
+namespace MovieForum.Services.Models
 {
     public class MovieQueryParameters
     {

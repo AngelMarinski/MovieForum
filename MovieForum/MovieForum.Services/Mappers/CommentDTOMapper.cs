@@ -1,5 +1,5 @@
 ﻿using MovieForum.Data.Models;
-using MovieForum.Services.Services.DTOModels;
+using MovieForum.Services.DTOModels;
 using System;
 using System.Collections.Generic;
 using System.Text;

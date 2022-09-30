@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace MovieForum.Services
+namespace MovieForum.Services.DTOModels
 {
     public class UserDTO
     {

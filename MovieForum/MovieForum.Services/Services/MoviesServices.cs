@@ -2,11 +2,11 @@
 using MovieForum.Data;
 using MovieForum.Data.Models;
 using MovieForum.Models;
+using MovieForum.Services.DTOModels;
 using MovieForum.Services.Helpers;
 using MovieForum.Services.Interfaces;
 using MovieForum.Services.Mappers;
-using MovieForum.Services.Services.DTOModels;
-using MovieForum.Services.Services.Models;
+using MovieForum.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +51,7 @@ namespace MovieForum.Services
             throw new NotImplementedException();
         }
 
+        
         public List<Movie> FilterByGenres(Genre genre)
         {
             throw new NotImplementedException();
@@ -87,6 +88,16 @@ namespace MovieForum.Services
         }
 
         public Task<MovieDTO> UpdateAsync(int id, MovieDTO obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<DTOModels.MovieDTO> ICRUDOperations<DTOModels.MovieDTO>.DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<DTOModels.MovieDTO>> ICRUDOperations<DTOModels.MovieDTO>.GetAsync()
         {
             throw new NotImplementedException();
         }
