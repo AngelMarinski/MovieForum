@@ -11,23 +11,23 @@ namespace MovieForum.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(int.MaxValue, MinimumLength = 4, ErrorMessage = "Username length must be greater than {1} character")]
+        [StringLength(int.MaxValue, MinimumLength = 4)]
         public string Username { get; set; }
 
         [Required]
-        [StringLength(32, MinimumLength = 4, ErrorMessage = "First Name must be greater between {1} and {0} character")]
+        [StringLength(32, MinimumLength = 4)]
         public string FirstName { get; set; }
 
         [Required]
-        [StringLength(32, MinimumLength = 4, ErrorMessage = "Last Name must be greater between {1} and {0} character")]
+        [StringLength(32, MinimumLength = 4)]
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(int.MaxValue, MinimumLength = 8, ErrorMessage = "Password length must be greater than {1} symbols")]
+        [StringLength(int.MaxValue, MinimumLength = 8)]
         public string Password { get; set; }
 
         [Required]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [EmailAddress()]
         public string Email { get; set; }
 
         [Required]
@@ -41,7 +41,7 @@ namespace MovieForum.Data.Models
         [Required]
         public virtual Role Role { get; set; }
 
-        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone number")]
+        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$")]
         public string PhoneNumber { get; set; }
 
         [Required]

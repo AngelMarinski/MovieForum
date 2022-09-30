@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MovieForum.Services.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using MovieForum.Services.DTOModels;
+using MovieForum.Services.Interfaces;
+using MovieForum.Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MovieForum.Web.Controllers
@@ -31,6 +30,29 @@ namespace MovieForum.Web.Controllers
             catch (Exception ex)
             {
                 return this.NotFound(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("user")]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserViewModel user)
+        {
+            try
+            {
+                var userDTO = new UserDTO
+                {
+                    Password = user.Password,
+                    Username = user.Username,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email
+                };
+                var newUser = await userService.PostAsync(userDTO);
+                return this.Ok(newUser);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
             }
         }
     }

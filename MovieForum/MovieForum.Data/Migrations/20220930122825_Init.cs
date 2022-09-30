@@ -266,20 +266,20 @@ namespace MovieForum.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "Id", "AuthorID", "DeletedOn", "DislikesCount", "GenreId", "IsDeleted", "LikesCount", "Posted", "Rating", "ReleaseDate", "Title" },
-                values: new object[] { 2, 2, null, 0, 13, false, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 9, 29, 23, 13, 53, 829, DateTimeKind.Local).AddTicks(7554), "Spiderman: Far From Home" });
+                values: new object[] { 2, 2, null, 0, 13, false, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 9, 30, 15, 28, 24, 348, DateTimeKind.Local).AddTicks(4569), "Spiderman: Far From Home" });
 
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "Id", "AuthorID", "DeletedOn", "DislikesCount", "GenreId", "IsDeleted", "LikesCount", "Posted", "Rating", "ReleaseDate", "Title" },
-                values: new object[] { 1, 1, null, 0, 5, false, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 9, 29, 23, 13, 53, 829, DateTimeKind.Local).AddTicks(7105), "Top Gun" });
+                values: new object[] { 1, 1, null, 0, 5, false, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 9, 30, 15, 28, 24, 348, DateTimeKind.Local).AddTicks(3911), "Top Gun" });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "AuthorId", "Content", "DeletedOn", "DisLikesCount", "IsDeleted", "LikesCount", "MovieId", "PostedOn", "Title" },
                 values: new object[,]
                 {
-                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 9, 29, 23, 13, 53, 829, DateTimeKind.Local).AddTicks(3923), "Lol mnogo gotino" },
-                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 9, 29, 23, 13, 53, 824, DateTimeKind.Local).AddTicks(8557), "Ebati tupiq film" }
+                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 9, 30, 15, 28, 24, 347, DateTimeKind.Local).AddTicks(9903), "Lol mnogo gotino" },
+                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 9, 30, 15, 28, 24, 342, DateTimeKind.Local).AddTicks(4273), "Ebati tupiq film" }
                 });
 
             migrationBuilder.InsertData(

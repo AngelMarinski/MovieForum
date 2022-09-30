@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MovieForum.Data.Models;
 using MovieForum.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MovieForum.Data.DataInitializing
@@ -47,6 +49,13 @@ namespace MovieForum.Data.DataInitializing
                         IsDeleted = false
                     }
             };
+
+
+            var passwordHasher = new PasswordHasher<User>();
+            foreach (var item in users)
+            {
+                item.Password = passwordHasher.HashPassword(item, item.Password);
+            }
 
             db.Entity<User>().HasData(users);
 

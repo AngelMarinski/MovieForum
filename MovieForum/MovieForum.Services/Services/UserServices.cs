@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieForum.Data;
 using MovieForum.Data.Models;
@@ -8,7 +9,7 @@ using MovieForum.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MovieForum.Services.Services
@@ -51,23 +52,21 @@ namespace MovieForum.Services.Services
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
 
-            return mapper.Map<UserDTO>(user) ?? throw new Exception();
+            return mapper.Map<UserDTO>(user) ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
-        public async Task<IEnumerable<Comment>> GetAllCommentsAsync(int userId)
+        public async Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(int userId)
         {
-            var comments = await db.Users.Where(x => x.Id == userId && x.IsDeleted == false).Select(x => x.Comments).ToListAsync();
-            //TODO replace comments with commentDTO
-            //TODO remove cast
-            return (IEnumerable<Comment>)comments;
+            var comments = await db.Users.Where(x => x.Id == userId && x.IsDeleted == false).Select(x => mapper.Map<CommentDTO>(x.Comments)).ToListAsync();
+
+            return comments ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
-        public async Task<IEnumerable<Comment>> GetAllCommentsAsync(string username)
+        public async Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(string username)
         {
-            var comments = await db.Users.Where(x => x.Username == username && x.IsDeleted == false).Select(x => x.Comments).ToListAsync();
-            //TODO replace comments with commentDTO
-            //TODO remove cast
-            return (IEnumerable<Comment>)comments;
+            var comments = await db.Users.Where(x => x.Username == username && x.IsDeleted == false).Select(x => mapper.Map<CommentDTO>(x.Comments)).ToListAsync();
+
+            return comments ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
         public async Task<IEnumerable<UserDTO>> GetAsync()
@@ -75,24 +74,101 @@ namespace MovieForum.Services.Services
             return await db.Users.Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
         }
 
-        public Task<UserDTO> PostAsync(UserDTO obj)
+        public async Task BlockUser(int id)
         {
-            throw new NotImplementedException();
+            var user = await GetUserAsync(id);
+
+            if (user.IsBlocked == true)
+            {
+                throw new Exception("User is already blocked");
+            }
+
+            user.IsBlocked = true;
+
+            await db.SaveChangesAsync();
+        }
+
+        public async Task UnblockUser(int id)
+        {
+            var user = await GetUserAsync(id);
+
+            if (user.IsBlocked == false)
+            {
+                throw new Exception("User is not blocked");
+            }
+
+            user.IsBlocked = false;
+
+            await db.SaveChangesAsync();
+        }
+
+
+        public async Task<UserDTO> PostAsync(UserDTO obj)
+        {
+            var isEmailValid = Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
+
+            if (await IsExistingAsync(obj.Email))
+            {
+                throw new Exception("Email already taken");
+            }
+
+            if (await IsExistingAsync(obj.Username))
+            {
+                throw new Exception("Username already taken");
+            }
+
+            if (obj == null ||
+                (obj.FirstName.Length < 4 || obj.FirstName.Length > 32) ||
+                (obj.LastName.Length < 4 || obj.LastName.Length > 32) ||
+                obj.Password.Length < 8 ||
+                obj.Username.Length < 4 ||
+                !isEmailValid)
+            {
+                throw new Exception("Data invalid");
+            }
+
+            var user = mapper.Map<User>(obj);
+            user.RoleId = 2;
+
+            var passHasher = new PasswordHasher<User>();
+            user.Password = passHasher.HashPassword(user, obj.Password);
+
+            await db.Users.AddAsync(user);
+            await db.SaveChangesAsync();
+
+            return obj;
         }
 
         public async Task<UserDTO> UpdateAsync(int id, UserDTO obj)
         {
             var userToUpdate = await GetUserAsync(id);
 
-            //TODO Validations
+            var isEmailValid = Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
+            var isPhoneValid = Regex.IsMatch(obj.PhoneNumber, @"^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$");
+
+            if (obj == null ||
+                (obj.FirstName.Length <= 4 || obj.FirstName.Length >= 32) ||
+                (obj.LastName.Length <= 4 || obj.LastName.Length >= 32) ||
+                obj.Password.Length <= 8 ||
+                !isEmailValid)
+            {
+                throw new Exception("Data invalid");
+            }
+
+            if (await IsExistingAsync(obj.Email))
+            {
+                throw new Exception("Email already taken");
+            }
+
+            var passHasher = new PasswordHasher<User>();
+            userToUpdate.Password = passHasher.HashPassword(userToUpdate, obj.Password);
 
             userToUpdate.FirstName = obj.FirstName;
             userToUpdate.LastName = obj.LastName;
-            userToUpdate.Password = obj.Password;
             userToUpdate.Email = obj.Email;
             userToUpdate.ImagePath = obj.ImagePath;
 
-            if (obj.Role == "Admin")
+            if (isPhoneValid)
             {
                 userToUpdate.PhoneNumber = obj.PhoneNumber;
             }

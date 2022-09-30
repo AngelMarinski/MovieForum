@@ -10,7 +10,7 @@ using MovieForum.Data;
 namespace MovieForum.Data.Migrations
 {
     [DbContext(typeof(MovieForumContext))]
-    [Migration("20220929201354_Init")]
+    [Migration("20220930122825_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,7 +83,8 @@ namespace MovieForum.Data.Migrations
                     b.Property<int>("LikesCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieId")
+                    b.Property<int?>("MovieId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("PostedOn")
@@ -113,7 +114,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 9, 29, 23, 13, 53, 824, DateTimeKind.Local).AddTicks(8557),
+                            PostedOn = new DateTime(2022, 9, 30, 15, 28, 24, 342, DateTimeKind.Local).AddTicks(4273),
                             Title = "Ebati tupiq film"
                         },
                         new
@@ -125,7 +126,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 9, 29, 23, 13, 53, 829, DateTimeKind.Local).AddTicks(3923),
+                            PostedOn = new DateTime(2022, 9, 30, 15, 28, 24, 347, DateTimeKind.Local).AddTicks(9903),
                             Title = "Lol mnogo gotino"
                         });
                 });
@@ -482,7 +483,7 @@ namespace MovieForum.Data.Migrations
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 29, 23, 13, 53, 829, DateTimeKind.Local).AddTicks(7105),
+                            ReleaseDate = new DateTime(2022, 9, 30, 15, 28, 24, 348, DateTimeKind.Local).AddTicks(3911),
                             Title = "Top Gun"
                         },
                         new
@@ -495,7 +496,7 @@ namespace MovieForum.Data.Migrations
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 29, 23, 13, 53, 829, DateTimeKind.Local).AddTicks(7554),
+                            ReleaseDate = new DateTime(2022, 9, 30, 15, 28, 24, 348, DateTimeKind.Local).AddTicks(4569),
                             Title = "Spiderman: Far From Home"
                         });
                 });
