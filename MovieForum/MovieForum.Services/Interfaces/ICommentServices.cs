@@ -8,8 +8,10 @@ namespace MovieForum.Services.Interfaces
 {
     public interface ICommentServices : ICRUDOperations<CommentDTO>
     {
-        Task<CommentDTO> LikeComment(int commentId);
+        Task<CommentDTO> LikeCommentAsync(int commentId, int userId);
 
-        Task<CommentDTO> DislikeComment(int commentId);
+        Task<CommentDTO> DislikeCommentAsync(int commentId, int userId);
+
+        Task<CommentDTO> GetCommentByIdAsync(int id);
     }
 }

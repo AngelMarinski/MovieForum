@@ -31,10 +31,9 @@ namespace MovieForum.Data.Models
         [Required]
         public virtual Movie Movie { get; set; }
 
-
         public int LikesCount { get; set; }
 
-       
+
         public int DisLikesCount { get; set; }
 
         [Required]
@@ -43,7 +42,11 @@ namespace MovieForum.Data.Models
         [Required]
         public bool IsDeleted { get; set; }
 
-        
+
         public DateTime? DeletedOn { get; set; }
+
+
+        public Dictionary<int, string> LikeDislikeMap { get; set; }
     }
 }
+

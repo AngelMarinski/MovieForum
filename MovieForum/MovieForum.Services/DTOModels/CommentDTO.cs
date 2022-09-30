@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MovieForum.Data.Models;
+using MovieForum.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +8,6 @@ namespace MovieForum.Services.DTOModels
 {
     public class CommentDTO
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public string Content { get; set; }
@@ -15,8 +15,11 @@ namespace MovieForum.Services.DTOModels
         public int? AuthorId { get; set; }
 
         public string AuthorUsername { get; set; }
-
         public int? MovieId { get; set; }
+
+        public int LikesCount { get; set; }
+        
+        public int DisLikesCount { get; set; }
 
         public DateTime? PostedOn { get; set; }
     }
