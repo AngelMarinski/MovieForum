@@ -14,14 +14,16 @@ namespace MovieForum.Services.DTOModels
 
         public int? AuthorId { get; set; }
 
+        //public User Author { get; set; }
         public string AuthorUsername { get; set; }
+        
         public int? MovieId { get; set; }
 
         public int LikesCount { get; set; }
         
         public int DisLikesCount { get; set; }
 
-        public DateTime? PostedOn { get; set; }
+        public string PostedOn { get; set; }
     }
 }
 

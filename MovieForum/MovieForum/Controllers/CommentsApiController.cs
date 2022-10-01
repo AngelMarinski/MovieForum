@@ -21,13 +21,14 @@ namespace MovieForum.Web.Controllers
         {
             var comments = await comServ.GetAsync();
 
-            return StatusCode(200, comments);
+            //return StatusCode(200, comments);
+            return this.Ok(comments);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCommentByIdAsync(int id)
         {
-            var comment = comServ.GetCommentByIdAsync(id);
+            var comment = await comServ.GetCommentByIdAsync(id);
 
             return StatusCode(200, comment);
         }
