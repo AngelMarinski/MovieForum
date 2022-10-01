@@ -45,6 +45,7 @@ namespace MovieForum
             services.AddAutoMapper(cfg => cfg.AddProfile<MovieForumProfile>());
             services.AddScoped<IMoviesServices, MoviesServices>();
             services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<ICommentServices, CommentServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

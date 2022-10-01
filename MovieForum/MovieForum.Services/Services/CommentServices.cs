@@ -146,7 +146,7 @@ namespace MovieForum.Services.Services
                 Movie = await data.Movies.FirstOrDefaultAsync(x => x.Id == obj.MovieId),
                 IsDeleted = false
             };
-
+            
             await data.Comments.AddAsync(comment);
 
             var movie = await data.Movies.FirstOrDefaultAsync(x => x.Id == comment.Movie.Id);

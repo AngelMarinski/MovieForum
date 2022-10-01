@@ -3,6 +3,7 @@ using MovieForum.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace MovieForum.Data.Models
@@ -45,7 +46,7 @@ namespace MovieForum.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-
+        [NotMapped]
         public Dictionary<int, string> LikeDislikeMap { get; set; }
     }
 }
