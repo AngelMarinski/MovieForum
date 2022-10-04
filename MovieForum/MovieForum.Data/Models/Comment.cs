@@ -10,14 +10,12 @@ namespace MovieForum.Data.Models
 {
     public class Comment : IHasId, IDeletable
     {
+
         public int Id { get; set; }
-
-        [Required]
-        [StringLength(64, MinimumLength = 5, ErrorMessage = "Comment title length must be between {0} and {1} characters!")]
-        public string Title { get; set; }
-
+                
         [Required]
         [StringLength(2000, MinimumLength = 10, ErrorMessage = "Comment content length must be between {0} and {1} characters!")]
+        [MinLength(2),MaxLength(2000)]
         public string Content { get; set; }
 
         [Required]
@@ -46,8 +44,8 @@ namespace MovieForum.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        [NotMapped]
-        public Dictionary<int, string> LikeDislikeMap { get; set; }
+
+        public virtual ICollection<Reaction> Reactions { get; set; } = new List<Reaction>();
     }
 }
 

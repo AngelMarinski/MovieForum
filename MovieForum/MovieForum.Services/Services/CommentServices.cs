@@ -19,13 +19,11 @@ namespace MovieForum.Services.Services
     {
         private readonly MovieForumContext data;
         private readonly IMapper map;
-        private readonly IUserServices userServices;
 
-        public CommentServices(MovieForumContext forumData, IMapper mapper, IUserServices userServices)
+        public CommentServices(MovieForumContext forumData, IMapper mapper)
         {
             this.data = forumData;
             this.map = mapper;
-            this.userServices = userServices;
         }
 
         public async Task<CommentDTO> DeleteAsync(int id)
@@ -35,8 +33,15 @@ namespace MovieForum.Services.Services
 
             var commentDto = map.Map<CommentDTO>(comment);
 
+            //var user = await data.Users.FirstOrDefaultAsync(x=>x.Id == comment.AuthorId);
+            //user.Comments.Remove(comment);
+
+            //var movie = await data.Movies.FirstOrDefaultAsync(x => x.Id == comment.MovieId);
+            //movie.Comments.Remove(comment);
+
             comment.DeletedOn = DateTime.Now;
-            data.Comments.Remove(comment);
+            comment.IsDeleted = true;
+
             await data.SaveChangesAsync();
 
             return commentDto;
@@ -71,24 +76,37 @@ namespace MovieForum.Services.Services
             var user = await data.Users.FirstOrDefaultAsync(x => x.Id == userId)
                 ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
 
-            if (!comment.LikeDislikeMap.ContainsKey(userId))
+            var reaction = comment.Reactions.FirstOrDefault(x => x.UserId == userId);
+
+            if (reaction == null)
             {
-                comment.LikeDislikeMap.Add(userId, Constants.DISLIKED);
+                var disLiked = new Reaction
+                {
+                    UserId = userId,
+                    Liked = false,
+                    Disliked = true
+                };
+                comment.Reactions.Add(disLiked);
                 comment.DisLikesCount++;
             }
-            else if (comment.LikeDislikeMap.ContainsKey(userId) && comment.LikeDislikeMap[userId] == Constants.DISLIKED)
+
+            else if (reaction.UserId == userId && reaction.Disliked == true && reaction.Liked == false)
             {
-                comment.LikeDislikeMap.Remove(userId);
+                comment.Reactions.Remove(reaction);
                 comment.DisLikesCount--;
             }
-            else if (comment.LikeDislikeMap.ContainsKey(userId) && comment.LikeDislikeMap[userId] == Constants.LIKED)
+            else if (reaction.UserId == userId && reaction.Disliked == false && reaction.Liked == true)
             {
-                comment.LikeDislikeMap[userId] = Constants.DISLIKED;
+                reaction.Liked = false;
+                reaction.Disliked = true;
                 comment.DisLikesCount++;
                 comment.LikesCount--;
             }
 
+            await data.SaveChangesAsync();
+
             var commentDTO = map.Map<CommentDTO>(comment);
+
 
             return commentDTO;
         }
@@ -101,56 +119,77 @@ namespace MovieForum.Services.Services
             var user = await data.Users.FirstOrDefaultAsync(x => x.Id == userId)
                 ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
 
-            if (!comment.LikeDislikeMap.ContainsKey(userId))
+            var reaction = comment.Reactions.FirstOrDefault(x => x.UserId == userId);
+
+            if (reaction == null)
             {
-                comment.LikeDislikeMap.Add(userId, Constants.LIKED );
+                var liked = new Reaction
+                {
+                    UserId = userId,
+                    Liked = true,
+                    Disliked = false
+                };
+                comment.Reactions.Add(liked);
                 comment.LikesCount++;
             }
-            else if (comment.LikeDislikeMap.ContainsKey(userId) && comment.LikeDislikeMap[userId] == Constants.LIKED )
+
+            else if (reaction.UserId == userId && reaction.Disliked == false && reaction.Liked == true)
             {
-                comment.LikeDislikeMap.Remove(userId);
+                comment.Reactions.Remove(reaction);
                 comment.LikesCount--;
             }
-            else if (comment.LikeDislikeMap.ContainsKey(userId) && comment.LikeDislikeMap[userId] == Constants.DISLIKED)
+            else if (reaction.UserId == userId && reaction.Disliked == true && reaction.Liked == false)
             {
-                comment.LikeDislikeMap[userId] = Constants.LIKED;
+                reaction.Liked = true;
+                reaction.Disliked = false;
                 comment.DisLikesCount--;
                 comment.LikesCount++;
-
             }
 
+            await data.SaveChangesAsync();
+
             var commentDTO = map.Map<CommentDTO>(comment);
+
 
             return commentDTO;
         }
 
+
         public async Task<CommentDTO> PostAsync(CommentDTO obj)
         {
-            var author = await data.Users.FirstOrDefaultAsync(x => x.Id == obj.AuthorId);
+            var author = await data.Users.FirstOrDefaultAsync(x => x.Id == obj.AuthorId) ??
+                throw new InvalidOperationException(Constants.USER_NOT_FOUND);
+
+            var movie = await data.Movies.FirstOrDefaultAsync(x => x.Id == obj.MovieId) ??
+                throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+
             if (author.IsBlocked)
             {
                 throw new InvalidOperationException("This user is blocked and can not post comments!");
             }
 
-            if (obj.AuthorId is null || obj.AuthorUsername is null || obj.Content is null || obj.MovieId is null 
-                 || obj.Title is null)
+            if (obj.AuthorId is null || obj.Content is null || obj.MovieId is null)
             {
                 throw new NullReferenceException("All of the fileds are required!");
             }
 
+            obj.AuthorUsername = author.Username;
+
             var comment = new Comment
-            {
-                Author = await data.Users.FirstOrDefaultAsync(x => x.Id == obj.AuthorId),
-                Title = obj.Title,
+            {               
+                Author = author,
                 Content = obj.Content,
                 Movie = await data.Movies.FirstOrDefaultAsync(x => x.Id == obj.MovieId),
-                IsDeleted = false
+                IsDeleted = false,
+                PostedOn = obj.PostedOn               
+                
             };
-            
+
             await data.Comments.AddAsync(comment);
 
-            var movie = await data.Movies.FirstOrDefaultAsync(x => x.Id == comment.Movie.Id);
             movie.Comments.Add(comment);
+
+            author.Comments.Add(comment);
 
             await data.SaveChangesAsync();
 
@@ -162,14 +201,10 @@ namespace MovieForum.Services.Services
         {
             var commentToUpdate = await data.Comments.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false)
                 ?? throw new InvalidOperationException(Constants.COMMENT_NOT_FOUND);
-
-            if (obj.Title != null)
-            {
-                commentToUpdate.Title = obj.Title;
-            }
+                       
             if (obj.Content != null)
             {
-                commentToUpdate.Content = obj.Title;
+                commentToUpdate.Content = obj.Content + " (Edited)";
             }
 
             await data.SaveChangesAsync();
