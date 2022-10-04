@@ -10,6 +10,7 @@ using MovieForum.Data;
 using MovieForum.Services;
 using MovieForum.Services.Interfaces;
 using MovieForum.Services.Services;
+using MovieForum.Web.Helpers;
 using MovieForum.Web.MappingConfig;
 using System;
 using System.Collections.Generic;
@@ -43,9 +44,11 @@ namespace MovieForum
             services.AddSwaggerGen();
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddProfile<MovieForumProfile>());
+
             services.AddScoped<IMoviesServices, MoviesServices>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<ICommentServices, CommentServices>();
+            services.AddScoped<IAuthHelper, AuthHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

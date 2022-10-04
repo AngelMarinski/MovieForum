@@ -13,7 +13,9 @@ namespace MovieForum.Services.Interfaces
         Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(string username);
         Task<User> GetUserAsync(int id);
         Task<User> GetUserAsync(string username);
-        Task<UserDTO> GetUsernameAsync(string username);
+        Task<User> GetUserByEmailAsync(string email);
+        Task<UserDTO> GetUserByUsernameAsync(string username);
+        Task<UserDTO> GetUserByIdAsync(int id);
         Task<bool> IsExistingAsync(string email);
         Task UnblockUser(int id);
         int UserCount();

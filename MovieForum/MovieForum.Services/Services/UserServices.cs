@@ -37,6 +37,13 @@ namespace MovieForum.Services.Services
             return user ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
         }
 
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Email == email && x.IsDeleted == false);
+    
+            return user ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
+        }
+
         public int UserCount()
         {
             var numOfUsers = db.Users.Count();
@@ -48,23 +55,32 @@ namespace MovieForum.Services.Services
             return await db.Users.AnyAsync(x => x.Email == email && x.IsDeleted == false);
         }
 
-        public async Task<UserDTO> GetUsernameAsync(string username)
+        public async Task<UserDTO> GetUserByUsernameAsync(string username)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
 
             return mapper.Map<UserDTO>(user) ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
+        public async Task<UserDTO> GetUserByIdAsync(int id)
+        {
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+
+            return mapper.Map<UserDTO>(user) ?? throw new Exception(Constants.USER_NOT_FOUND);
+        }
+
         public async Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(int userId)
         {
-            var comments = await db.Users.Where(x => x.Id == userId && x.IsDeleted == false).Select(x => mapper.Map<CommentDTO>(x.Comments)).ToListAsync();
+            var user = await GetUserAsync(userId);
+            var comments = user.Comments.Select(x => mapper.Map<CommentDTO>(x)).ToList();
 
             return comments ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
         public async Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(string username)
         {
-            var comments = await db.Users.Where(x => x.Username == username && x.IsDeleted == false).Select(x => mapper.Map<CommentDTO>(x.Comments)).ToListAsync();
+            var user = await GetUserAsync(username);
+            var comments = user.Comments.Select(x => mapper.Map<CommentDTO>(x)).ToList();
 
             return comments ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
@@ -102,7 +118,6 @@ namespace MovieForum.Services.Services
             await db.SaveChangesAsync();
         }
 
-
         public async Task<UserDTO> PostAsync(UserDTO obj)
         {
             var isEmailValid = Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
@@ -129,6 +144,7 @@ namespace MovieForum.Services.Services
 
             var user = mapper.Map<User>(obj);
             user.RoleId = 2;
+            user.Role = null;
 
             var passHasher = new PasswordHasher<User>();
             user.Password = passHasher.HashPassword(user, obj.Password);
@@ -144,7 +160,6 @@ namespace MovieForum.Services.Services
             var userToUpdate = await GetUserAsync(id);
 
             var isEmailValid = Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
-            var isPhoneValid = Regex.IsMatch(obj.PhoneNumber, @"^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$");
 
             if (obj == null ||
                 (obj.FirstName.Length <= 4 || obj.FirstName.Length >= 32) ||
@@ -160,17 +175,24 @@ namespace MovieForum.Services.Services
                 throw new Exception("Email already taken");
             }
 
-            var passHasher = new PasswordHasher<User>();
-            userToUpdate.Password = passHasher.HashPassword(userToUpdate, obj.Password);
+            if(obj.Password != userToUpdate.Password)
+            {
+                var passHasher = new PasswordHasher<User>();
+                userToUpdate.Password = passHasher.HashPassword(userToUpdate, obj.Password);
+            }
 
             userToUpdate.FirstName = obj.FirstName;
             userToUpdate.LastName = obj.LastName;
             userToUpdate.Email = obj.Email;
             userToUpdate.ImagePath = obj.ImagePath;
-
-            if (isPhoneValid)
+           
+            if (obj.PhoneNumber != null)
             {
-                userToUpdate.PhoneNumber = obj.PhoneNumber;
+                var isPhoneValid = Regex.IsMatch(obj.PhoneNumber, @"^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$");
+                if (isPhoneValid)
+                {
+                    userToUpdate.PhoneNumber = obj.PhoneNumber;
+                }
             }
 
             await db.SaveChangesAsync();
