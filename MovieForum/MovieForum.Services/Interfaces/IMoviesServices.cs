@@ -11,6 +11,7 @@ namespace MovieForum.Services.Interfaces
 {
     public interface IMoviesServices : ICRUDOperations<MovieDTO>
     {
+        Task<MovieDTO> GetByIdAsync(int id);
         Task<IEnumerable<MovieDTO>> FilterByAsync(MovieQueryParameters parameters);
     }
 }

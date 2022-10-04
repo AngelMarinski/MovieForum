@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MovieForum.Data;
 using MovieForum.Data.Models;
 using MovieForum.Models;
@@ -17,89 +18,140 @@ namespace MovieForum.Services
     public class MoviesServices : IMoviesServices
     {
         private readonly MovieForumContext db;
+        private readonly IMapper mapper;
 
-        public MoviesServices(MovieForumContext db)
+        public MoviesServices(MovieForumContext db, IMapper mapper)
         {
             this.db = db;
+            this.mapper = mapper;
+        }
+
+        public async Task<IEnumerable<MovieDTO>> GetAsync()
+        {
+            return await db.Movies
+                .Where(x=> x.IsDeleted == false)
+                .Select(x => mapper.Map<MovieDTO>(x)).ToListAsync();
+        }
+
+        public async Task<MovieDTO> GetByIdAsync(int id)
+        {
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false) 
+                ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+
+            return mapper.Map<MovieDTO>(movie);
+        }
+
+        public async Task<MovieDTO> PostAsync(MovieDTO obj)
+        {
+            if (obj.Author == null 
+                || obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
+                || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
+                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT 
+                || obj.Content.Length > Constants.MOVIE_CONTENT_MAX_LENGHT)
+            {
+                throw new Exception(Constants.INVALID_DATA);
+            }
+
+            var movie = mapper.Map<Movie>(obj);
+
+            await db.Movies.AddAsync(movie);
+            await db.SaveChangesAsync();
+
+            return obj;
+        }
+
+        public async Task<MovieDTO> UpdateAsync(int id, MovieDTO obj)
+        {
+            var movie = await this.GetByIdAsync(id);
+
+            if (obj.Author == null
+                || obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
+                || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
+                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT
+                || obj.Content.Length > Constants.MOVIE_CONTENT_MAX_LENGHT)
+            {
+                throw new Exception(Constants.INVALID_DATA);
+            }
+
+            movie.Author = obj.Author;
+            movie.Cast = obj.Cast;
+            movie.Content = obj.Content;
+            movie.DislikesCount = obj.DislikesCount;
+            movie.Genre = obj.Genre;
+            movie.LikesCount = obj.LikesCount;
+            movie.Rating = obj.Rating;
+            movie.ReleaseDate = obj.ReleaseDate;
+            movie.Tags = obj.Tags;
+            movie.Title = obj.Title;
+            movie.Comments = obj.Comments;
+
+            await db.SaveChangesAsync();
+
+            return movie;
         }
 
         public async Task<MovieDTO> DeleteAsync(int id)
         {
-            var movie = await this.db.Movies
-                    .Include(m => m.Author)
-                        .ThenInclude(m => m.Role)
-                    .Include(m => m.Comments)
-                    .Include(m => m.Genre)
-                    .Include(m => m.Tags)
-                        .ThenInclude(t => t.Tag)
-                    .Include(m => m.Cast)
-                        .ThenInclude(a => a.Actor)
-                     .FirstOrDefaultAsync(x => x.Id == id)
-                     ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
-
-            var movieDTO = MovieMapper.GetDTO(movie);
+            var movie = mapper.Map<Movie>(await this.GetByIdAsync(id));
 
             movie.DeletedOn = DateTime.Now;
             movie.IsDeleted = true;
+
+            db.Movies.Remove(movie);
+
             await db.SaveChangesAsync();
 
-            return movieDTO;
+            return mapper.Map<MovieDTO>(movie);
         }
 
-        public Task<IEnumerable<MovieDTO>> FilterByAsync(MovieQueryParameters parameters)
+        public async Task<IEnumerable<MovieDTO>> FilterByAsync(MovieQueryParameters parameters)
         {
-            throw new NotImplementedException();
-        }
+            List<MovieDTO> result = new List<MovieDTO>(await db.Movies
+                                                        .Select(x => mapper.Map<MovieDTO>(x))
+                                                        .ToListAsync());
 
-        
-        public List<Movie> FilterByGenres(Genre genre)
-        {
-            throw new NotImplementedException();
-        }
+            if (!string.IsNullOrEmpty(parameters.Name))
+            {
+                result = result.FindAll(x => x.Title.Contains(parameters.Name)).ToList();
+            }
 
-        public List<Movie> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            if (parameters.MinRating.HasValue)
+            {
+                result = result.FindAll(x => x.Rating >= parameters.MinRating);
+            }
 
-        public Task<IEnumerable<MovieDTO>> GetAsync()
-        {
-            throw new NotImplementedException();
-        }
+            if (!string.IsNullOrEmpty(parameters.Username))
+            {
+                result = result.FindAll(x => x.Author.Username.Contains(parameters.Username)).ToList();
+            }
 
-        public Movie GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+            if (!string.IsNullOrEmpty(parameters.SortBy))
+            {
+                if(parameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result = result.OrderBy(x => x.Title).ToList();
+                }
+                else if(parameters.SortBy.Equals("releasedate", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result = result.OrderBy(x => x.ReleaseDate).ToList();
+                }
+                else if (parameters.SortBy.Equals("likes", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result = result.OrderBy(x => x.LikesCount).ToList();
+                }
+                else if(parameters.SortBy.Equals("comments", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result = result.OrderBy(x => x.Comments.Count).ToList();
+                }
 
-        public List<Movie> GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+                if(!string.IsNullOrEmpty(parameters.SortOrder) 
+                    && parameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result.Reverse();
+                }
+            }
 
-        public Task<MovieDTO> PostAsync(MovieDTO obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Movie Update(int id, Movie movie)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<MovieDTO> UpdateAsync(int id, MovieDTO obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<DTOModels.MovieDTO> ICRUDOperations<DTOModels.MovieDTO>.DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<DTOModels.MovieDTO>> ICRUDOperations<DTOModels.MovieDTO>.GetAsync()
-        {
-            throw new NotImplementedException();
+            return result;
         }
     }
 }

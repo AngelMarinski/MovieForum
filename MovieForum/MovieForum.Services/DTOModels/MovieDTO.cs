@@ -7,11 +7,13 @@ namespace MovieForum.Services.DTOModels
 {
     public class MovieDTO
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
-        public int? AuthorId { get; set; }
+        public UserDTO Author { get; set; }
 
         public string Title { get; set; }
+
+        public string Content { get; set; }
 
         public DateTime ReleaseDate { get; set; }
 
@@ -19,11 +21,13 @@ namespace MovieForum.Services.DTOModels
 
         public int GenreId { get; set; }
 
-        public virtual Genre Genre { get; set; }
+        public Genre Genre { get; set; }
 
-        public virtual ICollection<MovieActor> Cast { get; set; }
+        public ICollection<MovieActor> Cast { get; set; }
 
-        public virtual ICollection<MovieTags> Tags { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+
+        public ICollection<MovieTags> Tags { get; set; }
 
         public int Rating { get; set; }
 

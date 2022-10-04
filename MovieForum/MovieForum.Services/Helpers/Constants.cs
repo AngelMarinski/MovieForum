@@ -6,6 +6,13 @@ namespace MovieForum.Services.Helpers
 {
     public static class Constants
     {
+        //Constraints
+        public const int MOVIE_TITLE_MIN_LENGHT = 16;
+        public const int MOVIE_TITLE_MAX_LENGHT = 64;
+        public const int MOVIE_CONTENT_MIN_LENGHT = 32;
+        public const int MOVIE_CONTENT_MAX_LENGHT = 8192;
+
+        //Messages
         public const string MOVIE_NOT_FOUND = "Movie not found!";
         public const string USER_NOT_FOUND = "User not found!";
         public const string COMMENT_NOT_FOUND = "Comment not found!";
