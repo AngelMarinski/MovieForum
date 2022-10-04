@@ -152,7 +152,6 @@ namespace MovieForum.Data.DataInitializing
                 new Comment
                 {
                     Id = 1,
-                    Title = "Ebati tupiq film",
                     Content = "Pulna Boza",
                     AuthorId = 1,
                     MovieId = 1,
@@ -162,7 +161,6 @@ namespace MovieForum.Data.DataInitializing
                 new Comment
                 {
                     Id = 2,
-                    Title = "Lol mnogo gotino",
                     Content = "unikalna produkciq siujeta e ubiec",
                     AuthorId = 3,
                     MovieId = 2,

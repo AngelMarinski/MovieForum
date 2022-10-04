@@ -8,7 +8,7 @@ namespace MovieForum.Services.DTOModels
 {
     public class CommentDTO
     {
-        public string Title { get; set; }
+        public int Id { get; set; }
 
         public string Content { get; set; }
 
@@ -23,7 +23,7 @@ namespace MovieForum.Services.DTOModels
         
         public int DisLikesCount { get; set; }
 
-        public string PostedOn { get; set; }
+        public DateTime? PostedOn { get; set; }
     }
 }
 

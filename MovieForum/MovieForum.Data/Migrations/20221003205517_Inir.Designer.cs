@@ -10,8 +10,8 @@ using MovieForum.Data;
 namespace MovieForum.Data.Migrations
 {
     [DbContext(typeof(MovieForumContext))]
-    [Migration("20220930122825_Init")]
-    partial class Init
+    [Migration("20221003205517_Inir")]
+    partial class Inir
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -91,11 +91,6 @@ namespace MovieForum.Data.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -114,8 +109,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 9, 30, 15, 28, 24, 342, DateTimeKind.Local).AddTicks(4273),
-                            Title = "Ebati tupiq film"
+                            PostedOn = new DateTime(2022, 10, 3, 23, 55, 16, 246, DateTimeKind.Local).AddTicks(6824)
                         },
                         new
                         {
@@ -126,8 +120,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 9, 30, 15, 28, 24, 347, DateTimeKind.Local).AddTicks(9903),
-                            Title = "Lol mnogo gotino"
+                            PostedOn = new DateTime(2022, 10, 3, 23, 55, 16, 252, DateTimeKind.Local).AddTicks(6071)
                         });
                 });
 
@@ -211,6 +204,38 @@ namespace MovieForum.Data.Migrations
                             Id = 13,
                             Name = "Superhero"
                         });
+                });
+
+            modelBuilder.Entity("MovieForum.Data.Models.LikesDisLikes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Disliked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Liked")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("LikesDislikes");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.MovieActor", b =>
@@ -395,7 +420,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Marinski",
-                            Password = "12345678",
+                            Password = "AQAAAAEAACcQAAAAEJvzbJ7ic7C3TiQ8JZCrOnT3SzkAmew0mDy/ejTWT2O2ZuwKt1CzrnsLA2PVcF7ASg==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -407,7 +432,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "TheBoss",
-                            Password = "12345678",
+                            Password = "AQAAAAEAACcQAAAAEBk3D8+dlKumPjDhUmdoe8/ZatfxKNtKmyjcKxJmgYE+Fb5OMaG3tyOWk7WDZXLX+g==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -419,7 +444,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Berov",
-                            Password = "12345678",
+                            Password = "AQAAAAEAACcQAAAAEKhLm+0W51jmtUjB82wa8B1tqdjq1e/3cBnG8rEQk1tDf0yZobfm+tmW6C9ONyzijg==",
                             RoleId = 1,
                             Username = "Rado561"
                         });
@@ -483,7 +508,7 @@ namespace MovieForum.Data.Migrations
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 30, 15, 28, 24, 348, DateTimeKind.Local).AddTicks(3911),
+                            ReleaseDate = new DateTime(2022, 10, 3, 23, 55, 16, 253, DateTimeKind.Local).AddTicks(707),
                             Title = "Top Gun"
                         },
                         new
@@ -496,7 +521,7 @@ namespace MovieForum.Data.Migrations
                             LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 9, 30, 15, 28, 24, 348, DateTimeKind.Local).AddTicks(4569),
+                            ReleaseDate = new DateTime(2022, 10, 3, 23, 55, 16, 253, DateTimeKind.Local).AddTicks(1405),
                             Title = "Spiderman: Far From Home"
                         });
                 });
@@ -518,6 +543,13 @@ namespace MovieForum.Data.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("MovieForum.Data.Models.LikesDisLikes", b =>
+                {
+                    b.HasOne("MovieForum.Data.Models.Comment", null)
+                        .WithMany("LikesDislikes")
+                        .HasForeignKey("CommentId");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.MovieActor", b =>
@@ -591,6 +623,11 @@ namespace MovieForum.Data.Migrations
             modelBuilder.Entity("MovieForum.Data.Models.Actor", b =>
                 {
                     b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("MovieForum.Data.Models.Comment", b =>
+                {
+                    b.Navigation("LikesDislikes");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.Tag", b =>
