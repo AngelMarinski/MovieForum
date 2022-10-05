@@ -36,6 +36,35 @@ namespace MovieForum.Web.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("user/{id}/comments")]
+        public async Task<IActionResult> GetAllCommentsByUser(int id)
+        {
+            try
+            {
+                var comments = await userService.GetAllCommentsAsync(id);
+                return this.Ok(comments);
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("user/{id}/movies")]
+        public async Task<IActionResult> GetAllMoviesByUser(int id)
+        {
+            try
+            {
+                var comments = await userService.GetAllMoviesAsync(id);
+                return this.Ok(comments);
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(ex.Message);
+            }
+        }
 
         [HttpDelete]
         [Route("{id}")]
