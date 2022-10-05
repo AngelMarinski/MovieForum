@@ -11,6 +11,8 @@ namespace MovieForum.Services.Interfaces
         Task BlockUser(int id);
         Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(int userId);
         Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(string username);
+        Task<IEnumerable<MovieDTO>> GetAllMoviesAsync(int userId);
+        Task<IEnumerable<MovieDTO>> GetAllMoviesAsync(string username);
         Task<User> GetUserAsync(int id);
         Task<User> GetUserAsync(string username);
         Task<User> GetUserByEmailAsync(string email);

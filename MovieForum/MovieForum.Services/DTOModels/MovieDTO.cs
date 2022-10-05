@@ -9,6 +9,9 @@ namespace MovieForum.Services.DTOModels
     {
         public int Id { get; set; }
 
+        //TODO
+        public int AuthorId { get; set; }
+
         public UserDTO Author { get; set; }
 
         public string Title { get; set; }

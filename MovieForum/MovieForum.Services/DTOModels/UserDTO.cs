@@ -18,5 +18,6 @@ namespace MovieForum.Services.DTOModels
         public string PhoneNumber { get; set; }
         public string Role { get; set; }
         public ICollection<CommentDTO> Comments { get; set; }
+        public ICollection<MovieDTO> Movies { get; set; }
     }
 }

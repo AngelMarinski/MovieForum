@@ -85,6 +85,22 @@ namespace MovieForum.Services.Services
             return comments ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
+        public async Task<IEnumerable<MovieDTO>> GetAllMoviesAsync(int userId)
+        {
+            var user = await GetUserAsync(userId);
+            var movies = user.Movies.Select(x => mapper.Map<MovieDTO>(x)).ToList();
+
+            return movies ?? throw new Exception(Constants.USER_NOT_FOUND);
+        }
+
+        public async Task<IEnumerable<MovieDTO>> GetAllMoviesAsync(string username)
+        {
+            var user = await GetUserAsync(username);
+            var movies = user.Movies.Select(x => mapper.Map<MovieDTO>(x)).ToList();
+
+            return movies ?? throw new Exception(Constants.USER_NOT_FOUND);
+        }
+
         public async Task<IEnumerable<UserDTO>> GetAsync()
         {
             return await db.Users.Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
@@ -211,5 +227,6 @@ namespace MovieForum.Services.Services
 
             return mapper.Map<UserDTO>(userToDelete);
         }
+
     }
 }

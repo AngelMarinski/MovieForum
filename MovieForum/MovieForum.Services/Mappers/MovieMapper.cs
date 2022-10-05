@@ -20,7 +20,8 @@ namespace MovieForum.Services.Mappers
             var movieDto = new MovieDTO
             {
                 Id = movie.Id,
-                AuthorId = movie.AuthorID,
+                //TODO 
+                AuthorId = movie.AuthorID.Value,
                 Title = movie.Title,
                 ReleaseDate = movie.ReleaseDate,
                 Posted = movie.Posted,

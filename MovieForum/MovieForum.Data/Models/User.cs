@@ -1,4 +1,5 @@
 ﻿using MovieForum.Data.Models.Interfaces;
+using MovieForum.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -50,5 +51,6 @@ namespace MovieForum.Data.Models
         public DateTime? DeletedOn { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public virtual ICollection<Movie> Movies { get; set; } = new List<Movie>();
     }
 }
