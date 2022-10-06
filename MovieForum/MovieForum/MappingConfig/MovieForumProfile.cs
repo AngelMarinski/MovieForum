@@ -10,7 +10,7 @@ namespace MovieForum.Web.MappingConfig
     {
         public MovieForumProfile()
         {
-            this.CreateMap<MovieActor, MovieActorDTO>();
+            this.CreateMap<MovieActor, MovieActorDTO>().ReverseMap();
 
             this.CreateMap<MovieTags, MovieTagsDTO>()
                 .ForMember(dest => dest.TagName, act => act.MapFrom(src => src.Tag.TagName))

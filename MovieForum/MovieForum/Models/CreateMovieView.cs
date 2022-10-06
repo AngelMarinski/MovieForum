@@ -25,5 +25,8 @@ namespace MovieForum.Web.Models
 
         public int GenreId { get; set; }
 
+        public ICollection<MovieActorDTO> Cast { get; set; }
+
+        public ICollection<MovieTagsDTO> Tags { get; set; }
     }
 }

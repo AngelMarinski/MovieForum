@@ -67,7 +67,9 @@ namespace MovieForum.Services
                 Posted = DateTime.Now,
                 Genre = genre,
                 GenreId = genre.Id,
-                IsDeleted = false
+                IsDeleted = false,
+                Cast = new List<MovieActor>(mapper.Map<IEnumerable<MovieActor>>(obj.Cast)),
+                Tags = new List<MovieTags>(mapper.Map<IEnumerable<MovieTags>>(obj.Tags))
             };
 
             await db.Movies.AddAsync(movie);
