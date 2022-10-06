@@ -1,4 +1,5 @@
 ﻿using MovieForum.Data.Models.Interfaces;
+using MovieForum.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,6 +13,11 @@ namespace MovieForum.Data.Models
 
         [Required]
         public virtual int UserID { get; set; }
+
+        [Required]
+        public  int MovieId { get; set; }
+
+        public virtual Movie Movie { get; set; }
 
         [Required]
         public int Rate { get; set; }

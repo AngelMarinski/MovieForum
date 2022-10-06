@@ -190,6 +190,7 @@ namespace MovieForum.Data.DataInitializing
                     Content = "The bes spiderman movie so far, I love Tom Holand",
                     GenreId = 13,
                     ReleaseDate = DateTime.Now,
+                    
 
                 }
             };
@@ -268,6 +269,29 @@ namespace MovieForum.Data.DataInitializing
                 }
             };
             db.Entity<MovieTags>().HasData(movietags);
+
+            var ratings = new List<Rating>()
+            {
+                new Rating
+                {
+                    Id = 1,
+                    UserID = 1,
+                    MovieId = 2,
+                    Rate = 5
+
+                },
+                new Rating
+                {
+                    Id=2,
+                    UserID = 2,
+                    MovieId = 2,
+                    Rate = 7
+                }
+
+                
+            };
+            db.Entity<Rating>().HasData(ratings);
+
         }
 
 

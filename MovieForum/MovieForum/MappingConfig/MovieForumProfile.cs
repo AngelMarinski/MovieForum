@@ -37,7 +37,7 @@ namespace MovieForum.Web.MappingConfig
 
             this.CreateMap<Movie, MovieDTO>()
                  .ForMember(dest => dest.Username, act => act.MapFrom(src => src.Author.Username))
-                 //.ForMember(dest => dest.Rating, act => act.MapFrom(src => (double)(src.Rating.Sum(x => x.Rate)/src.Rating.Count)))
+                 .ForMember(dest => dest.Rating, act => act.MapFrom(src => (double)(src.Rating.Sum(x => x.Rate)/(double) src.Rating.Count)))
                  .ReverseMap();
 
             this.CreateMap<Actor, ActorDTO>()

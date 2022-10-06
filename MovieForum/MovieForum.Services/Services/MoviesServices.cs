@@ -74,8 +74,10 @@ namespace MovieForum.Services
 
             await db.Movies.AddAsync(movie);
             await db.SaveChangesAsync();
+            var movieDTO = mapper.Map<MovieDTO>(movie);
+            //movieDTO.Rating = movie.Rating.Sum(x => x.Rate) / movie.Rating.Count();
 
-            return mapper.Map<MovieDTO>(movie);
+            return movieDTO;
         }
 
         public async Task<MovieDTO> UpdateAsync(int id, MovieDTO obj)
