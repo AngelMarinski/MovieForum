@@ -9,7 +9,7 @@ namespace MovieForum.Services.DTOModels
     {
         public int Id { get; set; }
 
-        public int? AuthorId { get; set; }
+        public int AuthorId { get; set; }
 
         public string Username { get; set; }
 
@@ -17,9 +17,9 @@ namespace MovieForum.Services.DTOModels
 
         public string Content { get; set; }
 
-        public DateTime? ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
-        public DateTime? Posted { get; set; }
+        public DateTime Posted { get; set; }
 
         public Genre Genre { get; set; }
 
