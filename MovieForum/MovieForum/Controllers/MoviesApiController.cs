@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MovieForum.Services.Interfaces;
-using MovieForum.Web.Models;
 using MovieForum.Services.DTOModels;
-using MovieForum.Data.Models;
+using MovieForum.Web.Models;
 
 namespace MovieForum.Controllers
 {
@@ -93,7 +92,7 @@ namespace MovieForum.Controllers
         }
 
         //add authorization
-/*        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMovieAsync(int id, [FromBody] )*/
+        /*        [HttpPut("{id}")]
+                public async Task<IActionResult> UpdateMovieAsync(int id, [FromBody] )*/
     }
 }

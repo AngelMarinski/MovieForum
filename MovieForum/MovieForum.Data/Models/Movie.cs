@@ -36,11 +36,11 @@ namespace MovieForum.Models
         [Required]
         public virtual Genre Genre { get; set; }
 
-        public virtual ICollection<MovieActor> Cast { get; set; } = new List<MovieActor>();
+        public virtual ICollection<MovieActor> Cast { get; set; }
 
-        public virtual ICollection<MovieTags> Tags { get; set; } = new List<MovieTags>();
+        public virtual ICollection<MovieTags> Tags { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public virtual ICollection<Comment> Comments { get; set; }
 
         [Required]
         public int Rating { get; set; }
