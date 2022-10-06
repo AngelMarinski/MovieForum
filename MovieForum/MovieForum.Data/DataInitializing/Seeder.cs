@@ -178,6 +178,7 @@ namespace MovieForum.Data.DataInitializing
                     Id = 1,
                     AuthorID = 1,
                     Title = "Top Gun",
+                    Content = "On of my favourite movies of all time",
                     GenreId = 5,
                     ReleaseDate = DateTime.Now,
                 },
@@ -186,6 +187,7 @@ namespace MovieForum.Data.DataInitializing
                     Id = 2,
                     AuthorID = 2,
                     Title = "Spiderman: Far From Home",
+                    Content = "The bes spiderman movie so far, I love Tom Holand",
                     GenreId = 13,
                     ReleaseDate = DateTime.Now,
 

@@ -23,6 +23,9 @@ namespace MovieForum.Models
         public string Title { get; set; }
 
         [Required]
+        public string Content { get; set; }
+
+        [Required]
         public DateTime ReleaseDate { get; set; }
 
         public DateTime Posted { get; set ; }
@@ -33,22 +36,19 @@ namespace MovieForum.Models
         [Required]
         public virtual Genre Genre { get; set; }
 
-        public virtual ICollection<MovieActor> Cast { get; set; }
+        public virtual ICollection<MovieActor> Cast { get; set; } = new List<MovieActor>();
 
-        public virtual ICollection<MovieTags> Tags { get; set; }
+        public virtual ICollection<MovieTags> Tags { get; set; } = new List<MovieTags>();
+
+        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
         [Required]
         public int Rating { get; set; }
-
-        public int LikesCount { get; set; }
-
-        public int DislikesCount { get; set ; }
 
         [Required]
         public bool IsDeleted { get ; set ; }
 
         public DateTime? DeletedOn { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

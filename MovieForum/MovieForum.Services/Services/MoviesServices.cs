@@ -6,12 +6,12 @@ using MovieForum.Models;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Helpers;
 using MovieForum.Services.Interfaces;
-using MovieForum.Services.Mappers;
 using MovieForum.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace MovieForum.Services
 {
@@ -28,9 +28,9 @@ namespace MovieForum.Services
 
         public async Task<IEnumerable<MovieDTO>> GetAsync()
         {
-            return await db.Movies
-                .Where(x=> x.IsDeleted == false)
-                .Select(x => mapper.Map<MovieDTO>(x)).ToListAsync();
+            var movies = await db.Movies.Where(x => x.IsDeleted == false).ToListAsync();
+
+            return mapper.Map<IEnumerable<MovieDTO>>(movies);
         }
 
         public async Task<MovieDTO> GetByIdAsync(int id)
@@ -43,8 +43,8 @@ namespace MovieForum.Services
 
         public async Task<MovieDTO> PostAsync(MovieDTO obj)
         {
-            if (obj.Author == null 
-                || obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
+            //TODO: if user is authorized
+            if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
                 || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT 
                 || obj.Content.Length > Constants.MOVIE_CONTENT_MAX_LENGHT)
@@ -64,8 +64,7 @@ namespace MovieForum.Services
         {
             var movie = await this.GetByIdAsync(id);
 
-            if (obj.Author == null
-                || obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
+            if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
                 || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT
                 || obj.Content.Length > Constants.MOVIE_CONTENT_MAX_LENGHT)
@@ -73,12 +72,10 @@ namespace MovieForum.Services
                 throw new Exception(Constants.INVALID_DATA);
             }
 
-            movie.Author = obj.Author;
+            movie.AuthorId = obj.AuthorId;
             movie.Cast = obj.Cast;
             movie.Content = obj.Content;
-            movie.DislikesCount = obj.DislikesCount;
-            movie.Genre = obj.Genre;
-            movie.LikesCount = obj.LikesCount;
+            //movie.Genre = obj.Genre;
             movie.Rating = obj.Rating;
             movie.ReleaseDate = obj.ReleaseDate;
             movie.Tags = obj.Tags;
@@ -120,10 +117,10 @@ namespace MovieForum.Services
                 result = result.FindAll(x => x.Rating >= parameters.MinRating);
             }
 
-            if (!string.IsNullOrEmpty(parameters.Username))
+/*            if (!string.IsNullOrEmpty(parameters.Username))
             {
                 result = result.FindAll(x => x.Author.Username.Contains(parameters.Username)).ToList();
-            }
+            }*/
 
             if (!string.IsNullOrEmpty(parameters.SortBy))
             {
@@ -135,16 +132,16 @@ namespace MovieForum.Services
                 {
                     result = result.OrderBy(x => x.ReleaseDate).ToList();
                 }
-                else if (parameters.SortBy.Equals("likes", StringComparison.InvariantCultureIgnoreCase))
+                else if (parameters.SortBy.Equals("rating", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    result = result.OrderBy(x => x.LikesCount).ToList();
+                    result = result.OrderByDescending(x => x.Rating).ToList();
                 }
-                else if(parameters.SortBy.Equals("comments", StringComparison.InvariantCultureIgnoreCase))
+                else if (parameters.SortBy.Equals("comments", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    result = result.OrderBy(x => x.Comments.Count).ToList();
+                    result = result.OrderByDescending(x => x.Comments.Count).ToList();
                 }
 
-                if(!string.IsNullOrEmpty(parameters.SortOrder) 
+                if (!string.IsNullOrEmpty(parameters.SortOrder) 
                     && parameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result.Reverse();

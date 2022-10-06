@@ -15,4 +15,8 @@
     <ProjectReference Include="..\MovieForum.Data\MovieForum.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mapper\" />
+  </ItemGroup>
+
 </Project>

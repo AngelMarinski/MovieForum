@@ -107,7 +107,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 10, 6, 1, 2, 46, 732, DateTimeKind.Local).AddTicks(9955)
+                            PostedOn = new DateTime(2022, 10, 6, 13, 13, 6, 246, DateTimeKind.Local).AddTicks(2989)
                         },
                         new
                         {
@@ -118,7 +118,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 10, 6, 1, 2, 46, 736, DateTimeKind.Local).AddTicks(294)
+                            PostedOn = new DateTime(2022, 10, 6, 13, 13, 6, 248, DateTimeKind.Local).AddTicks(2895)
                         });
                 });
 
@@ -418,7 +418,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAEBgF8hCDzLT1bgALlMWdR5/rlnLPgwXJHoNyn4ir8/XVztUZFa93y0huRn8Y/oLQdg==",
+                            Password = "AQAAAAEAACcQAAAAEBPTMkOej4FMTegy2y5wL949ELeJqyfKqAMnWcTs1ohP/GP580pRovjoqbcmUj2FaQ==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -430,7 +430,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAEDsewPKd4k1R+Rgh6jHIdRZeYjenK1f6o0a31LT/k13nEA7o7LygnTs/AgLCQ5+O2g==",
+                            Password = "AQAAAAEAACcQAAAAEHGXDQgk8ETJloHIavwUKUpEMLRsHquO3TfvRxfFyMa4bOlfGg7tj2zXGiUrLf7GLw==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -442,7 +442,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAEKahUXC17uOrTXoU2eYriqb19kwKR1aNIi8w6R2akgDqVLoVS7xNedj6L2Q9EDE9aA==",
+                            Password = "AQAAAAEAACcQAAAAEImR+zUVCHRZ282gLT13e5SVKAVOcFCxoHqvr70C9hWXWqVGLbGOCAS1XWIC15xxZA==",
                             RoleId = 1,
                             Username = "Rado561"
                         });
@@ -459,20 +459,18 @@ namespace MovieForum.Data.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("DislikesCount")
-                        .HasColumnType("int");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("LikesCount")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Posted")
                         .HasColumnType("datetime2");
@@ -500,26 +498,24 @@ namespace MovieForum.Data.Migrations
                         {
                             Id = 1,
                             AuthorID = 1,
-                            DislikesCount = 0,
+                            Content = "On of my favourite movies of all time",
                             GenreId = 5,
                             IsDeleted = false,
-                            LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 10, 6, 1, 2, 46, 736, DateTimeKind.Local).AddTicks(2724),
+                            ReleaseDate = new DateTime(2022, 10, 6, 13, 13, 6, 248, DateTimeKind.Local).AddTicks(5428),
                             Title = "Top Gun"
                         },
                         new
                         {
                             Id = 2,
                             AuthorID = 2,
-                            DislikesCount = 0,
+                            Content = "The bes spiderman movie so far, I love Tom Holand",
                             GenreId = 13,
                             IsDeleted = false,
-                            LikesCount = 0,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Rating = 0,
-                            ReleaseDate = new DateTime(2022, 10, 6, 1, 2, 46, 736, DateTimeKind.Local).AddTicks(3125),
+                            ReleaseDate = new DateTime(2022, 10, 6, 13, 13, 6, 248, DateTimeKind.Local).AddTicks(5727),
                             Title = "Spiderman: Far From Home"
                         });
                 });

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using MovieForum.Data;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Interfaces;
-using MovieForum.Services.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

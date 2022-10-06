@@ -9,33 +9,26 @@ namespace MovieForum.Services.DTOModels
     {
         public int Id { get; set; }
 
-        //TODO
-        public int AuthorId { get; set; }
+        public int? AuthorId { get; set; }
 
-        public UserDTO Author { get; set; }
+        public string Username { get; set; }
 
         public string Title { get; set; }
 
         public string Content { get; set; }
 
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
-        public DateTime Posted { get; set; }
-
-        public int GenreId { get; set; }
+        public DateTime? Posted { get; set; }
 
         public Genre Genre { get; set; }
 
-        public ICollection<MovieActor> Cast { get; set; }
+        public ICollection<MovieActorDTO> Cast { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentDTO> Comments { get; set; }
 
-        public ICollection<MovieTags> Tags { get; set; }
+        public ICollection<MovieTagsDTO> Tags { get; set; }
 
         public int Rating { get; set; }
-
-        public int LikesCount { get; set; }
-
-        public int DislikesCount { get; set; }
     }
 }
