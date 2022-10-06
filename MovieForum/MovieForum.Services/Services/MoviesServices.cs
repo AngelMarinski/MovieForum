@@ -35,7 +35,7 @@ namespace MovieForum.Services
 
         public async Task<MovieDTO> GetByIdAsync(int id)
         {
-            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false)
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false) 
                 ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
 
             return mapper.Map<MovieDTO>(movie);
@@ -43,28 +43,42 @@ namespace MovieForum.Services
 
         public async Task<MovieDTO> PostAsync(MovieDTO obj)
         {
-            //TODO: if user is authorized
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Username == obj.Username)
+                ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
+
+            var genre = await db.Genres.FirstOrDefaultAsync(x => x.Id == obj.GenreId)
+                 ?? throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
+
             if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
-                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT
+                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT 
                 || obj.Content.Length > Constants.MOVIE_CONTENT_MAX_LENGHT)
             {
                 throw new Exception(Constants.INVALID_DATA);
             }
 
-            var movie = mapper.Map<Movie>(obj);
+            var movie = new Movie
+            {
+                AuthorID = user.Id,
+                Author = user,
+                Title = obj.Title,
+                Content = obj.Content,
+                ReleaseDate = obj.ReleaseDate,
+                Posted = DateTime.Now,
+                Genre = genre,
+                GenreId = genre.Id,
+                IsDeleted = false
+            };
 
             await db.Movies.AddAsync(movie);
             await db.SaveChangesAsync();
 
-            return obj;
+            return mapper.Map<MovieDTO>(movie);
         }
 
         public async Task<MovieDTO> UpdateAsync(int id, MovieDTO obj)
         {
             var movie = await this.GetByIdAsync(id);
-
-            //TODO: if user is authorized
 
             if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
@@ -77,6 +91,7 @@ namespace MovieForum.Services
             movie.AuthorId = obj.AuthorId;
             movie.Cast = obj.Cast;
             movie.Content = obj.Content;
+            movie.GenreId = obj.GenreId;
             movie.Genre = obj.Genre;
             movie.Rating = obj.Rating;
             movie.ReleaseDate = obj.ReleaseDate;
@@ -91,7 +106,8 @@ namespace MovieForum.Services
 
         public async Task<MovieDTO> DeleteAsync(int id)
         {
-            var movie = mapper.Map<Movie>(await this.GetByIdAsync(id));
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false)
+                ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
 
             movie.DeletedOn = DateTime.Now;
             movie.IsDeleted = true;
@@ -116,21 +132,21 @@ namespace MovieForum.Services
 
             if (parameters.MinRating.HasValue)
             {
-                result = result.FindAll(x => x.Rating >= parameters.MinRating);
+              //  result = result.FindAll(x => x.Rating >= parameters.MinRating);
             }
 
-            /*            if (!string.IsNullOrEmpty(parameters.Username))
-                        {
-                            result = result.FindAll(x => x.Author.Username.Contains(parameters.Username)).ToList();
-                        }*/
+            if (!string.IsNullOrEmpty(parameters.Username))
+            {
+                result = result.FindAll(x => x.Username.Contains(parameters.Username)).ToList();
+            }
 
             if (!string.IsNullOrEmpty(parameters.SortBy))
             {
-                if (parameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
+                if(parameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result = result.OrderBy(x => x.Title).ToList();
                 }
-                else if (parameters.SortBy.Equals("releasedate", StringComparison.InvariantCultureIgnoreCase))
+                else if(parameters.SortBy.Equals("releasedate", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result = result.OrderBy(x => x.ReleaseDate).ToList();
                 }
@@ -143,7 +159,7 @@ namespace MovieForum.Services
                     result = result.OrderByDescending(x => x.Comments.Count).ToList();
                 }
 
-                if (!string.IsNullOrEmpty(parameters.SortOrder)
+                if (!string.IsNullOrEmpty(parameters.SortOrder) 
                     && parameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result.Reverse();

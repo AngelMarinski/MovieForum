@@ -1,4 +1,5 @@
 ﻿using MovieForum.Data.Models;
+using MovieForum.Services.DTOModels;
 using MovieForum.Services.Helpers;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,11 @@ namespace MovieForum.Web.Models
 
         public int AuthorId { get; set; }
 
+        public string Username { get; set; }
+
         public DateTime RealeaseDate { get; set; }
 
-        public Genre Genre { get; set; }
+        public int GenreId { get; set; }
 
-        public int Rating { get; set; }
     }
 }

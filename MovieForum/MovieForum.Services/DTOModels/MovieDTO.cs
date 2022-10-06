@@ -17,9 +17,11 @@ namespace MovieForum.Services.DTOModels
 
         public string Content { get; set; }
 
-        public DateTime? ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
         public DateTime? Posted { get; set; }
+
+        public int GenreId { get; set; }
 
         public Genre Genre { get; set; }
 
@@ -29,6 +31,6 @@ namespace MovieForum.Services.DTOModels
 
         public ICollection<MovieTagsDTO> Tags { get; set; }
 
-        public int Rating { get; set; }
+        public ICollection<Rating> Rating { get; set; }
     }
 }

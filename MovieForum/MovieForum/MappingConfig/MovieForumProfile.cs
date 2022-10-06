@@ -2,6 +2,7 @@
 using MovieForum.Data.Models;
 using MovieForum.Models;
 using MovieForum.Services.DTOModels;
+using System.Linq;
 
 namespace MovieForum.Web.MappingConfig
 {
@@ -36,6 +37,7 @@ namespace MovieForum.Web.MappingConfig
 
             this.CreateMap<Movie, MovieDTO>()
                  .ForMember(dest => dest.Username, act => act.MapFrom(src => src.Author.Username))
+                 //.ForMember(dest => dest.Rating, act => act.MapFrom(src => (double)(src.Rating.Sum(x => x.Rate)/src.Rating.Count)))
                  .ReverseMap();
 
             this.CreateMap<Actor, ActorDTO>()

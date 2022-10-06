@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MovieForum.Services.Interfaces;
-using MovieForum.Services.DTOModels;
 using MovieForum.Web.Models;
+using MovieForum.Services.DTOModels;
+using MovieForum.Data.Models;
 
 namespace MovieForum.Controllers
 {
@@ -60,12 +61,13 @@ namespace MovieForum.Controllers
             {
                 var movieDto = new MovieDTO
                 {
+                    AuthorId = movie.AuthorId,
+                    Username = movie.Username,
                     Title = movie.Title,
                     Content = movie.Content,
                     ReleaseDate = movie.RealeaseDate,
                     Posted = DateTime.Now,
-                    Genre = movie.Genre,
-                    Rating = movie.Rating
+                    GenreId = movie.GenreId,
                 };
 
                 var post = await this.moviesService.PostAsync(movieDto);
@@ -74,7 +76,7 @@ namespace MovieForum.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(ex.Message);
+                return this.BadRequest(ex);
             }
         }
 
@@ -92,7 +94,7 @@ namespace MovieForum.Controllers
         }
 
         //add authorization
-        /*        [HttpPut("{id}")]
-                public async Task<IActionResult> UpdateMovieAsync(int id, [FromBody] )*/
+/*        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMovieAsync(int id, [FromBody] )*/
     }
 }

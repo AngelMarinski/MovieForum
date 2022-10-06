@@ -103,7 +103,6 @@ namespace MovieForum.Data.Migrations
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Posted = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GenreId = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -200,6 +199,27 @@ namespace MovieForum.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rating",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    Rate = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rating", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rating_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LikesDislikes",
                 columns: table => new
                 {
@@ -273,35 +293,35 @@ namespace MovieForum.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
-                values: new object[] { 2, null, "adminsemail@gmail.com", "Maggie", null, false, false, "TheBoss", "AQAAAAEAACcQAAAAECc2CujNacNR95ru847O1mkWJxmlO+3P/Mcoh/cNhVPCNn59Z50+PO7K0JTvNcxd/Q==", null, 1, "Maggie" });
+                values: new object[] { 2, null, "adminsemail@gmail.com", "Maggie", null, false, false, "TheBoss", "AQAAAAEAACcQAAAAEBvDzgNEHAAU3vI+oQDbwKFk4bAG8gAIzqoyW7GN7g9DzviWHip4CNIRltDaFFF8MQ==", null, 1, "Maggie" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
-                values: new object[] { 3, null, "morefakeemails@gmail.com", "Radoslav", null, false, false, "Berov", "AQAAAAEAACcQAAAAEObGL7KC9ARj1hIWxjpvUifp3rmLrTx1GwWZ+ChTy2ohXT6T5kHUbfde7ITRy2FbgQ==", null, 1, "Rado561" });
+                values: new object[] { 3, null, "morefakeemails@gmail.com", "Radoslav", null, false, false, "Berov", "AQAAAAEAACcQAAAAENesXarJXZfAGD4q+bvJDRSFcO6+Qc1qaAa9gsqHh4RNn+ZBz+bYdnYjuuk8xZIKJg==", null, 1, "Rado561" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
-                values: new object[] { 1, null, "fakeemail@gmail.com", "Angel", null, false, false, "Marinski", "AQAAAAEAACcQAAAAEDPpPAY9qpKSdF6vAM2+2rMK9JIvl2/xzJM5sFXkzYNXUppEhtvD+yajgKhDtUJPIA==", null, 2, "AngelMarinski" });
+                values: new object[] { 1, null, "fakeemail@gmail.com", "Angel", null, false, false, "Marinski", "AQAAAAEAACcQAAAAECKSP7CCf5YzSdSRsa5LlNRtg06nxVqo2rdJba8ZC+WNGGORU/KP7b27oH8+bkOZKw==", null, 2, "AngelMarinski" });
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "Id", "AuthorID", "Content", "DeletedOn", "GenreId", "IsDeleted", "Posted", "Rating", "ReleaseDate", "Title" },
-                values: new object[] { 2, 2, "The bes spiderman movie so far, I love Tom Holand", null, 13, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 10, 6, 14, 14, 46, 910, DateTimeKind.Local).AddTicks(4236), "Spiderman: Far From Home" });
+                columns: new[] { "Id", "AuthorID", "Content", "DeletedOn", "GenreId", "IsDeleted", "Posted", "ReleaseDate", "Title" },
+                values: new object[] { 2, 2, "The bes spiderman movie so far, I love Tom Holand", null, 13, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 10, 6, 16, 24, 26, 52, DateTimeKind.Local).AddTicks(9871), "Spiderman: Far From Home" });
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "Id", "AuthorID", "Content", "DeletedOn", "GenreId", "IsDeleted", "Posted", "Rating", "ReleaseDate", "Title" },
-                values: new object[] { 1, 1, "On of my favourite movies of all time", null, 5, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new DateTime(2022, 10, 6, 14, 14, 46, 910, DateTimeKind.Local).AddTicks(3893), "Top Gun" });
+                columns: new[] { "Id", "AuthorID", "Content", "DeletedOn", "GenreId", "IsDeleted", "Posted", "ReleaseDate", "Title" },
+                values: new object[] { 1, 1, "On of my favourite movies of all time", null, 5, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 10, 6, 16, 24, 26, 52, DateTimeKind.Local).AddTicks(9562), "Top Gun" });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "AuthorId", "Content", "DeletedOn", "DisLikesCount", "IsDeleted", "LikesCount", "MovieId", "PostedOn" },
                 values: new object[,]
                 {
-                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 10, 6, 14, 14, 46, 910, DateTimeKind.Local).AddTicks(2064) },
-                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 10, 6, 14, 14, 46, 908, DateTimeKind.Local).AddTicks(1088) }
+                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 10, 6, 16, 24, 26, 52, DateTimeKind.Local).AddTicks(7150) },
+                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 10, 6, 16, 24, 26, 50, DateTimeKind.Local).AddTicks(3440) }
                 });
 
             migrationBuilder.InsertData(
@@ -358,6 +378,11 @@ namespace MovieForum.Data.Migrations
                 column: "TagId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Rating_MovieId",
+                table: "Rating",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
                 table: "Users",
                 column: "RoleId");
@@ -373,6 +398,9 @@ namespace MovieForum.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "MoviesTags");
+
+            migrationBuilder.DropTable(
+                name: "Rating");
 
             migrationBuilder.DropTable(
                 name: "Comments");

@@ -38,6 +38,8 @@ namespace MovieForum.Data
 
         public DbSet<Reaction> LikesDislikes { get; set; }
 
+        public DbSet<Rating> Rating { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

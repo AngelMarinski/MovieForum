@@ -21,6 +21,7 @@ namespace MovieForum.Services.Helpers
 
         //Messages
         public const string MOVIE_NOT_FOUND = "Movie not found!";
+        public const string GENRE_NOT_FOUND = "Genre not found!";
         public const string USER_NOT_FOUND = "User not found!";
         public const string COMMENT_NOT_FOUND = "Comment not found!";
         public const string NO_COMMENTS_FOR_THIS_MOVIE = "There is no comments for this movie. You can be the first one, give your oppinion!";

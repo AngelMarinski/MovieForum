@@ -6,11 +6,14 @@ using System.Text;
 
 namespace MovieForum.Data.Models
 {
-    public class Genre : IHasId
+    public class Rating : IHasId
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        public virtual int UserID { get; set; }
 
+        [Required]
+        public int Rate { get; set; }
     }
 }

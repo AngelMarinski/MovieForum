@@ -107,7 +107,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 10, 6, 14, 14, 46, 908, DateTimeKind.Local).AddTicks(1088)
+                            PostedOn = new DateTime(2022, 10, 6, 16, 24, 26, 50, DateTimeKind.Local).AddTicks(3440)
                         },
                         new
                         {
@@ -118,7 +118,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 10, 6, 14, 14, 46, 910, DateTimeKind.Local).AddTicks(2064)
+                            PostedOn = new DateTime(2022, 10, 6, 16, 24, 26, 52, DateTimeKind.Local).AddTicks(7150)
                         });
                 });
 
@@ -256,6 +256,29 @@ namespace MovieForum.Data.Migrations
                             MovieId = 2,
                             TagId = 1
                         });
+                });
+
+            modelBuilder.Entity("MovieForum.Data.Models.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Rating");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.Reaction", b =>
@@ -418,7 +441,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAEDPpPAY9qpKSdF6vAM2+2rMK9JIvl2/xzJM5sFXkzYNXUppEhtvD+yajgKhDtUJPIA==",
+                            Password = "AQAAAAEAACcQAAAAECKSP7CCf5YzSdSRsa5LlNRtg06nxVqo2rdJba8ZC+WNGGORU/KP7b27oH8+bkOZKw==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -430,7 +453,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAECc2CujNacNR95ru847O1mkWJxmlO+3P/Mcoh/cNhVPCNn59Z50+PO7K0JTvNcxd/Q==",
+                            Password = "AQAAAAEAACcQAAAAEBvDzgNEHAAU3vI+oQDbwKFk4bAG8gAIzqoyW7GN7g9DzviWHip4CNIRltDaFFF8MQ==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -442,7 +465,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAEObGL7KC9ARj1hIWxjpvUifp3rmLrTx1GwWZ+ChTy2ohXT6T5kHUbfde7ITRy2FbgQ==",
+                            Password = "AQAAAAEAACcQAAAAENesXarJXZfAGD4q+bvJDRSFcO6+Qc1qaAa9gsqHh4RNn+ZBz+bYdnYjuuk8xZIKJg==",
                             RoleId = 1,
                             Username = "Rado561"
                         });
@@ -475,9 +498,6 @@ namespace MovieForum.Data.Migrations
                     b.Property<DateTime>("Posted")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
@@ -502,8 +522,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 5,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rating = 0,
-                            ReleaseDate = new DateTime(2022, 10, 6, 14, 14, 46, 910, DateTimeKind.Local).AddTicks(3893),
+                            ReleaseDate = new DateTime(2022, 10, 6, 16, 24, 26, 52, DateTimeKind.Local).AddTicks(9562),
                             Title = "Top Gun"
                         },
                         new
@@ -514,8 +533,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 13,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Rating = 0,
-                            ReleaseDate = new DateTime(2022, 10, 6, 14, 14, 46, 910, DateTimeKind.Local).AddTicks(4236),
+                            ReleaseDate = new DateTime(2022, 10, 6, 16, 24, 26, 52, DateTimeKind.Local).AddTicks(9871),
                             Title = "Spiderman: Far From Home"
                         });
                 });
@@ -575,6 +593,13 @@ namespace MovieForum.Data.Migrations
                     b.Navigation("Movie");
 
                     b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("MovieForum.Data.Models.Rating", b =>
+                {
+                    b.HasOne("MovieForum.Models.Movie", null)
+                        .WithMany("Rating")
+                        .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("MovieForum.Data.Models.Reaction", b =>
@@ -641,6 +666,8 @@ namespace MovieForum.Data.Migrations
                     b.Navigation("Cast");
 
                     b.Navigation("Comments");
+
+                    b.Navigation("Rating");
 
                     b.Navigation("Tags");
                 });
