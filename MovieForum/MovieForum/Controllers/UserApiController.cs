@@ -82,12 +82,12 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
-        [Route("user")]
+        [Route("create/user")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserViewModel user)
         {
             try
             {
-                var userDTO = new UserDTO
+                var userDTO = new UpdateUserDTO
                 {
                     Password = user.Password,
                     Username = user.Username,
@@ -96,6 +96,53 @@ namespace MovieForum.Web.Controllers
                     Email = user.Email
                 };
                 var newUser = await userService.PostAsync(userDTO);
+                return this.Ok(newUser);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("update/user/{id}")]
+        public async Task<IActionResult> UpdateUser(int id,[FromBody] UpdateUserViewModel user)
+        {
+            try
+            {
+                var userDTO = new UpdateUserDTO
+                {
+                    Password = user.Password,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    ImagePath = user.ImagePath
+                };
+                var newUser = await userService.UpdateAsync(id,userDTO);
+                return this.Ok(newUser);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("update/admin/{id}")]
+        public async Task<IActionResult> UpdateAdmin(int id, [FromBody] UpdateAdminViewModel user)
+        {
+            try
+            {
+                var userDTO = new UpdateUserDTO
+                {
+                    Password = user.Password,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    ImagePath = user.ImagePath,
+                    PhoneNumber = user.PhoneNumber
+                };
+                var newUser = await userService.UpdateAsync(id, userDTO);
                 return this.Ok(newUser);
             }
             catch (Exception ex)

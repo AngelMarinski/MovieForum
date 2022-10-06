@@ -12,6 +12,13 @@ namespace MovieForum.Services.Helpers
         public const int MOVIE_CONTENT_MIN_LENGHT = 32;
         public const int MOVIE_CONTENT_MAX_LENGHT = 8192;
 
+        public const int USER_FIRSTNAME_MIN_LENGTH = 4;
+        public const int USER_FIRSTNAME_MAX_LENGTH = 32;
+        public const int USER_LASTNAME_MIN_LENGTH = 4;
+        public const int USER_LASTNAME_MAX_LENGTH = 32;
+        public const int USER_USERNAME_MIN_LENGTH = 4;
+        public const int USER_PASSWORD_MIN_LENGTH = 8;
+
         //Messages
         public const string MOVIE_NOT_FOUND = "Movie not found!";
         public const string USER_NOT_FOUND = "User not found!";

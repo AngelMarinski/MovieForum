@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MovieForum.Services.DTOModels
 {
-    public class UserDTO
+    public class UpdateUserDTO
     {
         public int UserId { get; set; }
         [Required]
@@ -14,7 +14,7 @@ namespace MovieForum.Services.DTOModels
         public string Username { get; set; }
 
         [Required]
-        [MaxLength(Constants.USER_FIRSTNAME_MAX_LENGTH),MinLength(Constants.USER_FIRSTNAME_MIN_LENGTH)]
+        [MaxLength(Constants.USER_FIRSTNAME_MAX_LENGTH), MinLength(Constants.USER_FIRSTNAME_MIN_LENGTH)]
         public string FirstName { get; set; }
 
         [Required]
@@ -27,16 +27,12 @@ namespace MovieForum.Services.DTOModels
 
         public string ImagePath { get; set; }
 
-        //[Required]
-        //[MinLength(Constants.USER_PASSWORD_MIN_LENGTH)]
-        //public string Password { get; set; }
+        [Required]
+        [MinLength(Constants.USER_PASSWORD_MIN_LENGTH)]
+        public string Password { get; set; }
 
         [Phone]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        public string Role { get; set; }
-        public ICollection<CommentDTO> Comments { get; set; }
-        public ICollection<MovieDTO> Movies { get; set; }
     }
 }

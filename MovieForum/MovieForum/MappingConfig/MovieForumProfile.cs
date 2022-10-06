@@ -22,6 +22,13 @@ namespace MovieForum.Web.MappingConfig
                 .ForMember(dest => dest.Role, act => act.MapFrom(src => src.Role.Name))
                 .ReverseMap();
 
+            this.CreateMap<User, UpdateUserDTO>()
+                .ForMember(dest => dest.UserId, act => act.MapFrom(src => src.Id))
+                .ReverseMap();
+
+            this.CreateMap<UserDTO, UpdateUserDTO>()
+                .ReverseMap();
+
             this.CreateMap<Comment, CommentDTO>()
                .ForMember(dest => dest.AuthorUsername, act => act.MapFrom(src => src.Author.Username))
                .ForMember(dest => dest.PostedOn, act => act.MapFrom(src => src.PostedOn.Value.ToString("dd/MM/yyyy HH:mm"))) 

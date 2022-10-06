@@ -134,7 +134,7 @@ namespace MovieForum.Services.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task<UserDTO> PostAsync(UserDTO obj)
+        public async Task<UserDTO> PostAsync(UpdateUserDTO obj)
         {
             var isEmailValid = Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
 
@@ -149,13 +149,13 @@ namespace MovieForum.Services.Services
             }
 
             if (obj == null ||
-                (obj.FirstName.Length < 4 || obj.FirstName.Length > 32) ||
-                (obj.LastName.Length < 4 || obj.LastName.Length > 32) ||
-                obj.Password.Length < 8 ||
-                obj.Username.Length < 4 ||
+                (obj.FirstName.Length < Constants.USER_FIRSTNAME_MIN_LENGTH || obj.FirstName.Length > Constants.USER_FIRSTNAME_MAX_LENGTH) ||
+                (obj.LastName.Length < Constants.USER_LASTNAME_MIN_LENGTH || obj.LastName.Length > Constants.USER_LASTNAME_MAX_LENGTH) ||
+                obj.Password.Length < Constants.USER_PASSWORD_MIN_LENGTH ||
+                obj.Username.Length < Constants.USER_USERNAME_MIN_LENGTH ||
                 !isEmailValid)
             {
-                throw new Exception("Data invalid");
+                throw new Exception(Constants.INVALID_DATA);
             }
 
             var user = mapper.Map<User>(obj);
@@ -168,27 +168,30 @@ namespace MovieForum.Services.Services
             await db.Users.AddAsync(user);
             await db.SaveChangesAsync();
 
-            return obj;
+            return mapper.Map<UserDTO>(obj);
         }
 
-        public async Task<UserDTO> UpdateAsync(int id, UserDTO obj)
+        public async Task<UserDTO> UpdateAsync(int id, UpdateUserDTO obj)
         {
             var userToUpdate = await GetUserAsync(id);
 
             var isEmailValid = Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
 
             if (obj == null ||
-                (obj.FirstName.Length <= 4 || obj.FirstName.Length >= 32) ||
-                (obj.LastName.Length <= 4 || obj.LastName.Length >= 32) ||
-                obj.Password.Length <= 8 ||
+                (obj.FirstName.Length < Constants.USER_FIRSTNAME_MIN_LENGTH || obj.FirstName.Length > Constants.USER_FIRSTNAME_MAX_LENGTH) ||
+                (obj.LastName.Length < Constants.USER_LASTNAME_MIN_LENGTH || obj.LastName.Length > Constants.USER_LASTNAME_MAX_LENGTH) ||
+                obj.Password.Length < Constants.USER_PASSWORD_MIN_LENGTH ||
                 !isEmailValid)
             {
-                throw new Exception("Data invalid");
+                throw new Exception(Constants.INVALID_DATA);
             }
 
-            if (await IsExistingAsync(obj.Email))
+            if (obj.Email != userToUpdate.Email)
             {
-                throw new Exception("Email already taken");
+                if (await IsExistingAsync(obj.Email))
+                {
+                    throw new Exception("Email already taken");
+                }
             }
 
             if(obj.Password != userToUpdate.Password)
@@ -197,6 +200,7 @@ namespace MovieForum.Services.Services
                 userToUpdate.Password = passHasher.HashPassword(userToUpdate, obj.Password);
             }
 
+            
             userToUpdate.FirstName = obj.FirstName;
             userToUpdate.LastName = obj.LastName;
             userToUpdate.Email = obj.Email;
@@ -227,6 +231,7 @@ namespace MovieForum.Services.Services
 
             return mapper.Map<UserDTO>(userToDelete);
         }
+
 
     }
 }
