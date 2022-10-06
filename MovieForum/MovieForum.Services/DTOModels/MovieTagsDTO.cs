@@ -7,10 +7,12 @@ namespace MovieForum.Services.DTOModels
 {
     public class MovieTagsDTO
     {
+        public string TagName { get; set; }
         public int? MovieId { get; set; }
         public MovieDTO Movie { get; set; }
 
         public int? TagId { get; set; }
-        public Tag Tag { get; set; }
+
+        //public TagDTO Tag { get; set; }
     }
 }

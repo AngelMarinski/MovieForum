@@ -67,8 +67,8 @@ namespace MovieForum.Web.Controllers
             };
             try
             {
-                await comServ.PostAsync(commentDTO);
-                return Ok(commentDTO);
+                var result = await comServ.PostAsync(commentDTO);
+                return Ok(result);
             }
             catch (Exception ex)
             {

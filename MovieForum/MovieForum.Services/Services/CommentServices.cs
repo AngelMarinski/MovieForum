@@ -49,14 +49,15 @@ namespace MovieForum.Services.Services
 
         public async Task<IEnumerable<CommentDTO>> GetAsync()
         {
-            var comments = await data.Comments.Where(x=>x.IsDeleted == false).Select(x => map.Map<CommentDTO>(x)).ToListAsync();
+            var comments = await data.Comments.Where(x => x.IsDeleted == false).ToListAsync();
+            var commentsDTO = map.Map<IEnumerable<CommentDTO>>(comments);
 
             if (comments.Count == 0)
             {
                 throw new InvalidOperationException(Constants.NO_COMMENTS_FOR_THIS_MOVIE);
             }
 
-            return comments;
+            return commentsDTO;
         }
 
         public async Task<CommentDTO> GetCommentByIdAsync(int id)
@@ -198,8 +199,10 @@ namespace MovieForum.Services.Services
 
         public async Task<CommentDTO> UpdateAsync(int id, CommentDTO obj)
         {
+            
             var commentToUpdate = await data.Comments.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false)
                 ?? throw new InvalidOperationException(Constants.COMMENT_NOT_FOUND);
+
                        
             if (obj.Content != null)
             {
