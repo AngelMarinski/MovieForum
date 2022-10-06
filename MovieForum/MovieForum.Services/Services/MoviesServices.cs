@@ -35,7 +35,7 @@ namespace MovieForum.Services
 
         public async Task<MovieDTO> GetByIdAsync(int id)
         {
-            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false) 
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false)
                 ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
 
             return mapper.Map<MovieDTO>(movie);
@@ -46,7 +46,7 @@ namespace MovieForum.Services
             //TODO: if user is authorized
             if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
-                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT 
+                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT
                 || obj.Content.Length > Constants.MOVIE_CONTENT_MAX_LENGHT)
             {
                 throw new Exception(Constants.INVALID_DATA);
@@ -64,6 +64,8 @@ namespace MovieForum.Services
         {
             var movie = await this.GetByIdAsync(id);
 
+            //TODO: if user is authorized
+
             if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
                 || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT
@@ -75,7 +77,7 @@ namespace MovieForum.Services
             movie.AuthorId = obj.AuthorId;
             movie.Cast = obj.Cast;
             movie.Content = obj.Content;
-            //movie.Genre = obj.Genre;
+            movie.Genre = obj.Genre;
             movie.Rating = obj.Rating;
             movie.ReleaseDate = obj.ReleaseDate;
             movie.Tags = obj.Tags;
@@ -117,18 +119,18 @@ namespace MovieForum.Services
                 result = result.FindAll(x => x.Rating >= parameters.MinRating);
             }
 
-/*            if (!string.IsNullOrEmpty(parameters.Username))
-            {
-                result = result.FindAll(x => x.Author.Username.Contains(parameters.Username)).ToList();
-            }*/
+            /*            if (!string.IsNullOrEmpty(parameters.Username))
+                        {
+                            result = result.FindAll(x => x.Author.Username.Contains(parameters.Username)).ToList();
+                        }*/
 
             if (!string.IsNullOrEmpty(parameters.SortBy))
             {
-                if(parameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
+                if (parameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result = result.OrderBy(x => x.Title).ToList();
                 }
-                else if(parameters.SortBy.Equals("releasedate", StringComparison.InvariantCultureIgnoreCase))
+                else if (parameters.SortBy.Equals("releasedate", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result = result.OrderBy(x => x.ReleaseDate).ToList();
                 }
@@ -141,7 +143,7 @@ namespace MovieForum.Services
                     result = result.OrderByDescending(x => x.Comments.Count).ToList();
                 }
 
-                if (!string.IsNullOrEmpty(parameters.SortOrder) 
+                if (!string.IsNullOrEmpty(parameters.SortOrder)
                     && parameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result.Reverse();
