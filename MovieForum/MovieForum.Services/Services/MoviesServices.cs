@@ -140,9 +140,9 @@ namespace MovieForum.Services
         {
             List<MovieDTO> result = new List<MovieDTO>(await this.GetAsync());
 
-            if (!string.IsNullOrEmpty(parameters.Name))
+            if (!string.IsNullOrEmpty(parameters.Title))
             {
-                result = result.FindAll(x => x.Title.Contains(parameters.Name)).ToList();
+                result = result.FindAll(x => x.Title.Contains(parameters.Title)).ToList();
             }
 
             if (parameters.MinRating.HasValue)
