@@ -45,6 +45,7 @@ namespace MovieForum
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddProfile<MovieForumProfile>());
 
+            services.AddScoped<ITagServices, TagServices>();
             services.AddScoped<IMoviesServices, MoviesServices>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<ICommentServices, CommentServices>();

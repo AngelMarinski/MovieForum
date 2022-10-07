@@ -177,7 +177,7 @@ namespace MovieForum.Data.DataInitializing
                 {
                     Id = 1,
                     AuthorID = 1,
-                    Title = "Top Gun",
+                    Title = "Top Gun the new one",
                     Content = "On of my favourite movies of all time",
                     GenreId = 5,
                     ReleaseDate = DateTime.Now,

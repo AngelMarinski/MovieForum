@@ -19,10 +19,10 @@ namespace MovieForum.Models
         [Required]
         public virtual User Author { get; set; }
 
-        [Required]
+        [Required, StringLength(64, MinimumLength = 2)]
         public string Title { get; set; }
 
-        [Required]
+        [Required, StringLength(64, MinimumLength = 32)]
         public string Content { get; set; }
 
         [Required]

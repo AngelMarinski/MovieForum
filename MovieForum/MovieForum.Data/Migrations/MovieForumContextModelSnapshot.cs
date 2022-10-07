@@ -97,6 +97,8 @@ namespace MovieForum.Data.Migrations
 
                     b.ToTable("Comments");
 
+                    b.HasCheckConstraint("CK_Comments_Content", "(LEN(Content)) >= 10");
+
                     b.HasData(
                         new
                         {
@@ -107,7 +109,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 10, 6, 19, 36, 44, 633, DateTimeKind.Local).AddTicks(4968)
+                            PostedOn = new DateTime(2022, 10, 7, 12, 18, 38, 948, DateTimeKind.Local).AddTicks(6914)
                         },
                         new
                         {
@@ -118,7 +120,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 10, 6, 19, 36, 44, 640, DateTimeKind.Local).AddTicks(1554)
+                            PostedOn = new DateTime(2022, 10, 7, 12, 18, 38, 954, DateTimeKind.Local).AddTicks(1432)
                         });
                 });
 
@@ -378,6 +380,8 @@ namespace MovieForum.Data.Migrations
 
                     b.ToTable("Tags");
 
+                    b.HasCheckConstraint("CK_Tags_TagName", "(LEN(TagName))>= 2");
+
                     b.HasData(
                         new
                         {
@@ -448,6 +452,14 @@ namespace MovieForum.Data.Migrations
 
                     b.ToTable("Users");
 
+                    b.HasCheckConstraint("CK_Users_Username", "(LEN(Username))>= 4");
+
+                    b.HasCheckConstraint("CK_Users_FirstName", "(LEN(FirstName))>= 4");
+
+                    b.HasCheckConstraint("CK_Users_LastName", "(LEN(LastName))>= 4");
+
+                    b.HasCheckConstraint("CK_Users_Password", "(LEN(Password))>= 8");
+
                     b.HasData(
                         new
                         {
@@ -457,7 +469,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAENAAbeSrZzb46P6Rj0kqC9jDtwqHxu3rToGdL/7geEz1MVeTl7fUrYJjCPPreiucFg==",
+                            Password = "AQAAAAEAACcQAAAAELr/KgEIvEhSXzcLWcOmov2eheGdAssho5cJkzasizGDGtwfO5Da63CobGcVr2OItQ==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -469,7 +481,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAEHpfJUPbNt+/ncW3ZU79RkimuD92dIsBe9zg2I71MskdBBNkxAbkYkj1HHBGJexfsA==",
+                            Password = "AQAAAAEAACcQAAAAEPdIrNFtOktW8ChIf0gfIRkvD4UAJdX8VisS0GWgxKYanCqFv0oQZW+1OtaOZOXExA==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -481,7 +493,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAEDvchc7ZmWspKfJMHiINMCbrefSlKB662i0I1Pm7usZ6E5Q4lavfpCwgNM/1UTEvVg==",
+                            Password = "AQAAAAEAACcQAAAAEByJ+F+hdkm8aqjvGAVNQuFnRDgdJlcvJwuzmSvEK1SuW+/cNschKgPyBKNIWsxY0g==",
                             RoleId = 1,
                             Username = "Rado561"
                         });
@@ -500,7 +512,8 @@ namespace MovieForum.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
@@ -519,7 +532,8 @@ namespace MovieForum.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -528,6 +542,10 @@ namespace MovieForum.Data.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("Movies");
+
+                    b.HasCheckConstraint("CK_Movies_Title", "(LEN(Title))>= 2");
+
+                    b.HasCheckConstraint("CK_Movies_Content", "(LEN(Content))>= 32");
 
                     b.HasData(
                         new
@@ -538,8 +556,8 @@ namespace MovieForum.Data.Migrations
                             GenreId = 5,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 10, 6, 19, 36, 44, 640, DateTimeKind.Local).AddTicks(7315),
-                            Title = "Top Gun"
+                            ReleaseDate = new DateTime(2022, 10, 7, 12, 18, 38, 954, DateTimeKind.Local).AddTicks(6415),
+                            Title = "Top Gun the new one"
                         },
                         new
                         {
@@ -549,7 +567,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 13,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 10, 6, 19, 36, 44, 640, DateTimeKind.Local).AddTicks(7949),
+                            ReleaseDate = new DateTime(2022, 10, 7, 12, 18, 38, 954, DateTimeKind.Local).AddTicks(6893),
                             Title = "Spiderman: Far From Home"
                         });
                 });

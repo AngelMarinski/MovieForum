@@ -28,5 +28,7 @@ namespace MovieForum.Services.Helpers
         public const string INVALID_DATA = "Invalid data passed";
         public const string LIKED = "liked";
         public const string DISLIKED = "disliked";
+        public const string NO_TAGS_FOUND = "There is no tags found!";
+        public const string DELETED_TAG = "Tag is deleted successfully!";
     }
 }

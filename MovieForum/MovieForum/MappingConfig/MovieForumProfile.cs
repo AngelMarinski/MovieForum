@@ -45,6 +45,8 @@ namespace MovieForum.Web.MappingConfig
                 .ForMember(dest => dest.LastName, act => act.MapFrom(src => src.LastName))
                 .ReverseMap();
 
+            this.CreateMap<Tag, TagDTO>().ReverseMap();
+
         }
     }
 }

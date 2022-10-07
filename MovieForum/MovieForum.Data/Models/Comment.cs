@@ -15,7 +15,7 @@ namespace MovieForum.Data.Models
                 
         [Required]
         [StringLength(2000, MinimumLength = 10, ErrorMessage = "Comment content length must be between {0} and {1} characters!")]
-        [MinLength(2),MaxLength(2000)]
+        
         public string Content { get; set; }
 
         [Required]

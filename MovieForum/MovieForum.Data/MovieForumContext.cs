@@ -43,9 +43,43 @@ namespace MovieForum.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
             modelBuilder.Seed();
+
+            SetMinLengthConstraints(modelBuilder);         
+
+
+
         }
+
+        private static void SetMinLengthConstraints(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Comment>(entity =>
+            entity.HasCheckConstraint("CK_Comments_Content", "(LEN(Content)) >= 10"));
+
+            modelBuilder.Entity<User>(entity =>
+            entity.HasCheckConstraint("CK_Users_Username", "(LEN(Username))>= 4"));
+
+            modelBuilder.Entity<User>(entity =>
+            entity.HasCheckConstraint("CK_Users_FirstName", "(LEN(FirstName))>= 4"));
+
+            modelBuilder.Entity<User>(entity =>
+            entity.HasCheckConstraint("CK_Users_LastName", "(LEN(LastName))>= 4"));
+
+            modelBuilder.Entity<User>(entity =>
+            entity.HasCheckConstraint("CK_Users_Password", "(LEN(Password))>= 8"));
+
+            modelBuilder.Entity<Movie>(entity =>
+            entity.HasCheckConstraint("CK_Movies_Title", "(LEN(Title))>= 2"));
+
+            modelBuilder.Entity<Movie>(entity =>
+            entity.HasCheckConstraint("CK_Movies_Content", "(LEN(Content))>= 32"));
+
+            modelBuilder.Entity<Tag>(entity =>
+            entity.HasCheckConstraint("CK_Tags_TagName", "(LEN(TagName))>= 2"));
+        }
+    
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
