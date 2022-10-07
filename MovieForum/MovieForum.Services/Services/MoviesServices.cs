@@ -138,9 +138,7 @@ namespace MovieForum.Services
 
         public async Task<IEnumerable<MovieDTO>> FilterByAsync(MovieQueryParameters parameters)
         {
-            List<MovieDTO> result = new List<MovieDTO>(await db.Movies
-                                                        .Select(x => mapper.Map<MovieDTO>(x))
-                                                        .ToListAsync());
+            List<MovieDTO> result = new List<MovieDTO>(await this.GetAsync());
 
             if (!string.IsNullOrEmpty(parameters.Name))
             {
@@ -149,7 +147,7 @@ namespace MovieForum.Services
 
             if (parameters.MinRating.HasValue)
             {
-              //  result = result.FindAll(x => x.Rating >= parameters.MinRating);
+                result = result.FindAll(x => !Double.IsNaN(x.Rating) && x.Rating >= parameters.MinRating);
             }
 
             if (!string.IsNullOrEmpty(parameters.Username))

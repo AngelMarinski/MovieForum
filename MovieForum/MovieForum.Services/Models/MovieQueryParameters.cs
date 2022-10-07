@@ -6,7 +6,7 @@ namespace MovieForum.Services.Models
 {
     public class MovieQueryParameters
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
         public int? MinRating { get; set; }
         public string SortBy { get; set; }
         public string SortOrder { get; set; }

@@ -8,6 +8,7 @@ using MovieForum.Services.Interfaces;
 using MovieForum.Web.Models;
 using MovieForum.Services.DTOModels;
 using MovieForum.Data.Models;
+using MovieForum.Services.Models;
 
 namespace MovieForum.Controllers
 {
@@ -35,6 +36,21 @@ namespace MovieForum.Controllers
             catch (Exception ex)
             {
                 return this.NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet("filtered")]
+        public async Task<IActionResult> GetFilteredMoviesAsync([FromQuery] MovieQueryParameters parameters)
+        {
+            try
+            {
+                var movies = await this.moviesService.FilterByAsync(parameters);
+
+                return this.Ok(movies);
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
             }
         }
 
@@ -153,8 +169,5 @@ namespace MovieForum.Controllers
             }
         }
 
-        //add authorization
-/*        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMovieAsync(int id, [FromBody] )*/
     }
 }
