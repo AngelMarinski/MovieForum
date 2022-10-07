@@ -51,8 +51,6 @@ namespace MovieForum.Services
             var genre = await db.Genres.FirstOrDefaultAsync(x => x.Id == obj.GenreId)
                  ?? throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
 
-            var movieId = db.Movies.Count() + 1;
-
             if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
                 || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT 
@@ -89,30 +87,38 @@ namespace MovieForum.Services
 
         public async Task<MovieDTO> UpdateAsync(int id, MovieDTO obj)
         {
-            var movie = await this.GetByIdAsync(id);
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false)
+                        ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
 
-            if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
-                || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
-                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT
-                || obj.Content.Length > Constants.MOVIE_CONTENT_MAX_LENGHT)
+            if(obj.Cast != null)
             {
-                throw new Exception(Constants.INVALID_DATA);
+                movie.Cast = mapper.Map<ICollection<MovieActor>>(obj.Cast);
             }
-
-            movie.AuthorId = obj.AuthorId;
-            movie.Cast = obj.Cast;
-            movie.Content = obj.Content;
-            movie.GenreId = obj.GenreId;
-            movie.Genre = obj.Genre;
-            movie.Rating = obj.Rating;
-            movie.ReleaseDate = obj.ReleaseDate;
-            movie.Tags = obj.Tags;
-            movie.Title = obj.Title;
-            movie.Comments = obj.Comments;
+            if(obj.Title != null)
+            {
+                movie.Title = obj.Title;
+            }
+            if (obj.Content != null)
+            {
+                movie.Content = obj.Content;
+            }
+            if(obj.Genre != null)
+            {
+                movie.Genre = obj.Genre;
+            }
+            if(obj.Tags != null)
+            {
+                movie.Tags = mapper.Map<ICollection<MovieTags>>(obj.Tags);
+            }
+            if(obj.ReleaseDate != null)
+            {
+                movie.ReleaseDate = obj.ReleaseDate;
+            }
+         
 
             await db.SaveChangesAsync();
 
-            return movie;
+            return mapper.Map<MovieDTO>(movie);
         }
 
         public async Task<MovieDTO> DeleteAsync(int id)

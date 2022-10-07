@@ -82,6 +82,31 @@ namespace MovieForum.Controllers
             }
         }
 
+        [HttpPut("edit/{id}")]
+        public async Task<IActionResult> EditPostAsync(int id, [FromBody] UpdatePostViewModel post)
+        {
+            try
+            {
+                var movieDTO = new MovieDTO
+                {
+                    Title = post.Title,
+                    Content = post.Content,
+                    Genre = post.Genre,
+                    Cast = post.Cast == null ? null : new List<MovieActorDTO>(post.Cast),
+                    Tags = post.Tags == null ? null : new List<MovieTagsDTO>(post.Tags),
+                    ReleaseDate = post.ReleaseDate
+                };
+
+                var movie = await this.moviesService.UpdateAsync(id, movieDTO);
+
+                return this.Ok(movie);
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
         [HttpPut("/movie/addTag/{id}")]
         public async Task<IActionResult> AddTagAsync(int id, [FromBody] string tagName)
         {
