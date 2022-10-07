@@ -216,10 +216,11 @@ namespace MovieForum.Services
 
             return mapper.Map<MovieDTO>(movie);
         }
-        /*public async Task<MovieDTO> RemoveTagAsync(int movieId, string tagName)
+
+        public async Task<MovieDTO> RemoveTagAsync(int movieId, string tagName)
         {
             var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == movieId && m.IsDeleted == false)
-                ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+                        ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
 
             var tag = await db.Tags.FirstOrDefaultAsync(t => t.TagName == tagName);
 
@@ -230,9 +231,13 @@ namespace MovieForum.Services
             foreach (var item in movieTags)
             {
                 item.IsDeleted = true;
-                
+                item.DeletedOn = DateTime.Now;
             }
-        }*/
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<MovieDTO>(movie);
+        }
     }
 
 }

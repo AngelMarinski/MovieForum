@@ -82,7 +82,7 @@ namespace MovieForum.Controllers
             }
         }
 
-        [HttpPut("/movie/{id}")]
+        [HttpPut("/movie/addTag/{id}")]
         public async Task<IActionResult> AddTagAsync(int id, [FromBody] string tagName)
         {
             //add authentication
@@ -93,6 +93,23 @@ namespace MovieForum.Controllers
                 return this.Ok(movieDTO);
             }
             catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        //Put or Delete Query ?
+        [HttpPut("/movie/removeTag/{id}")]
+        public async Task<IActionResult> RemoveTagAsync(int id, [FromBody] string tagName)
+        {
+            //add authentication
+            try
+            {
+                var movieDTO = await moviesService.RemoveTagAsync(id, tagName);
+
+                return this.Ok(movieDTO);
+            }
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }
