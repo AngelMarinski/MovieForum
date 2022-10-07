@@ -68,6 +68,8 @@ namespace MovieForum.Controllers
                     ReleaseDate = movie.RealeaseDate,
                     Posted = DateTime.Now,
                     GenreId = movie.GenreId,
+                    Cast = movie.Cast,
+                    Tags = movie.Tags
                 };
 
                 var post = await this.moviesService.PostAsync(movieDto);
@@ -76,7 +78,7 @@ namespace MovieForum.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(ex);
+                return this.BadRequest(ex.Message);
             }
         }
 

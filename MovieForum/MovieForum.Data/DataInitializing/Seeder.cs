@@ -224,14 +224,14 @@ namespace MovieForum.Data.DataInitializing
                     Id=1,
                     FirstName = "Tom",
                     LastName = "Cruize",
-
+                    IsDeleted = false,
                 },
                 new Actor
                 {
                     Id=2,
                     FirstName = "Tom",
                     LastName = "Holand",
-
+                    IsDeleted = false,
 
                 }
             };
@@ -243,13 +243,15 @@ namespace MovieForum.Data.DataInitializing
                 new MovieActor
                 {
                     MovieId = 1,
-                    ActorId = 1
+                    ActorId = 1,
+                    IsDeleted = false,
                 },
                 new MovieActor
                 {
 
                     MovieId = 1,
-                    ActorId = 2
+                    ActorId = 2,
+                    IsDeleted = false,
                 }
             };
 
@@ -261,11 +263,13 @@ namespace MovieForum.Data.DataInitializing
                 {
                     MovieId = 1,
                     TagId = 2,
+                    IsDeleted = false
                 },
                 new MovieTags
                 {
                     MovieId = 2,
                     TagId = 1,
+                    IsDeleted = false
                 }
             };
             db.Entity<MovieTags>().HasData(movietags);
@@ -278,7 +282,7 @@ namespace MovieForum.Data.DataInitializing
                     UserID = 1,
                     MovieId = 2,
                     Rate = 5
-
+                    
                 },
                 new Rating
                 {

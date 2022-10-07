@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MovieForum.Data.Models
 {
-    public class MovieTags 
+    public class MovieTags : IDeletable
     {
       
         [Required]
@@ -17,5 +17,10 @@ namespace MovieForum.Data.Models
         [Required]
         public  int? TagId { get; set; }
         public virtual Tag Tag { get; set; }
+
+        [Required]
+        public bool IsDeleted { get ; set ; }
+
+        public DateTime? DeletedOn { get ; set ; }
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MovieForum.Data.Models
 {
-    public class Actor: IHasId
+    public class Actor: IHasId, IDeletable
     {
         public int Id { get; set; }
 
@@ -18,5 +18,9 @@ namespace MovieForum.Data.Models
 
         [Required]
         public virtual ICollection<MovieActor> Roles { get; set; }
+
+        [Required]
+        public bool IsDeleted { get ; set; }
+        public DateTime? DeletedOn { get; set; }
     }
 }

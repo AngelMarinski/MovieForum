@@ -49,6 +49,8 @@ namespace MovieForum.Services
             var genre = await db.Genres.FirstOrDefaultAsync(x => x.Id == obj.GenreId)
                  ?? throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
 
+            var movieId = db.Movies.Count() + 1;
+
             if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
                 || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT 
@@ -68,14 +70,17 @@ namespace MovieForum.Services
                 Genre = genre,
                 GenreId = genre.Id,
                 IsDeleted = false,
-                Cast = new List<MovieActor>(mapper.Map<IEnumerable<MovieActor>>(obj.Cast)),
-                Tags = new List<MovieTags>(mapper.Map<IEnumerable<MovieTags>>(obj.Tags))
             };
+
+            var tags = mapper.Map<ICollection<MovieTags>>(obj.Tags);
+            var cast = mapper.Map<ICollection<MovieActor>>(obj.Cast);
+
+            movie.Tags = tags;
+            movie.Cast = cast;
 
             await db.Movies.AddAsync(movie);
             await db.SaveChangesAsync();
             var movieDTO = mapper.Map<MovieDTO>(movie);
-            //movieDTO.Rating = movie.Rating.Sum(x => x.Rate) / movie.Rating.Count();
 
             return movieDTO;
         }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MovieForum.Data.Models
 {
-    public class MovieActor
+    public class MovieActor : IDeletable
     {
         [Required]
         public int? MovieId { get; set; }
@@ -16,5 +16,9 @@ namespace MovieForum.Data.Models
         [Required]
         public int? ActorId { get; set; }
         public virtual Actor Actor { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedOn { get; set; }
     }
 }

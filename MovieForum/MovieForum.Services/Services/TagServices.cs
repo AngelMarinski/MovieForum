@@ -87,7 +87,7 @@ namespace MovieForum.Services.Services
         {
             var tag = await data.Tags.FirstOrDefaultAsync(x => x.TagName == obj.TagName);
 
-            if (tag !=null)
+            if (tag != null)
             {
                 throw new InvalidOperationException("This tag already exists!");
             }
