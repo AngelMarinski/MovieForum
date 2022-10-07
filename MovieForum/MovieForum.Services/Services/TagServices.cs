@@ -128,6 +128,17 @@ namespace MovieForum.Services.Services
             var tag = await data.Tags.FirstOrDefaultAsync(x => x.Id == id) ??
                 throw new InvalidOperationException("This tag is not found!");
 
+            var movieTagsToDelete = await data.MoviesTags.Where(x => x.TagId == tag.Id && x.IsDeleted == false).ToListAsync();
+
+            foreach (var item in await data.MoviesTags.ToListAsync())
+            {
+                if (item.TagId == tag.Id)
+                {
+                    item.IsDeleted = true;
+                    item.DeletedOn = DateTime.Now;
+                }
+            }
+
             tag.IsDeleted = true;
             tag.DeletedOn = DateTime.Now;            
 

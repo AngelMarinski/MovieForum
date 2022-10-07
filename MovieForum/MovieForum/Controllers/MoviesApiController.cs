@@ -82,6 +82,22 @@ namespace MovieForum.Controllers
             }
         }
 
+        [HttpPut("/movie/{id}")]
+        public async Task<IActionResult> AddTagAsync(int id, [FromBody] string tagName)
+        {
+            //add authentication
+            try
+            {
+                var movieDTO = await moviesService.AddTagAsync(id, tagName);
+
+                return this.Ok(movieDTO);
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovieAsync(int id)
         {

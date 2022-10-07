@@ -19,11 +19,13 @@ namespace MovieForum.Services
     {
         private readonly MovieForumContext db;
         private readonly IMapper mapper;
+        private readonly ITagServices tag;
 
-        public MoviesServices(MovieForumContext db, IMapper mapper)
+        public MoviesServices(MovieForumContext db, IMapper mapper, ITagServices tag)
         {
             this.db = db;
             this.mapper = mapper;
+            this.tag = tag;
         }
 
         public async Task<IEnumerable<MovieDTO>> GetAsync()
@@ -177,5 +179,60 @@ namespace MovieForum.Services
 
             return result;
         }
+
+        public async Task<MovieDTO> AddTagAsync(int movieId, string tagName)
+        {
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == movieId && m.IsDeleted == false)
+                        ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+
+            var tag = await db.Tags.FirstOrDefaultAsync(t => t.TagName == tagName);
+
+            if(tag == null)
+            {
+                tag = new Tag
+                {
+                    TagName = tagName,
+                    IsDeleted = false
+                };
+            }
+            else if (tag.IsDeleted)
+            {
+                tag.IsDeleted = false;
+            }
+
+            var movieTag = new MovieTags
+            {
+                MovieId = movie.Id,
+                Movie = movie,
+                Tag = tag,
+                TagId = tag.Id,
+                IsDeleted = false
+            };
+
+            movie.Tags.Add(movieTag);
+            tag.Movies.Add(movieTag);
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<MovieDTO>(movie);
+        }
+        /*public async Task<MovieDTO> RemoveTagAsync(int movieId, string tagName)
+        {
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == movieId && m.IsDeleted == false)
+                ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+
+            var tag = await db.Tags.FirstOrDefaultAsync(t => t.TagName == tagName);
+
+            var movieTags = await db.MoviesTags
+                            .Where(m => m.MovieId == movie.Id && m.TagId == tag.Id)
+                            .ToListAsync();
+
+            foreach (var item in movieTags)
+            {
+                item.IsDeleted = true;
+                
+            }
+        }*/
     }
+
 }

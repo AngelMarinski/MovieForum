@@ -13,5 +13,6 @@ namespace MovieForum.Services.Interfaces
     {
         Task<MovieDTO> GetByIdAsync(int id);
         Task<IEnumerable<MovieDTO>> FilterByAsync(MovieQueryParameters parameters);
+        Task<MovieDTO> AddTagAsync(int movieId, string tagName);
     }
 }
