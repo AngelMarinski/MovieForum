@@ -19,11 +19,13 @@ namespace MovieForum.Services
     {
         private readonly MovieForumContext db;
         private readonly IMapper mapper;
+        private readonly ITagServices tag;
 
-        public MoviesServices(MovieForumContext db, IMapper mapper)
+        public MoviesServices(MovieForumContext db, IMapper mapper, ITagServices tag)
         {
             this.db = db;
             this.mapper = mapper;
+            this.tag = tag;
         }
 
         public async Task<IEnumerable<MovieDTO>> GetAsync()
@@ -48,8 +50,6 @@ namespace MovieForum.Services
 
             var genre = await db.Genres.FirstOrDefaultAsync(x => x.Id == obj.GenreId)
                  ?? throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
-
-            var movieId = db.Movies.Count() + 1;
 
             if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
@@ -87,30 +87,38 @@ namespace MovieForum.Services
 
         public async Task<MovieDTO> UpdateAsync(int id, MovieDTO obj)
         {
-            var movie = await this.GetByIdAsync(id);
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false)
+                        ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
 
-            if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
-                || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
-                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT
-                || obj.Content.Length > Constants.MOVIE_CONTENT_MAX_LENGHT)
+            if(obj.Cast != null)
             {
-                throw new Exception(Constants.INVALID_DATA);
+                movie.Cast = mapper.Map<ICollection<MovieActor>>(obj.Cast);
             }
-
-            movie.AuthorId = obj.AuthorId;
-            movie.Cast = obj.Cast;
-            movie.Content = obj.Content;
-            movie.GenreId = obj.GenreId;
-            movie.Genre = obj.Genre;
-            movie.Rating = obj.Rating;
-            movie.ReleaseDate = obj.ReleaseDate;
-            movie.Tags = obj.Tags;
-            movie.Title = obj.Title;
-            movie.Comments = obj.Comments;
+            if(obj.Title != null)
+            {
+                movie.Title = obj.Title;
+            }
+            if (obj.Content != null)
+            {
+                movie.Content = obj.Content;
+            }
+            if(obj.Genre != null)
+            {
+                movie.Genre = obj.Genre;
+            }
+            if(obj.Tags != null)
+            {
+                movie.Tags = mapper.Map<ICollection<MovieTags>>(obj.Tags);
+            }
+            if(obj.ReleaseDate != null)
+            {
+                movie.ReleaseDate = obj.ReleaseDate;
+            }
+         
 
             await db.SaveChangesAsync();
 
-            return movie;
+            return mapper.Map<MovieDTO>(movie);
         }
 
         public async Task<MovieDTO> DeleteAsync(int id)
@@ -130,18 +138,16 @@ namespace MovieForum.Services
 
         public async Task<IEnumerable<MovieDTO>> FilterByAsync(MovieQueryParameters parameters)
         {
-            List<MovieDTO> result = new List<MovieDTO>(await db.Movies
-                                                        .Select(x => mapper.Map<MovieDTO>(x))
-                                                        .ToListAsync());
+            List<MovieDTO> result = new List<MovieDTO>(await this.GetAsync());
 
-            if (!string.IsNullOrEmpty(parameters.Name))
+            if (!string.IsNullOrEmpty(parameters.Title))
             {
-                result = result.FindAll(x => x.Title.Contains(parameters.Name)).ToList();
+                result = result.FindAll(x => x.Title.Contains(parameters.Title)).ToList();
             }
 
             if (parameters.MinRating.HasValue)
             {
-              //  result = result.FindAll(x => x.Rating >= parameters.MinRating);
+                result = result.FindAll(x => !Double.IsNaN(x.Rating) && x.Rating >= parameters.MinRating);
             }
 
             if (!string.IsNullOrEmpty(parameters.Username))
@@ -177,5 +183,65 @@ namespace MovieForum.Services
 
             return result;
         }
+
+        public async Task<MovieDTO> AddTagAsync(int movieId, string tagName)
+        {
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == movieId && m.IsDeleted == false)
+                        ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+
+            var tag = await db.Tags.FirstOrDefaultAsync(t => t.TagName == tagName);
+
+            if(tag == null)
+            {
+                tag = new Tag
+                {
+                    TagName = tagName,
+                    IsDeleted = false
+                };
+            }
+            else if (tag.IsDeleted)
+            {
+                tag.IsDeleted = false;
+            }
+
+            var movieTag = new MovieTags
+            {
+                MovieId = movie.Id,
+                Movie = movie,
+                Tag = tag,
+                TagId = tag.Id,
+                IsDeleted = false
+            };
+
+            movie.Tags.Add(movieTag);
+            tag.Movies.Add(movieTag);
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<MovieDTO>(movie);
+        }
+
+        public async Task<MovieDTO> RemoveTagAsync(int movieId, string tagName)
+        {
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == movieId && m.IsDeleted == false)
+                        ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+
+            var tag = await db.Tags.FirstOrDefaultAsync(t => t.TagName == tagName);
+
+            var movieTags = await db.MoviesTags
+                            .Where(m => m.MovieId == movie.Id && m.TagId == tag.Id)
+                            .ToListAsync();
+
+            foreach (var item in movieTags)
+            {
+                item.IsDeleted = true;
+                item.DeletedOn = DateTime.Now;
+            }
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<MovieDTO>(movie);
+        }
     }
+
 }

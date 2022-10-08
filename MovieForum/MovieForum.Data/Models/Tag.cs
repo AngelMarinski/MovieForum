@@ -14,7 +14,7 @@ namespace MovieForum.Data.Models
         [StringLength(20, MinimumLength = 2, ErrorMessage = "Tag name length must be between {0} and {1} characters!")]
         public string TagName { get; set; }
 
-        public virtual ICollection<MovieTags> Movies { get; set; }
+        public virtual ICollection<MovieTags> Movies { get; set; } = new List<MovieTags>();
 
         [Required]
         public bool IsDeleted { get; set; }

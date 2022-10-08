@@ -8,6 +8,7 @@ using MovieForum.Services.Interfaces;
 using MovieForum.Web.Models;
 using MovieForum.Services.DTOModels;
 using MovieForum.Data.Models;
+using MovieForum.Services.Models;
 
 namespace MovieForum.Controllers
 {
@@ -35,6 +36,21 @@ namespace MovieForum.Controllers
             catch (Exception ex)
             {
                 return this.NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet("filtered")]
+        public async Task<IActionResult> GetFilteredMoviesAsync([FromQuery] MovieQueryParameters parameters)
+        {
+            try
+            {
+                var movies = await this.moviesService.FilterByAsync(parameters);
+
+                return this.Ok(movies);
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
             }
         }
 
@@ -82,6 +98,64 @@ namespace MovieForum.Controllers
             }
         }
 
+        [HttpPut("edit/{id}")]
+        public async Task<IActionResult> EditPostAsync(int id, [FromBody] UpdatePostViewModel post)
+        {
+            try
+            {
+                var movieDTO = new MovieDTO
+                {
+                    Title = post.Title,
+                    Content = post.Content,
+                    Genre = post.Genre,
+                    Cast = post.Cast == null ? null : new List<MovieActorDTO>(post.Cast),
+                    Tags = post.Tags == null ? null : new List<MovieTagsDTO>(post.Tags),
+                    ReleaseDate = post.ReleaseDate
+                };
+
+                var movie = await this.moviesService.UpdateAsync(id, movieDTO);
+
+                return this.Ok(movie);
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("/movie/addTag/{id}")]
+        public async Task<IActionResult> AddTagAsync(int id, [FromBody] string tagName)
+        {
+            //add authentication
+            try
+            {
+                var movieDTO = await moviesService.AddTagAsync(id, tagName);
+
+                return this.Ok(movieDTO);
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        //Put or Delete Query ?
+        [HttpPut("/movie/removeTag/{id}")]
+        public async Task<IActionResult> RemoveTagAsync(int id, [FromBody] string tagName)
+        {
+            //add authentication
+            try
+            {
+                var movieDTO = await moviesService.RemoveTagAsync(id, tagName);
+
+                return this.Ok(movieDTO);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovieAsync(int id)
         {
@@ -95,8 +169,5 @@ namespace MovieForum.Controllers
             }
         }
 
-        //add authorization
-/*        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMovieAsync(int id, [FromBody] )*/
     }
 }
