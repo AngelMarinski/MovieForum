@@ -117,7 +117,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 10, 7, 14, 29, 53, 477, DateTimeKind.Local).AddTicks(4450)
+                            PostedOn = new DateTime(2022, 10, 8, 15, 38, 48, 948, DateTimeKind.Local).AddTicks(6677)
                         },
                         new
                         {
@@ -128,7 +128,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 10, 7, 14, 29, 53, 480, DateTimeKind.Local).AddTicks(8421)
+                            PostedOn = new DateTime(2022, 10, 8, 15, 38, 48, 950, DateTimeKind.Local).AddTicks(6202)
                         });
                 });
 
@@ -291,6 +291,12 @@ namespace MovieForum.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
@@ -310,6 +316,7 @@ namespace MovieForum.Data.Migrations
                         new
                         {
                             Id = 1,
+                            IsDeleted = false,
                             MovieId = 2,
                             Rate = 5,
                             UserID = 1
@@ -317,6 +324,7 @@ namespace MovieForum.Data.Migrations
                         new
                         {
                             Id = 2,
+                            IsDeleted = false,
                             MovieId = 2,
                             Rate = 7,
                             UserID = 2
@@ -493,7 +501,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAEJqFougshyX6Cs31XlzyoQr5AT8AxesBD24XFZguwmehsLh6uVUT0pCVzeQ/6lFvIA==",
+                            Password = "AQAAAAEAACcQAAAAEEZdZ9FinQiAogNNzo3plYI/kcbUcXlb+HslzzVS+WtSyGoUJP5q3o36OOOj36ZodQ==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -505,7 +513,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAEELdIllP3vn1nvl0Fbt9j88IlbBC/4a7HYw6NjHPiSU4Hlhi1a0hGSUFHt8VcEdzdA==",
+                            Password = "AQAAAAEAACcQAAAAECkfSDskYho+/apM4ChUXBQXPKTOVpfcFJIh73wcRGE6JVbszoZ/Vnb8vSdO5H9HlA==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -517,7 +525,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAEFBaJrp+PQpBzlU1smGsRsDJyWBVHcesPJK1LNMZeHMRzEQtgBaMhhlza/CO4789dQ==",
+                            Password = "AQAAAAEAACcQAAAAELsXW1gZ3c8qk/m1S1S1767/S58L6u7UTiu4CGRNVwnlBnUAtynGKlUw1zPKRgsMKA==",
                             RoleId = 1,
                             Username = "Rado561"
                         });
@@ -580,7 +588,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 5,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 10, 7, 14, 29, 53, 481, DateTimeKind.Local).AddTicks(2151),
+                            ReleaseDate = new DateTime(2022, 10, 8, 15, 38, 48, 950, DateTimeKind.Local).AddTicks(8689),
                             Title = "Top Gun the new one"
                         },
                         new
@@ -591,7 +599,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 13,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 10, 7, 14, 29, 53, 481, DateTimeKind.Local).AddTicks(2590),
+                            ReleaseDate = new DateTime(2022, 10, 8, 15, 38, 48, 950, DateTimeKind.Local).AddTicks(8988),
                             Title = "Spiderman: Far From Home"
                         });
                 });

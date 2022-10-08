@@ -43,6 +43,22 @@ namespace MovieForum.Services
             return mapper.Map<MovieDTO>(movie);
         }
 
+        public async Task<IEnumerable<MovieDTO>> GetTopCommentedAsync()
+        {
+            var movies = await db.Movies.OrderByDescending(x => x.Comments.Count)
+                                        .Take(10).ToListAsync();
+
+            return mapper.Map<IEnumerable<MovieDTO>>(movies);
+        }
+
+        public async Task<IEnumerable<MovieDTO>> GetMostRecentPostsAsync()
+        {
+            var movies = await db.Movies.OrderByDescending(x => x.Posted)
+                                        .Take(10).ToListAsync();
+
+            return mapper.Map<IEnumerable<MovieDTO>>(movies);
+        }
+
         public async Task<MovieDTO> PostAsync(MovieDTO obj)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Username == obj.Username)
@@ -242,6 +258,26 @@ namespace MovieForum.Services
 
             return mapper.Map<MovieDTO>(movie);
         }
-    }
 
+        public async Task<MovieDTO> RateMovieAsync(int id, int userId, int rate)
+        {
+            var movie = await this.db.Movies.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false)
+                                            ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+
+            var user = await this.db.Users.FirstOrDefaultAsync(x => x.Id == userId)
+                             ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
+
+            movie.Rating.Add(new Rating
+            {
+                UserID = user.Id,
+                MovieId = movie.Id,
+                Rate = rate,
+                IsDeleted = false
+            });
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<MovieDTO>(movie);
+        }
+    }
 }

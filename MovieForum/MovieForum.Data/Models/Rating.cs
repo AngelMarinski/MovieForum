@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MovieForum.Data.Models
 {
-    public class Rating : IHasId
+    public class Rating : IHasId, IDeletable
     {
         public int Id { get; set; }
 
@@ -21,5 +21,9 @@ namespace MovieForum.Data.Models
 
         [Required]
         public int Rate { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedOn { get ; set; }
     }
 }

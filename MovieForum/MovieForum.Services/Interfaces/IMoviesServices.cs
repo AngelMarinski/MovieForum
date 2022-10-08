@@ -15,5 +15,8 @@ namespace MovieForum.Services.Interfaces
         Task<IEnumerable<MovieDTO>> FilterByAsync(MovieQueryParameters parameters);
         Task<MovieDTO> AddTagAsync(int movieId, string tagName);
         Task<MovieDTO> RemoveTagAsync(int movieId, string tagName);
+        Task<IEnumerable<MovieDTO>> GetTopCommentedAsync();
+        Task<IEnumerable<MovieDTO>> GetMostRecentPostsAsync();
+        Task<MovieDTO> RateMovieAsync(int id, int userId, int rate);
     }
 }

@@ -48,7 +48,7 @@ namespace MovieForum.Controllers
 
                 return this.Ok(movies);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }
@@ -68,6 +68,37 @@ namespace MovieForum.Controllers
                 return this.NotFound(ex.Message);
             }
         }
+
+        [HttpGet("topCommented")]
+        public async Task<IActionResult> GetTopCommentedAsync()
+        {
+            try
+            {
+                var movies = await this.moviesService.GetTopCommentedAsync();
+
+                return this.Ok(movies);
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("mostRecent")]
+        public async Task<IActionResult> GetMostRecentlyPostedAsync()
+        {
+            try
+            {
+                var movies = await this.moviesService.GetMostRecentPostsAsync();
+
+                return this.Ok(movies);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
 
         //connect post with user
         [HttpPost("create")]
@@ -169,5 +200,20 @@ namespace MovieForum.Controllers
             }
         }
 
+
+        [HttpPut("rate/movie/{id}")]
+        public async Task<IActionResult> RateMovieAsync(int id, [FromBody] RateMovieViewModel rate)
+        {
+            try
+            {
+                var movie = await this.moviesService.RateMovieAsync(id, rate.UserId, rate.Rate);
+
+                return this.Ok(movie);
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
     }
 }

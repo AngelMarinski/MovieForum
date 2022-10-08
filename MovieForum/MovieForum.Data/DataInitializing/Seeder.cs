@@ -281,15 +281,16 @@ namespace MovieForum.Data.DataInitializing
                     Id = 1,
                     UserID = 1,
                     MovieId = 2,
-                    Rate = 5
-                    
+                    Rate = 5,
+                    IsDeleted = false
                 },
                 new Rating
                 {
                     Id=2,
                     UserID = 2,
                     MovieId = 2,
-                    Rate = 7
+                    Rate = 7,
+                    IsDeleted = false
                 }
 
                 
