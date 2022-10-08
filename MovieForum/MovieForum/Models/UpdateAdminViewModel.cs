@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MovieForum.Services.Helpers;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,7 +19,7 @@ namespace MovieForum.Web.Models
         [MinLength(Constants.USER_PASSWORD_MIN_LENGTH)]
         public string Password { get; set; }
 
-        public string ImagePath { get; set; }
+        public IFormFile File { get; set; }
 
         [Phone]
         public string PhoneNumber { get; set; }

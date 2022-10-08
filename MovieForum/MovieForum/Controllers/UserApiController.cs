@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MovieForum.Data.Models;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Interfaces;
 using MovieForum.Web.Helpers;
 using MovieForum.Web.Models;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace MovieForum.Web.Controllers
@@ -15,10 +19,13 @@ namespace MovieForum.Web.Controllers
         private readonly IUserServices userService;
         private readonly IAuthHelper authHelper;
 
-        public UserApiController(IUserServices userService, IAuthHelper authHelper)
+        public IWebHostEnvironment hostingEnvironment;
+
+        public UserApiController(IUserServices userService, IAuthHelper authHelper, IWebHostEnvironment hostEnvironment)
         {
             this.userService = userService;
             this.authHelper = authHelper;
+            this.hostingEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -104,21 +111,28 @@ namespace MovieForum.Web.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("update/user/{id}")]
-        public async Task<IActionResult> UpdateUser(int id,[FromBody] UpdateUserViewModel user)
+        public async Task<IActionResult> UpdateUser(int id, [FromForm] UpdateUserViewModel user)
         {
             try
             {
+                var path = UploadPhoto(user.File);
+
                 var userDTO = new UpdateUserDTO
                 {
                     Password = user.Password,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Email = user.Email,
-                    ImagePath = user.ImagePath
+                    Email = user.Email
                 };
-                var newUser = await userService.UpdateAsync(id,userDTO);
+
+                if (path != null)
+                {
+                    userDTO.ImagePath = path;
+                }
+
+                var newUser = await userService.UpdateAsync(id, userDTO);
                 return this.Ok(newUser);
             }
             catch (Exception ex)
@@ -127,21 +141,28 @@ namespace MovieForum.Web.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("update/admin/{id}")]
-        public async Task<IActionResult> UpdateAdmin(int id, [FromBody] UpdateAdminViewModel user)
+        public async Task<IActionResult> UpdateAdmin(int id, [FromForm] UpdateAdminViewModel user)
         {
             try
             {
+                var path = UploadPhoto(user.File);
                 var userDTO = new UpdateUserDTO
                 {
                     Password = user.Password,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
-                    ImagePath = user.ImagePath,
                     PhoneNumber = user.PhoneNumber
                 };
+
+
+                if (path != null)
+                {
+                    userDTO.ImagePath = path;
+                }
+
                 var newUser = await userService.UpdateAsync(id, userDTO);
                 return this.Ok(newUser);
             }
@@ -166,6 +187,7 @@ namespace MovieForum.Web.Controllers
             }
         }
 
+       
         //Admin
         [HttpPut]
         [Route("block/{id}")]
@@ -195,6 +217,27 @@ namespace MovieForum.Web.Controllers
             {
                 return this.BadRequest(ex.Message);
             }
+        }
+
+        private string UploadPhoto(IFormFile file)
+        {
+            if (file == null)
+            {
+                return null;
+            }
+            FileInfo fi = new FileInfo(file.FileName);
+            var newFileName = "Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+            if (!Directory.Exists(hostingEnvironment.WebRootPath + "\\Images\\"))
+            {
+                Directory.CreateDirectory(hostingEnvironment.WebRootPath + "\\Images\\");
+            }
+            var path = Path.Combine("", hostingEnvironment.WebRootPath + "\\Images\\" + newFileName);
+            using (FileStream stream = System.IO.File.Create(path))
+            {
+                file.CopyTo(stream);
+                stream.Flush();
+            }
+            return path;
         }
     }
 
