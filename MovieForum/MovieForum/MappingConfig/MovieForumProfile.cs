@@ -32,7 +32,7 @@ namespace MovieForum.Web.MappingConfig
 
             this.CreateMap<Comment, CommentDTO>()
                .ForMember(dest => dest.AuthorUsername, act => act.MapFrom(src => src.Author.Username))
-               .ForMember(dest => dest.PostedOn, act => act.MapFrom(src => src.PostedOn.Value.ToString("dd/MM/yyyy HH:mm"))) 
+               .ForMember(dest => dest.PostedOn, act => act.MapFrom(src => src.PostedOn.Value.ToString())) 
                .ReverseMap();
 
             this.CreateMap<Movie, MovieDTO>()

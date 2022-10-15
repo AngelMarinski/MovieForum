@@ -81,15 +81,20 @@ namespace MovieForum.Services
                 Author = user,
                 Title = obj.Title,
                 Content = obj.Content,
-                ReleaseDate = obj.ReleaseDate,
+                ReleaseDate = (DateTime)obj.ReleaseDate,
                 Posted = DateTime.Now,
                 Genre = genre,
-                GenreId = genre.Id,
+                GenreId = (int)genre.Id,
                 IsDeleted = false,
             };
 
             var tags = mapper.Map<ICollection<MovieTags>>(obj.Tags);
             var cast = mapper.Map<ICollection<MovieActor>>(obj.Cast);
+
+            if(obj.ImagePath != null)
+            {
+                movie.ImagePath = obj.ImagePath;
+            }
 
             movie.Tags = tags;
             movie.Cast = cast;
@@ -118,9 +123,11 @@ namespace MovieForum.Services
             {
                 movie.Content = obj.Content;
             }
-            if(obj.Genre != null)
+            if(obj.GenreId != movie.GenreId && obj.GenreId != default(int))
             {
-                movie.Genre = obj.Genre;
+                var genre = await db.Genres.FirstOrDefaultAsync(x => x.Id == obj.GenreId)
+                     ?? throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
+                movie.Genre = genre;
             }
             if(obj.Tags != null)
             {
@@ -128,7 +135,11 @@ namespace MovieForum.Services
             }
             if(obj.ReleaseDate != null)
             {
-                movie.ReleaseDate = obj.ReleaseDate;
+                movie.ReleaseDate = (DateTime)obj.ReleaseDate;
+            }
+            if(obj.ImagePath != null)
+            {
+                movie.ImagePath = obj.ImagePath;
             }
          
 

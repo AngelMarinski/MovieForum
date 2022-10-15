@@ -32,5 +32,7 @@ namespace MovieForum.Services.DTOModels
         public ICollection<MovieTagsDTO> Tags { get; set; }
 
         public double Rating { get; set; }
+
+        public string ImagePath { get; set; }
     }
 }

@@ -9,6 +9,8 @@ using MovieForum.Web.Models;
 using MovieForum.Services.DTOModels;
 using MovieForum.Data.Models;
 using MovieForum.Services.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace MovieForum.Controllers
 {
@@ -17,10 +19,13 @@ namespace MovieForum.Controllers
     public class MoviesApiController : ControllerBase
     {
         private readonly IMoviesServices moviesService;
+        private static IWebHostEnvironment webHostEnvironment;
 
-        public MoviesApiController(IMoviesServices moviesServices)
+
+        public MoviesApiController(IMoviesServices moviesServices, IWebHostEnvironment _webHostEnvironment)
         {
             this.moviesService = moviesServices;
+            webHostEnvironment = _webHostEnvironment;
         }
 
 
@@ -102,10 +107,12 @@ namespace MovieForum.Controllers
 
         //connect post with user
         [HttpPost("create")]
-        public async Task<IActionResult> CreateMovieAsync([FromBody] CreateMovieView movie)
+        public async Task<IActionResult> CreateMovieAsync([FromForm] CreateMovieView movie)
         {
             try
             {
+                var path = this.UploadPhoto(movie.File);
+
                 var movieDto = new MovieDTO
                 {
                     AuthorId = movie.AuthorId,
@@ -119,6 +126,11 @@ namespace MovieForum.Controllers
                     Tags = movie.Tags
                 };
 
+                if (path != null)
+                {
+                    movieDto.ImagePath = path;
+                }
+
                 var post = await this.moviesService.PostAsync(movieDto);
 
                 return this.Ok(post);
@@ -130,19 +142,34 @@ namespace MovieForum.Controllers
         }
 
         [HttpPut("edit/{id}")]
-        public async Task<IActionResult> EditPostAsync(int id, [FromBody] UpdatePostViewModel post)
+        public async Task<IActionResult> EditPostAsync(int id, [FromForm] UpdatePostViewModel post)
         {
             try
             {
+                var path = this.UploadPhoto(post.File);
+
                 var movieDTO = new MovieDTO
                 {
                     Title = post.Title,
                     Content = post.Content,
-                    Genre = post.Genre,
                     Cast = post.Cast == null ? null : new List<MovieActorDTO>(post.Cast),
                     Tags = post.Tags == null ? null : new List<MovieTagsDTO>(post.Tags),
-                    ReleaseDate = post.ReleaseDate
                 };
+
+                if(post.GenreId != null)
+                {
+                    movieDTO.GenreId = (int)post.GenreId;
+                }
+
+                if(post.ReleaseDate != null)
+                {
+                    movieDTO.ReleaseDate = (DateTime)post.ReleaseDate;
+                }
+
+                if (path != null)
+                {
+                    movieDTO.ImagePath = path;
+                }
 
                 var movie = await this.moviesService.UpdateAsync(id, movieDTO);
 
@@ -214,6 +241,27 @@ namespace MovieForum.Controllers
             {
                 return this.BadRequest(ex.Message);
             }
+        }
+
+        private string UploadPhoto(IFormFile file)
+        {
+            if (file == null)
+            {
+                return null;
+            }
+            FileInfo fi = new FileInfo(file.FileName);
+            var newFileName = "Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+            if (!Directory.Exists(webHostEnvironment.WebRootPath + "\\Images\\"))
+            {
+                Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\Images\\");
+            }
+            var path = Path.Combine("", webHostEnvironment.WebRootPath + "\\Images\\" + newFileName);
+            using (FileStream stream = System.IO.File.Create(path))
+            {
+                file.CopyTo(stream);
+                stream.Flush();
+            }
+            return path;
         }
     }
 }
