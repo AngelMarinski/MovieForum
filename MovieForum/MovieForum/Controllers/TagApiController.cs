@@ -49,7 +49,7 @@ namespace MovieForum.Web.Controllers
             }
         }
 
-        [HttpGet("/tagView")]
+        [HttpGet("name")]
         public async Task<IActionResult> GetTagByName(string name)
         {
             try
@@ -63,8 +63,8 @@ namespace MovieForum.Web.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateTag(int tagId, TagView tagView)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTag(int id, TagView tagView)
         {
             var tagDTO = new TagDTO
             {
@@ -73,7 +73,7 @@ namespace MovieForum.Web.Controllers
 
             try
             {
-                var tagToUpdate = await tagService.UpdateAsync(tagId, tagDTO);
+                var tagToUpdate = await tagService.UpdateAsync(id, tagDTO);
                 return Ok(tagToUpdate);
             }
             catch (Exception ex)
@@ -101,7 +101,7 @@ namespace MovieForum.Web.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
 
         public async Task<IActionResult>DeleteTag(int id)
         {

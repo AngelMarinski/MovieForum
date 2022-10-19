@@ -34,7 +34,7 @@ namespace MovieForum.Web.Controllers
             catch (Exception ex)
             {
                 return NotFound(ex.Message);
-                
+
             }
 
         }
@@ -77,27 +77,12 @@ namespace MovieForum.Web.Controllers
             }
         }
 
-        [HttpPut("/dislike")]
-        public async Task<IActionResult> DisLikeComment(int commentId, int userId)
+        [HttpPut("{id}/dislike")]
+        public async Task<IActionResult> DisLikeComment(int id, int userId)
         {
             try
             {
-                var commentDTo = await comServ.DislikeCommentAsync(commentId, userId);
-
-                return Ok(commentDTo);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);                
-            }
-        }
-
-        [HttpPut("/like")]
-        public async Task<IActionResult> LikeComment(int commentId, int userId)
-        {
-            try
-            {
-                var commentDTo = await comServ.LikeCommentAsync(commentId, userId);
+                var commentDTo = await comServ.DislikeCommentAsync(id, userId);
 
                 return Ok(commentDTo);
             }
@@ -107,8 +92,23 @@ namespace MovieForum.Web.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateComment(int id, [FromBody]UpdateCommentView obj)
+        [HttpPut("{id}/like")]
+        public async Task<IActionResult> LikeComment(int id, int userId)
+        {
+            try
+            {
+                var commentDTo = await comServ.LikeCommentAsync(id, userId);
+
+                return Ok(commentDTo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateComment(int id, [FromBody] UpdateCommentView obj)
         {
             var commentDTO = new CommentDTO
             {
@@ -117,19 +117,19 @@ namespace MovieForum.Web.Controllers
 
             try
             {
-                var  result = await comServ.UpdateAsync(id, commentDTO);
+                var result = await comServ.UpdateAsync(id, commentDTO);
                 return Ok(result);
             }
             catch (Exception ex)
             {
                 return NotFound(ex.Message);
-                
+
             }
 
-            
+
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment (int id)
         {
             try
