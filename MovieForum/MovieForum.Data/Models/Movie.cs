@@ -49,5 +49,7 @@ namespace MovieForum.Models
 
         public DateTime? DeletedOn { get; set; }
 
+
+        public string ImagePath { get; set; }
     }
 }

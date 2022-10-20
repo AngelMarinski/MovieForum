@@ -3,15 +3,21 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieForum.Data;
 
 namespace MovieForum.Data.Migrations
 {
     [DbContext(typeof(MovieForumContext))]
-    partial class MovieForumContextModelSnapshot : ModelSnapshot
+<<<<<<<< HEAD:MovieForum/MovieForum.Data/Migrations/20221013153414_Init.Designer.cs
+    [Migration("20221013153414_Init")]
+========
+    [Migration("20221013141627_Init")]
+>>>>>>>> main:MovieForum/MovieForum.Data/Migrations/20221013141627_Init.Designer.cs
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,7 +123,11 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
+<<<<<<<< HEAD:MovieForum/MovieForum.Data/Migrations/20221013153414_Init.Designer.cs
+                            PostedOn = new DateTime(2022, 10, 13, 18, 34, 12, 864, DateTimeKind.Local).AddTicks(408)
+========
                             PostedOn = new DateTime(2022, 10, 13, 17, 16, 25, 899, DateTimeKind.Local).AddTicks(5467)
+>>>>>>>> main:MovieForum/MovieForum.Data/Migrations/20221013141627_Init.Designer.cs
                         },
                         new
                         {
@@ -128,7 +138,11 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
+<<<<<<<< HEAD:MovieForum/MovieForum.Data/Migrations/20221013153414_Init.Designer.cs
+                            PostedOn = new DateTime(2022, 10, 13, 18, 34, 12, 866, DateTimeKind.Local).AddTicks(8942)
+========
                             PostedOn = new DateTime(2022, 10, 13, 17, 16, 25, 904, DateTimeKind.Local).AddTicks(9517)
+>>>>>>>> main:MovieForum/MovieForum.Data/Migrations/20221013141627_Init.Designer.cs
                         });
                 });
 
@@ -501,7 +515,11 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Marinski",
+<<<<<<<< HEAD:MovieForum/MovieForum.Data/Migrations/20221013153414_Init.Designer.cs
+                            Password = "AQAAAAEAACcQAAAAEDu743RutvIUUxWJJZFYBsqbmdwXoRceF3S1zwRMpnlj+HhDAfmUrgvLCfpeV/llzQ==",
+========
                             Password = "AQAAAAEAACcQAAAAEEYEpXN3uJPGY+IIBQShXYSHqv/DEe3CYvNemyI1npfQprSwLcrEn1iTLxNJcHx6Vg==",
+>>>>>>>> main:MovieForum/MovieForum.Data/Migrations/20221013141627_Init.Designer.cs
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -513,7 +531,11 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "TheBoss",
+<<<<<<<< HEAD:MovieForum/MovieForum.Data/Migrations/20221013153414_Init.Designer.cs
+                            Password = "AQAAAAEAACcQAAAAEArK7HGU0TWcDKBq0vdJyRyYPazwiN9kkz2RKJ4QV3iA+7NN51lBrVr4Bh76b0w62w==",
+========
                             Password = "AQAAAAEAACcQAAAAEALE4/B3mkWNiT/O9ekJrPiv1c+0S5XHXDvLlOydlMrc/CAV8Y2SbM64KKqqdE2WXQ==",
+>>>>>>>> main:MovieForum/MovieForum.Data/Migrations/20221013141627_Init.Designer.cs
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -525,7 +547,11 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Berov",
+<<<<<<<< HEAD:MovieForum/MovieForum.Data/Migrations/20221013153414_Init.Designer.cs
+                            Password = "AQAAAAEAACcQAAAAEBceRNcrLbZ4IdKfIJGm/vm92eqUmw5E2e9lv9me2dzmPHQJFKBP9BzGHRj3WKmLSA==",
+========
                             Password = "AQAAAAEAACcQAAAAEHORC97qP4TYsRwgDbHWmgGf9L/GpkeMTWlYQXc0FelmKsrdRfecGkGKugzd0wp09g==",
+>>>>>>>> main:MovieForum/MovieForum.Data/Migrations/20221013141627_Init.Designer.cs
                             RoleId = 1,
                             Username = "Rado561"
                         });
@@ -591,7 +617,11 @@ namespace MovieForum.Data.Migrations
                             GenreId = 5,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+<<<<<<<< HEAD:MovieForum/MovieForum.Data/Migrations/20221013153414_Init.Designer.cs
+                            ReleaseDate = new DateTime(2022, 10, 13, 18, 34, 12, 867, DateTimeKind.Local).AddTicks(3008),
+========
                             ReleaseDate = new DateTime(2022, 10, 13, 17, 16, 25, 905, DateTimeKind.Local).AddTicks(6726),
+>>>>>>>> main:MovieForum/MovieForum.Data/Migrations/20221013141627_Init.Designer.cs
                             Title = "Top Gun the new one"
                         },
                         new
@@ -602,7 +632,11 @@ namespace MovieForum.Data.Migrations
                             GenreId = 13,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+<<<<<<<< HEAD:MovieForum/MovieForum.Data/Migrations/20221013153414_Init.Designer.cs
+                            ReleaseDate = new DateTime(2022, 10, 13, 18, 34, 12, 867, DateTimeKind.Local).AddTicks(3471),
+========
                             ReleaseDate = new DateTime(2022, 10, 13, 17, 16, 25, 905, DateTimeKind.Local).AddTicks(7653),
+>>>>>>>> main:MovieForum/MovieForum.Data/Migrations/20221013141627_Init.Designer.cs
                             Title = "Spiderman: Far From Home"
                         });
                 });

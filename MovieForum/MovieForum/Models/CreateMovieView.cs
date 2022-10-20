@@ -1,4 +1,5 @@
-﻿using MovieForum.Data.Models;
+﻿using Microsoft.AspNetCore.Http;
+using MovieForum.Data.Models;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Helpers;
 using System;
@@ -28,5 +29,7 @@ namespace MovieForum.Web.Models
         public ICollection<MovieActorDTO> Cast { get; set; }
 
         public ICollection<MovieTagsDTO> Tags { get; set; }
+
+        public IFormFile File { get; set; }
     }
 }
