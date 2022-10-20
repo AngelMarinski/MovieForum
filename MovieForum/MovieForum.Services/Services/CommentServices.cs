@@ -213,5 +213,10 @@ namespace MovieForum.Services.Services
 
             return map.Map<CommentDTO>(commentToUpdate);
         }
+
+        public int CountComments()
+        {
+            return data.Comments.Count();            
+        }
     }
 }

@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieForum.Tests
+namespace MovieForum.Tests.UserServiceTests
 {
     [TestClass]
-    public class UserServiceTests
+    public class GetUserAsync
     {
     }
 }

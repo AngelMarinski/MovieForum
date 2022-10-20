@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieForum.Tests
+namespace MovieForum.Tests.TagServiceTests
 {
     [TestClass]
-    public class MovieServiceTests
+    public class GetTagAsync
     {
     }
 }
