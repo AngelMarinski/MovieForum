@@ -1,4 +1,4 @@
-namespace WebApplication1.Models
+namespace MovieForum.Web.Models
 {
     public class ErrorViewModel
     {

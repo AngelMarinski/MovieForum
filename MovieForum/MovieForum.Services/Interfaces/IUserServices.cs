@@ -22,6 +22,7 @@ namespace MovieForum.Services.Interfaces
         Task<UserDTO> GetUserByUsernameAsync(string username);
         Task<UserDTO> GetUserByIdAsync(int id);
         Task<bool> IsExistingAsync(string email);
+        Task<bool> IsExistingUsernameAsync(string username);
         Task BlockUser(int id);
         Task UnblockUser(int id);
         int UserCount();
