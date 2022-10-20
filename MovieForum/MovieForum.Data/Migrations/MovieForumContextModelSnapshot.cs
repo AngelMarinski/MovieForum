@@ -117,7 +117,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 10, 13, 17, 16, 25, 899, DateTimeKind.Local).AddTicks(5467)
+                            PostedOn = new DateTime(2022, 10, 20, 12, 49, 50, 690, DateTimeKind.Local).AddTicks(8484)
                         },
                         new
                         {
@@ -128,7 +128,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 10, 13, 17, 16, 25, 904, DateTimeKind.Local).AddTicks(9517)
+                            PostedOn = new DateTime(2022, 10, 20, 12, 49, 50, 694, DateTimeKind.Local).AddTicks(270)
                         });
                 });
 
@@ -501,7 +501,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAEEYEpXN3uJPGY+IIBQShXYSHqv/DEe3CYvNemyI1npfQprSwLcrEn1iTLxNJcHx6Vg==",
+                            Password = "AQAAAAEAACcQAAAAENiTwq/2kcK7Ud3osr9LeFythPSWqVcyqUcITJeK2NJwlXRnPAjFrazhOsoTPy3ngw==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -513,7 +513,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAEALE4/B3mkWNiT/O9ekJrPiv1c+0S5XHXDvLlOydlMrc/CAV8Y2SbM64KKqqdE2WXQ==",
+                            Password = "AQAAAAEAACcQAAAAEKKu9eKeoe1yU31gY9eD/I5s+2kl/p4dXp8r0VzW4uX9oSnmT2qpCmiTT0tgEr2kog==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -525,7 +525,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAEHORC97qP4TYsRwgDbHWmgGf9L/GpkeMTWlYQXc0FelmKsrdRfecGkGKugzd0wp09g==",
+                            Password = "AQAAAAEAACcQAAAAEE7caf3YSlZ5mmizuTGADz01z0joAdOivjbvKtmlP9SInk0CTThgwtx7O8vUNO4bCA==",
                             RoleId = 1,
                             Username = "Rado561"
                         });
@@ -591,7 +591,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 5,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 10, 13, 17, 16, 25, 905, DateTimeKind.Local).AddTicks(6726),
+                            ReleaseDate = new DateTime(2022, 10, 20, 12, 49, 50, 694, DateTimeKind.Local).AddTicks(5484),
                             Title = "Top Gun the new one"
                         },
                         new
@@ -602,7 +602,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 13,
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 10, 13, 17, 16, 25, 905, DateTimeKind.Local).AddTicks(7653),
+                            ReleaseDate = new DateTime(2022, 10, 20, 12, 49, 50, 694, DateTimeKind.Local).AddTicks(5910),
                             Title = "Spiderman: Far From Home"
                         });
                 });
