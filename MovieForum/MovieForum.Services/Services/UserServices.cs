@@ -55,6 +55,11 @@ namespace MovieForum.Services.Services
             return await db.Users.AnyAsync(x => x.Email == email && x.IsDeleted == false);
         }
 
+        public async Task<bool> IsExistingUsernameAsync(string username)
+        {
+            return await db.Users.AnyAsync(x => x.Username == username && x.IsDeleted == false);
+        }
+
         public async Task<UserDTO> GetUserByUsernameAsync(string username)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
@@ -143,7 +148,7 @@ namespace MovieForum.Services.Services
                 throw new Exception("Email already taken");
             }
 
-            if (await IsExistingAsync(obj.Username))
+            if (await IsExistingUsernameAsync(obj.Username))
             {
                 throw new Exception("Username already taken");
             }

@@ -42,7 +42,6 @@ namespace MovieForum.Models
 
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-        [Required]
         public virtual ICollection<Rating> Rating { get; set; } = new List<Rating>();
 
         [Required]
