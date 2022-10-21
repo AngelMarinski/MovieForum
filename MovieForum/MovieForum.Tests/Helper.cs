@@ -46,7 +46,21 @@ namespace MovieForum.Tests
                       Email = "morefakeemails@gmail.com",
                       RoleId = 1,
                       IsDeleted = false
-                  }
+                  },
+
+                   new User
+                    {
+                        Id = 4,
+                        Username = "BlockedUser",
+                        FirstName = "Block",
+                        LastName = "User",
+                        Password = "12345678",
+                        Email = "fakeeemail@gmail.com",
+                        RoleId = 2,
+                        IsDeleted = false,
+                        IsBlocked = true
+                        
+                    },
                 };
             }
         }

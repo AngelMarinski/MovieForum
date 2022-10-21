@@ -32,12 +32,6 @@ namespace MovieForum.Services.Services
 
             var commentDto = map.Map<CommentDTO>(comment);
 
-            //var user = await data.Users.FirstOrDefaultAsync(x=>x.Id == comment.AuthorId);
-            //user.Comments.Remove(comment);
-
-            //var movie = await data.Movies.FirstOrDefaultAsync(x => x.Id == comment.MovieId);
-            //movie.Comments.Remove(comment);
-
             comment.DeletedOn = DateTime.Now;
             comment.IsDeleted = true;
 
@@ -173,6 +167,11 @@ namespace MovieForum.Services.Services
                 throw new NullReferenceException("All of the fileds are required!");
             }
 
+            if(obj.Content.Length > Constants.COMMENT_CONTENT_MAX_LENGTH || obj.Content.Length < Constants.COMMENT_CONTENT_MIN_LENGTH)
+            {
+                throw new InvalidOperationException($"Comment length must be between {Constants.COMMENT_CONTENT_MIN_LENGTH} and {Constants.COMMENT_CONTENT_MAX_LENGTH} characters!");
+            }
+
             obj.AuthorUsername = author.Username;
 
             var comment = new Comment
@@ -203,7 +202,11 @@ namespace MovieForum.Services.Services
             var commentToUpdate = await data.Comments.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false)
                 ?? throw new InvalidOperationException(Constants.COMMENT_NOT_FOUND);
 
-                       
+            if (obj.Content.Length > Constants.COMMENT_CONTENT_MAX_LENGTH || obj.Content.Length < Constants.COMMENT_CONTENT_MIN_LENGTH)
+            {
+                throw new InvalidOperationException($"Comment length must be between {Constants.COMMENT_CONTENT_MIN_LENGTH} and {Constants.COMMENT_CONTENT_MAX_LENGTH} characters!");
+            }
+
             if (obj.Content != null)
             {
                 commentToUpdate.Content = obj.Content + " (Edited)";
