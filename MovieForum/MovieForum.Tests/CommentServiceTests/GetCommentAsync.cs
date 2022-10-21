@@ -73,7 +73,7 @@ namespace MovieForum.Tests.CommentServiceTests
             await context.SaveChangesAsync();
 
             var service = new CommentServices(context, _mapper);
-            var result = await service.GetCommentByIdAsync(6);
+            await service.GetCommentByIdAsync(6);
 
         }
 
@@ -97,7 +97,7 @@ namespace MovieForum.Tests.CommentServiceTests
 
             var service = new CommentServices(context, _mapper);
 
-            var result = await service.GetAsync();
+            await service.GetAsync();
         }
 
 

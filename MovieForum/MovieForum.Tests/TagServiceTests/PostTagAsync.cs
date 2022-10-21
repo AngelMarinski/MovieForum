@@ -2,22 +2,22 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MovieForum.Data;
+using MovieForum.Services.DTOModels;
 using MovieForum.Services.Services;
 using MovieForum.Web.MappingConfig;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MovieForum.Tests.TagServiceTests
 {
     [TestClass]
-    public class GetTagAsync
+    public class PostTagAsync
     {
         private static IMapper _mapper;
         private MovieForumContext context;
-        public GetTagAsync()
+        public PostTagAsync()
         {
             if (_mapper == null)
             {
@@ -39,73 +39,110 @@ namespace MovieForum.Tests.TagServiceTests
 
             MovieForumContext movieForumContext = new MovieForumContext(options);
             context = movieForumContext;
-
         }
 
         [TestMethod]
-        public async Task Should_GetTag_When_CorrectIdIsPassed()
+        public async Task Should_PostTag_When_CorrectDataIsPassed()
         {
             await context.AddRangeAsync(Helper.Tags);
             await context.SaveChangesAsync();
 
-            var exp = Helper.Tags.FirstOrDefault(x => x.Id == 1); 
-
             var service = new TagServices(context, _mapper);
 
-            var res = await service.GetTagByIdAsync(1);
+            var tagDTO = new TagDTO
+            {
+                TagName = "horror"
+            };
 
-            Assert.AreEqual(exp.TagName, res.TagName);
-            Assert.AreEqual(exp.Id, res.Id);
+            await service.PostAsync(tagDTO);
+
+            var checkCount = (ICollection<TagDTO>)await service.GetAsync();
+
+            Assert.AreEqual(3, checkCount.Count);
+
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public async Task Should_Throw_When_IncorrectIdIsPassed()
-        {
-            await context.AddRangeAsync(Helper.Tags);
-            await context.SaveChangesAsync();
-                     
-            var service = new TagServices(context, _mapper);
-
-            await service.GetTagByIdAsync(-1);
-        }
-
-        [TestMethod]
-        public async Task Should_GetAllTags()
+        public async Task Should_Throw_When_NullTagIsPassed()
         {
             await context.AddRangeAsync(Helper.Tags);
             await context.SaveChangesAsync();
 
             var service = new TagServices(context, _mapper);
 
-            var res = await service.GetAsync();
+            TagDTO? tagDTO = null;
 
-            Assert.AreEqual(2, res.Count());
+            await service.PostAsync(tagDTO);
+
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public async Task Should_Throw_When_ThereIsNoTags()
-        {
-            var service = new TagServices(context, _mapper);
-
-            await service.GetAsync();
-        }
-
-        [TestMethod]
-        public async Task Should_GetTag_When_CorrectNameIsPassed()
+        public async Task Should_Throw_When_NullTagNameIsPassed()
         {
             await context.AddRangeAsync(Helper.Tags);
             await context.SaveChangesAsync();
 
-            var exp = Helper.Tags.FirstOrDefault(x => x.Id == 1);
+            var service = new TagServices(context, _mapper);
+
+            var tagDTO = new TagDTO
+            {
+                
+            };
+
+            await service.PostAsync(tagDTO);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public async Task Should_Throw_When_TagAlreadyExists()
+        {
+            await context.AddRangeAsync(Helper.Tags);
+            await context.SaveChangesAsync();
 
             var service = new TagServices(context, _mapper);
 
-            var res = await service.GetTagByNameAsync("drama");
+            var tagDTO = new TagDTO
+            {
+                TagName = "drama"
+            };
 
-            Assert.AreEqual(exp.TagName, res.TagName);
-            Assert.AreEqual(exp.Id, res.Id);
+            await service.PostAsync(tagDTO);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public async Task Should_Throw_When_ShortTagNameIsPassed()
+        {
+            await context.AddRangeAsync(Helper.Tags);
+            await context.SaveChangesAsync();
+
+            var service = new TagServices(context, _mapper);
+
+            var tagDTO = new TagDTO
+            {
+                TagName = "a"
+            };
+
+            await service.PostAsync(tagDTO);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public async Task Should_Throw_When_LongTagNameIsPassed()
+        {
+            await context.AddRangeAsync(Helper.Tags);
+            await context.SaveChangesAsync();
+
+            var service = new TagServices(context, _mapper);
+
+            var tagDTO = new TagDTO
+            {
+                TagName = new string('a',21)
+            };
+
+            await service.PostAsync(tagDTO);
         }
     }
 }

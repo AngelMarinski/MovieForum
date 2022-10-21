@@ -50,38 +50,7 @@ namespace MovieForum.Services.Services
                 throw new InvalidOperationException(Constants.NO_TAGS_FOUND);
 
             return map.Map<TagDTO>(tag);
-        }
-
-        //public async Task<string> DeleteTagFromMovieAsync(int movieId, int tagId)
-        //{
-        //    var movie = await data.Movies.FirstOrDefaultAsync(x => x.Id == movieId && x.IsDeleted == false) ??
-        //        throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
-
-        //    var tag = await data.MoviesTags.FirstOrDefaultAsync(x => x.TagId == tagId) ??
-        //        throw new InvalidOperationException(Constants.NO_TAGS_FOUND);
-
-        //    var tagToDel = await data.Tags.FirstOrDefaultAsync(x => x.Id == tagId);
-        //    tagToDel.IsDeleted = true;
-        //    tagToDel.DeletedOn = DateTime.Now;
-
-        //    return Constants.DELETED_TAG;
-           
-        //}
-        //public async Task<string> DeleteAsync(int movieId, string tagName)
-        //{
-        //    var movie = await data.Movies.FirstOrDefaultAsync(x => x.Id == movieId && x.IsDeleted == false) ??
-        //        throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
-
-        //    var tag = await data.MoviesTags.FirstOrDefaultAsync(x => x.Tag.TagName == tagName) ??
-        //        throw new InvalidOperationException(Constants.NO_TAGS_FOUND);
-
-        //    var tagToDel = await data.Tags.FirstOrDefaultAsync(x => x.TagName == tagName);
-        //    tagToDel.IsDeleted = true;
-        //    tagToDel.DeletedOn = DateTime.Now;
-
-        //    return Constants.DELETED_TAG;
-
-        //}
+        }       
 
         public async Task<TagDTO> PostAsync(TagDTO obj)
         {
@@ -90,6 +59,16 @@ namespace MovieForum.Services.Services
             if (tag != null)
             {
                 throw new InvalidOperationException("This tag already exists!");
+            }
+
+            if (obj.TagName == null)
+            {
+                throw new InvalidOperationException("Tag name can not be empty!");
+            }
+
+            if (obj.TagName.Length > Constants.TAG_NAME_MAX_LENGTH || obj.TagName.Length < Constants.TAG_NAME_MIN_LENGTH)
+            {
+                throw new InvalidOperationException($"Tag name length must be between {Constants.TAG_NAME_MIN_LENGTH} and {Constants.TAG_NAME_MAX_LENGTH} characters!");
             }
 
             var newTag = new Tag
@@ -111,6 +90,10 @@ namespace MovieForum.Services.Services
 
             if (obj.TagName!=null)
             {
+                if (obj.TagName.Length > Constants.TAG_NAME_MAX_LENGTH || obj.TagName.Length < Constants.TAG_NAME_MIN_LENGTH)
+                {
+                    throw new InvalidOperationException($"Tag name length must be between {Constants.TAG_NAME_MIN_LENGTH} and {Constants.TAG_NAME_MAX_LENGTH} characters!");
+                }
                 tag.TagName = obj.TagName;
             }
             else

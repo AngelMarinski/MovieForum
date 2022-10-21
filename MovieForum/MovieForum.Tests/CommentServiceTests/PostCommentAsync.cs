@@ -90,8 +90,7 @@ namespace MovieForum.Tests.CommentServiceTests
 
             var service = new CommentServices(context, _mapper);
 
-            var res = await service.PostAsync(commentDTO);
-            await context.SaveChangesAsync();
+            await service.PostAsync(commentDTO);
             
         }
 
@@ -113,8 +112,7 @@ namespace MovieForum.Tests.CommentServiceTests
 
             var service = new CommentServices(context, _mapper);
 
-            var res = await service.PostAsync(commentDTO);
-            await context.SaveChangesAsync();
+            await service.PostAsync(commentDTO);
         }
 
         [TestMethod]
@@ -135,8 +133,7 @@ namespace MovieForum.Tests.CommentServiceTests
 
             var service = new CommentServices(context, _mapper);
 
-            var res = await service.PostAsync(commentDTO);
-            await context.SaveChangesAsync();
+            await service.PostAsync(commentDTO);
 
         }
 
@@ -158,8 +155,7 @@ namespace MovieForum.Tests.CommentServiceTests
 
             var service = new CommentServices(context, _mapper);
 
-            var res = await service.PostAsync(commentDTO);
-            await context.SaveChangesAsync();
+            await service.PostAsync(commentDTO);
 
         }
 
@@ -180,8 +176,7 @@ namespace MovieForum.Tests.CommentServiceTests
 
             var service = new CommentServices(context, _mapper);
 
-            var res = await service.PostAsync(commentDTO);
-            await context.SaveChangesAsync();
+            await service.PostAsync(commentDTO);
 
         }
 
@@ -202,8 +197,7 @@ namespace MovieForum.Tests.CommentServiceTests
 
             var service = new CommentServices(context, _mapper);
 
-            var res = await service.PostAsync(commentDTO);
-            await context.SaveChangesAsync();
+            await service.PostAsync(commentDTO);
 
         }
 
@@ -224,8 +218,7 @@ namespace MovieForum.Tests.CommentServiceTests
 
             var service = new CommentServices(context, _mapper);
 
-            var res = await service.PostAsync(commentDTO);
-            await context.SaveChangesAsync();
+            await service.PostAsync(commentDTO);
 
         }
 
@@ -247,8 +240,7 @@ namespace MovieForum.Tests.CommentServiceTests
 
             var service = new CommentServices(context, _mapper);
 
-            var res = await service.PostAsync(commentDTO);
-            await context.SaveChangesAsync();
+            await service.PostAsync(commentDTO);
 
         }
     }
