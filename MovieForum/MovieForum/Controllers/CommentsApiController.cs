@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieForum.Services.DTOModels;
@@ -38,8 +39,9 @@ namespace MovieForum.Web.Controllers
             }
 
         }
-
+        
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetCommentByIdAsync(int id)
         {
             try

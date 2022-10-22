@@ -19,6 +19,13 @@ namespace MovieForum.Services.Helpers
         public const int USER_USERNAME_MIN_LENGTH = 4;
         public const int USER_PASSWORD_MIN_LENGTH = 8;
 
+        public const int COMMENT_CONTENT_MIN_LENGTH = 10;
+        public const int COMMENT_CONTENT_MAX_LENGTH = 2000;
+
+        public const int TAG_NAME_MIN_LENGTH = 2;
+        public const int TAG_NAME_MAX_LENGTH = 20;
+
+
         //Messages
         public const string MOVIE_NOT_FOUND = "Movie not found!";
         public const string GENRE_NOT_FOUND = "Genre not found!";
