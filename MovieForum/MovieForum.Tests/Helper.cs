@@ -103,67 +103,80 @@ namespace MovieForum.Tests
                     new Genre
                     {
                         Id = 1,
-                        Name = "Comedy"
+                        Name = "Comedy",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 2,
-                        Name = "Sci-Fi"
+                        Name = "Sci-Fi",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 3,
-                        Name = "Horror"
+                        Name = "Horror",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 4,
-                        Name = "Romance"
+                        Name = "Romance",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 5,
-                        Name = "Action"
+                        Name = "Action",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 6,
-                        Name = "Thriller"
+                        Name = "Thriller",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 7,
-                        Name = "Drama"
+                        Name = "Drama",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 8,
-                        Name = "Mystery"
+                        Name = "Mystery",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 9,
-                        Name = "Crime"
+                        Name = "Crime",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 10,
-                        Name = "Animation"
+                        Name = "Animation",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 11,
-                        Name = "Adventure"
+                        Name = "Adventure",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 12,
-                        Name = "Fantasy"
+                        Name = "Fantasy",
+                        IsDeleted = false
                     },
                     new Genre
                     {
                         Id = 13,
-                        Name = "Superhero"
+                        Name = "Superhero",
+                        IsDeleted = false
                     }
                 };
             }
@@ -203,6 +216,7 @@ namespace MovieForum.Tests
                          Content = "On of my favourite movies of all time",
                          GenreId = 5,
                          ReleaseDate = DateTime.Now,
+                         Posted = DateTime.Today.AddDays(-1),
                      },
                      new Movie
                      {
@@ -212,8 +226,7 @@ namespace MovieForum.Tests
                          Content = "The bes spiderman movie so far, I love Tom Holand",
                          GenreId = 13,
                          ReleaseDate = DateTime.Now,
-
-
+                         Posted = DateTime.Today,
                      }
                 };               
             }
@@ -237,6 +250,13 @@ namespace MovieForum.Tests
                         TagName = "action",
 
                         IsDeleted = false
+                    },
+                    new Tag
+                    {
+                        Id = 3,
+                        TagName = "anime",
+
+                        IsDeleted = true
                     }
                 };
             }
@@ -332,6 +352,22 @@ namespace MovieForum.Tests
                         UserID = 2,
                         MovieId = 2,
                         Rate = 7,
+                        IsDeleted = false
+                    },
+                    new Rating
+                    {
+                        Id=3,
+                        UserID = 2,
+                        MovieId = 1,
+                        Rate = 7,
+                        IsDeleted = false
+                    }
+                    ,new Rating
+                    {
+                        Id=4,
+                        UserID = 1,
+                        MovieId = 1,
+                        Rate = 10,
                         IsDeleted = false
                     }
                 };

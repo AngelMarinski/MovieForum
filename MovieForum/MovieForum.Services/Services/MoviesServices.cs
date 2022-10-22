@@ -19,13 +19,11 @@ namespace MovieForum.Services
     {
         private readonly MovieForumContext db;
         private readonly IMapper mapper;
-        private readonly ITagServices tag;
 
-        public MoviesServices(MovieForumContext db, IMapper mapper, ITagServices tag)
+        public MoviesServices(MovieForumContext db, IMapper mapper)
         {
             this.db = db;
             this.mapper = mapper;
-            this.tag = tag;
         }
 
         public async Task<IEnumerable<MovieDTO>> GetAsync()
@@ -179,7 +177,8 @@ namespace MovieForum.Services
 
             if (!string.IsNullOrEmpty(parameters.Username))
             {
-                result = result.FindAll(x => x.Username.Contains(parameters.Username)).ToList();
+                result = result.FindAll(x => !string.IsNullOrEmpty(x.Username) 
+                        && x.Username.Contains(parameters.Username)).ToList();
             }
 
             if (!string.IsNullOrEmpty(parameters.SortBy))
