@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Interfaces;
 using MovieForum.Web.Models;
 using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MovieForum.Web.Controllers
@@ -14,23 +18,26 @@ namespace MovieForum.Web.Controllers
 
         private readonly IUserServices userService;
 
-        public UserController( IUserServices userService)
+        public IWebHostEnvironment hostingEnvironment;
+
+        public UserController( IUserServices userService, IWebHostEnvironment hostingEnvironment)
         {
             this.userService = userService;
+            this.hostingEnvironment = hostingEnvironment;
         }
         [HttpGet]
         public  async Task<IActionResult> Update()
         {
             var user = await userService.GetUserByEmailAsync(this.User.Identity.Name);
 
-            var update= new UpdateUserViewModel
+            var update = new UpdateUserViewModel
             {
                 Password = user.Password,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email
+                Email = user.Email,
+                ImagePath = user.ImagePath.Split("Images\\").Last()
             };
-
             return this.View(update);
         }
 
@@ -58,10 +65,9 @@ namespace MovieForum.Web.Controllers
                 userDTO.FirstName = model.FirstName ?? user.FirstName;
                 userDTO.LastName = model.LastName ?? user.LastName;
                 userDTO.Email = model.Email ?? user.Email;
-
-                if (model.File != null)
+                if(model.File!= null)
                 {
-                    userDTO.ImagePath = model.File.FileName;
+                    userDTO.ImagePath = UploadPhoto(model.File);
                 }
                 if (model.PhoneNumber != null)
                 {
@@ -78,6 +84,28 @@ namespace MovieForum.Web.Controllers
 
 
             return this.RedirectToAction("Index", "Home");
-        }       
+        }
+
+
+        private string UploadPhoto(IFormFile file)
+        {
+            if (file == null)
+            {
+                return null;
+            }
+            FileInfo fi = new FileInfo(file.FileName);
+            var newFileName = "Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+            if (!Directory.Exists(hostingEnvironment.WebRootPath + "\\Images\\"))
+            {
+                Directory.CreateDirectory(hostingEnvironment.WebRootPath + "\\Images\\");
+            }
+            var path = Path.Combine("", hostingEnvironment.WebRootPath + "\\Images\\" + newFileName);
+            using (FileStream stream = System.IO.File.Create(path))
+            {
+                file.CopyTo(stream);
+                stream.Flush();
+            }
+            return path;
+        }
     }
 }

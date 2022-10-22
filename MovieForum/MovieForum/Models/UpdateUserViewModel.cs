@@ -16,11 +16,12 @@ namespace MovieForum.Web.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        [MinLength(Constants.USER_PASSWORD_MIN_LENGTH)]
-
         [Phone]
         public string PhoneNumber { get; set; }
+
+        [MinLength(Constants.USER_PASSWORD_MIN_LENGTH)]
         public string Password { get; set; }
         public IFormFile File { get; set; }
+        public string ImagePath { get; set; }
     }
 }
