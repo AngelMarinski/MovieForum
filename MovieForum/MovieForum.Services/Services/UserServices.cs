@@ -181,16 +181,7 @@ namespace MovieForum.Services.Services
             var userToUpdate = await GetUserAsync(id);
 
             var isEmailValid = Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
-
-            if (obj == null ||
-                (obj.FirstName.Length < Constants.USER_FIRSTNAME_MIN_LENGTH || obj.FirstName.Length > Constants.USER_FIRSTNAME_MAX_LENGTH) ||
-                (obj.LastName.Length < Constants.USER_LASTNAME_MIN_LENGTH || obj.LastName.Length > Constants.USER_LASTNAME_MAX_LENGTH) ||
-                obj.Password.Length < Constants.USER_PASSWORD_MIN_LENGTH ||
-                !isEmailValid)
-            {
-                throw new Exception(Constants.INVALID_DATA);
-            }
-
+           
             if (obj.Email != userToUpdate.Email)
             {
                 if (await IsExistingAsync(obj.Email))
@@ -199,18 +190,28 @@ namespace MovieForum.Services.Services
                 }
             }
 
-            if(obj.Password != userToUpdate.Password)
+            if(obj.Password != userToUpdate.Password && (obj.Password.Length >= Constants.USER_PASSWORD_MIN_LENGTH))
             {
                 var passHasher = new PasswordHasher<User>();
                 userToUpdate.Password = passHasher.HashPassword(userToUpdate, obj.Password);
             }
 
             
-            userToUpdate.FirstName = obj.FirstName;
-            userToUpdate.LastName = obj.LastName;
-            userToUpdate.Email = obj.Email;
-            userToUpdate.ImagePath = obj.ImagePath;
-           
+            if (obj.FirstName != null && (obj.FirstName.Length >= Constants.USER_FIRSTNAME_MIN_LENGTH && obj.FirstName.Length <= Constants.USER_FIRSTNAME_MAX_LENGTH)) {
+                userToUpdate.FirstName = obj.FirstName;
+            }
+
+            if (obj.LastName != null && (obj.LastName.Length >= Constants.USER_LASTNAME_MIN_LENGTH && obj.LastName.Length <= Constants.USER_LASTNAME_MAX_LENGTH))
+            {
+                userToUpdate.LastName = obj.LastName;
+            }
+
+            if (isEmailValid) {
+                userToUpdate.Email = obj.Email;
+            }
+            
+            userToUpdate.ImagePath =  obj.ImagePath ?? userToUpdate.ImagePath;
+
             if (obj.PhoneNumber != null)
             {
                 var isPhoneValid = Regex.IsMatch(obj.PhoneNumber, @"^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$");

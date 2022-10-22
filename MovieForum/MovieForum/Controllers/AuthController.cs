@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using MovieForum.Services.DTOModels;
@@ -33,6 +34,7 @@ namespace MovieForum.Web.Controllers
             return this.View(register);
         }
 
+        //[Authorize(Policy = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Register(CreateUserViewModel model)
         {
@@ -65,7 +67,7 @@ namespace MovieForum.Web.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            var login = new CreateUserViewModel();
+            var login = new LoginViewModel();
             return this.View(login);
         }
 
@@ -88,10 +90,19 @@ namespace MovieForum.Web.Controllers
                 var user = await authHelper.TryLogin(model.Email, model.Password);
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Email,user.Email),
+                    new Claim(ClaimTypes.Name,user.Email),
                     new Claim("Username", user.Username),
                     new Claim("Full Name", user.FirstName +" " + user.LastName)
                 };
+
+                if(user.RoleId == 1)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                }
+                else
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, "User"));
+                }
 
                 var claimsIdentity = new ClaimsIdentity(
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -109,7 +120,7 @@ namespace MovieForum.Web.Controllers
             return this.RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> SignOutAsync()
+        public async Task<IActionResult> Logout()
         {
             // Clear the existing external cookie
             await HttpContext.SignOutAsync(

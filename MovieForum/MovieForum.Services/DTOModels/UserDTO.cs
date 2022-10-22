@@ -27,9 +27,9 @@ namespace MovieForum.Services.DTOModels
 
         public string ImagePath { get; set; }
 
-        //[Required]
-        //[MinLength(Constants.USER_PASSWORD_MIN_LENGTH)]
-        //public string Password { get; set; }
+        [Required]
+        [MinLength(Constants.USER_PASSWORD_MIN_LENGTH)]
+        public string Password { get; set; }
 
         [Phone]
         public string PhoneNumber { get; set; }

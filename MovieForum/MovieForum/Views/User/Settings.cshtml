@@ -1,0 +1,115 @@
+﻿@model UpdateUserViewModel
+<html>
+   
+<link href="/css/profile.css" rel="stylesheet">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+   <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+   />
+ <body>
+<div class="container bootstrap snippets bootdey">
+    <h1 class="text-primary">Edit Profile</h1>
+    <hr>
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-3">
+            <div class="text-center">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                <h6>Upload a different photo...</h6>
+
+                <input asp-for=File type="file" class="form-control">
+            </div>
+        </div>
+
+        <!-- edit form column -->
+        <div class="col-md-9 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-coffee"></i>
+                This is an <strong>.alert</strong>. Use this to show important messages to the user.
+            </div>
+            <h3>Personal info</h3>
+
+            <form asp-action="Update" asp-controller="User" class="form-horizontal">
+                <div class="form-group">
+                    <label asp-for=FirstName class="col-lg-3 control-label">First name:</label>
+                    <div class="col-lg-8">
+                        <input asp-for=FirstName class="form-control" type="text" value="dey-dey">
+                        <span asp-validation-for=FirstName class="form-erorr"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for=LastName class="col-lg-3 control-label">Last name:</label>
+                    <div class="col-lg-8">
+                        <input asp-for=LastName class="form-control" type="text" value="bootdey">
+                        <span asp-validation-for=LastName class="form-erorr"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for=Password class="col-lg-3 control-label">Password:</label>
+                    <div class="col-lg-8">
+                        <input asp-for=Password class="form-control" type="password">
+                        <span asp-validation-for=Password class="form-erorr"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for=Email class="col-lg-3 control-label">Email:</label>
+                    <div class="col-lg-8">
+                        <input asp-for=Email class="form-control" type="text" value="janesemail@gmail.com">
+                        <span asp-validation-for=Email class="form-erorr"></span>
+                    </div>
+                </div>
+                @if(this.User.HasClaim(x=>x.Value=="Admin")){
+                <div class="form-group">
+                    <label asp-for=PhoneNumber class="col-lg-3 control-label">Phone:</label>
+                    <div class="col-lg-8">
+                        <input asp-for=PhoneNumber class="form-control" id="phone" name="phone" type="tel" >
+                        <span asp-validation-for=PhoneNumber class="form-erorr"></span>
+                    </div>
+                </div>
+                }
+                <hr> 
+                  <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                        <input class="btn btn-primary" type="submit" value="Update Profile">
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
+</body>
+ <script>
+
+     function getIp(callback) {
+ fetch('https://ipinfo.io/json?token=<your token>', { headers: { 'Accept': 'application/json' }})
+   .then((resp) => resp.json())
+   .catch(() => {
+     return {
+       country: 'us',
+     };
+   })
+   .then((resp) => callback(resp.country));
+}
+
+
+
+   const phoneInputField = document.querySelector("#phone");
+   const phoneInput = window.intlTelInput(phoneInputField, {
+ initialCountry: "bg",
+ geoIpLookup: getIp,
+ utilsScript:
+   "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+});
+   const info = document.querySelector(".alert-info");
+
+function process(event) {
+ event.preventDefault();
+
+ const phoneNumber = phoneInput.getNumber();
+
+ info.style.display = "";
+ info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+}
+ </script>
+ </html>

@@ -127,36 +127,10 @@ namespace MovieForum.Web.Controllers
                     Email = user.Email
                 };
 
-                if (path != null)
+                if (user.PhoneNumber != null)
                 {
-                    userDTO.ImagePath = path;
+                    userDTO.PhoneNumber = user.PhoneNumber;
                 }
-
-                var newUser = await userService.UpdateAsync(id, userDTO);
-                return this.Ok(newUser);
-            }
-            catch (Exception ex)
-            {
-                return this.BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPut]
-        [Route("update/admin/{id}")]
-        public async Task<IActionResult> UpdateAdmin(int id, [FromForm] UpdateAdminViewModel user)
-        {
-            try
-            {
-                var path = UploadPhoto(user.File);
-                var userDTO = new UpdateUserDTO
-                {
-                    Password = user.Password,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    PhoneNumber = user.PhoneNumber
-                };
-
 
                 if (path != null)
                 {
@@ -170,7 +144,7 @@ namespace MovieForum.Web.Controllers
             {
                 return this.BadRequest(ex.Message);
             }
-        }
+        }        
 
         [HttpPost]
         [Route("login")]
