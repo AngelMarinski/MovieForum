@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MovieForum.Services.DTOModels.MovieDTO>
+
+@{
+    string page_title = "Movies";
+}
+
+
+<html>
+    
+    <head>
+        <title>@page_title</title>
+    </head>
+    
+    <body>
+        @foreach(var movie in this.Model)
+        {
+            <h2>@movie.Title</h2>
+            <h4>Release Date: @movie.ReleaseDate</h4>
+            <img src ="@movie.ImagePath" />
+            <h4>Tags: 
+            @foreach (var tag in @movie.Tags)
+            {
+                @tag.TagName
+            }
+            </h4>
+            <h4>Author: @movie.Username</h4>
+            <h5>Posted On: @movie.Posted</h5>
+            <hr />
+        }
+    </body>
+</html>
+

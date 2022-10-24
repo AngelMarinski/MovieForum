@@ -117,7 +117,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 10, 20, 12, 49, 50, 690, DateTimeKind.Local).AddTicks(8484)
+                            PostedOn = new DateTime(2022, 10, 24, 18, 12, 58, 134, DateTimeKind.Local).AddTicks(7560)
                         },
                         new
                         {
@@ -128,7 +128,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 10, 20, 12, 49, 50, 694, DateTimeKind.Local).AddTicks(270)
+                            PostedOn = new DateTime(2022, 10, 24, 18, 12, 58, 136, DateTimeKind.Local).AddTicks(7832)
                         });
                 });
 
@@ -138,6 +138,12 @@ namespace MovieForum.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -150,66 +156,79 @@ namespace MovieForum.Data.Migrations
                         new
                         {
                             Id = 1,
+                            IsDeleted = false,
                             Name = "Comedy"
                         },
                         new
                         {
                             Id = 2,
+                            IsDeleted = false,
                             Name = "Sci-Fi"
                         },
                         new
                         {
                             Id = 3,
+                            IsDeleted = false,
                             Name = "Horror"
                         },
                         new
                         {
                             Id = 4,
+                            IsDeleted = false,
                             Name = "Romance"
                         },
                         new
                         {
                             Id = 5,
+                            IsDeleted = false,
                             Name = "Action"
                         },
                         new
                         {
                             Id = 6,
+                            IsDeleted = false,
                             Name = "Thriller"
                         },
                         new
                         {
                             Id = 7,
+                            IsDeleted = false,
                             Name = "Drama"
                         },
                         new
                         {
                             Id = 8,
+                            IsDeleted = false,
                             Name = "Mystery"
                         },
                         new
                         {
                             Id = 9,
+                            IsDeleted = false,
                             Name = "Crime"
                         },
                         new
                         {
                             Id = 10,
+                            IsDeleted = false,
                             Name = "Animation"
                         },
                         new
                         {
                             Id = 11,
+                            IsDeleted = false,
                             Name = "Adventure"
                         },
                         new
                         {
                             Id = 12,
+                            IsDeleted = false,
                             Name = "Fantasy"
                         },
                         new
                         {
                             Id = 13,
+                            IsDeleted = false,
                             Name = "Superhero"
                         });
                 });
@@ -501,7 +520,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAENiTwq/2kcK7Ud3osr9LeFythPSWqVcyqUcITJeK2NJwlXRnPAjFrazhOsoTPy3ngw==",
+                            Password = "AQAAAAEAACcQAAAAEOB6x1ugvHj5V7I/xXVN9CAr2+UA5lgyB4mQvHH/vYYZ56jI3SUKCyB6cCONddLjtQ==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -513,7 +532,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAEKKu9eKeoe1yU31gY9eD/I5s+2kl/p4dXp8r0VzW4uX9oSnmT2qpCmiTT0tgEr2kog==",
+                            Password = "AQAAAAEAACcQAAAAEKoo3XHsHQIg2qvTN0U3hK1IaR3dYfNCewaC1oN9vWzkgSqHPAGyEj9fV4TXNBHDpA==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -525,7 +544,7 @@ namespace MovieForum.Data.Migrations
                             IsBlocked = false,
                             IsDeleted = false,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAEE7caf3YSlZ5mmizuTGADz01z0joAdOivjbvKtmlP9SInk0CTThgwtx7O8vUNO4bCA==",
+                            Password = "AQAAAAEAACcQAAAAEPH5CLTx/SljNwRSpJu9Iwupv1V1mfFk4GBsYIppWtW2QRaz//4i41cJSk7GYp1XPw==",
                             RoleId = 1,
                             Username = "Rado561"
                         });
@@ -589,9 +608,10 @@ namespace MovieForum.Data.Migrations
                             AuthorID = 1,
                             Content = "On of my favourite movies of all time",
                             GenreId = 5,
+                            ImagePath = "D:\\Telerik\\Project 2\\movie-forum-system\\MovieForum\\MovieForum\\wwwroot\\Images\\Image_500.jpg",
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 10, 20, 12, 49, 50, 694, DateTimeKind.Local).AddTicks(5484),
+                            ReleaseDate = new DateTime(2022, 10, 24, 18, 12, 58, 137, DateTimeKind.Local).AddTicks(350),
                             Title = "Top Gun the new one"
                         },
                         new
@@ -600,9 +620,10 @@ namespace MovieForum.Data.Migrations
                             AuthorID = 2,
                             Content = "The bes spiderman movie so far, I love Tom Holand",
                             GenreId = 13,
+                            ImagePath = "D:\\Telerik\\Project 2\\movie-forum-system\\MovieForum\\MovieForum\\wwwroot\\Images\\Image_500.jpg",
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 10, 20, 12, 49, 50, 694, DateTimeKind.Local).AddTicks(5910),
+                            ReleaseDate = new DateTime(2022, 10, 24, 18, 12, 58, 137, DateTimeKind.Local).AddTicks(851),
                             Title = "Spiderman: Far From Home"
                         });
                 });
