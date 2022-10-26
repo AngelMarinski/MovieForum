@@ -1,32 +1,86 @@
 ﻿@model IEnumerable<MovieForum.Services.DTOModels.MovieDTO>
 
 @{
-    string page_title = "Movies";
+	string page_title = "Movies";
 }
 
 
 <html>
-    
-    <head>
-        <title>@page_title</title>
-    </head>
-    
-    <body>
-        @foreach(var movie in this.Model)
-        {
-            <h2>@movie.Title</h2>
-            <h4>Release Date: @movie.ReleaseDate</h4>
-            <img src ="@movie.ImagePath" />
-            <h4>Tags: 
-            @foreach (var tag in @movie.Tags)
-            {
-                @tag.TagName
-            }
-            </h4>
-            <h4>Author: @movie.Username</h4>
-            <h5>Posted On: @movie.Posted</h5>
-            <hr />
-        }
-    </body>
+
+	<head>
+		<title>@page_title</title>
+			<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+	        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+	        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+	        <link rel="stylesheet" href="css/plyr.css" type="text/css">
+	        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+	        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+	        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+	        <link rel="stylesheet" href="css/style.css" type="text/css">
+	</head>
+
+	<body>
+				 <div class="col-lg-9">
+                        <div class="anime__details__text">
+                            <div class="anime__details__title">
+	@foreach (var movie in this.Model)
+	{
+                            <div>
+                                <h3>@movie.Title</h3>
+                            </div>
+                            <div class="anime__details__rating">
+                                <div class="rating">
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star-half-o"></i></a>
+                                </div>
+                                <span>12 Votes</span>
+                            </div>
+                            <p>@movie.Content</p>
+                            <div class="anime__details__widget">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <ul>
+                                            <li><span>Type:</span> @movie.Genre</li>                                           
+                                            <li><span>Date aired:</span> @movie.ReleaseDate</li>
+                                            <li><span>Date aired:</span>@foreach (var tag in @movie.Tags)
+			                                                            {
+			                                                            	@tag.TagName
+			                                                            }</li>
+                                           
+                                        </ul>                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="anime__details__btn">
+                                <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
+                                <a href="#" class="watch-btn"><span>Watch Now</span> <i
+                                    class="fa fa-angle-right"></i></a>
+                                </div>
+                           
+			
+			@foreach (var item in movie.Comments)
+			{
+
+											<div class="anime__review__item">
+												<div class="anime__review__item__pic">
+													<img src="Images/Image_500.jpg" alt="">
+												</div>
+												<div class="anime__review__item__text">
+													<h6>@item.AuthorUsername - <span>@item.PostedOn</span></h6>
+													<p>@item.Content</p>
+													<div class="comment"><i class="fa fa-comments"></i> @item.LikesCount</div><div class="comment"> <i class="fa fa-comments"></i> @item.DisLikesCount</div>
+
+												</div>
+											 </div>
+			}	
+				
+	}
+                </div>
+             </div>
+          </div>
+	</body>
 </html>
 
