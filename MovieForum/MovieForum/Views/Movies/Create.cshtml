@@ -6,6 +6,10 @@
 }
 
 <html lang="en">
+<head>
+   @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/TagStyles.css">*@
+</head>
 <body>
     <form asp-controller="Movies" asp-action="Create" method="post">
         <div>
@@ -41,7 +45,7 @@
             <input asp-for="Cast" type="text" class="form-input" />
             <br />
             <span asp-validation-for="Cast" class="form-error"></span>
-        </div> 
+        </div>
         <div>
             <label asp-for="Tags" class="form-label"></label>
             <br />
@@ -53,5 +57,18 @@
             <input type="submit" value="Create" class="btn btn-primary" />
         </div>
     </form>
+
+
+    @*<br><br><br>
+    <center>
+        <input type="text" id="tags" value="" data-role="tagsinput" placeholder="Add tags" />
+    </center>
+
+    <script>
+        
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~/js/tags.js"></script>*@
 </body>
 </html>
