@@ -45,17 +45,51 @@ namespace MovieForum.Web.Controllers
                 AuthorId = user.Id,
                 Content = comment.commentViewModel.Content,
                 MovieId = comment.commentViewModel.MovieId,
-                PostedOn = System.DateTime.Now
-                
-                
+                PostedOn = System.DateTime.Now   
             };
 
-            await services.PostAsync(result);
+            var check = await services.PostAsync(result);
 
             return this.RedirectToAction("Movie", "Movies", new { id = comment.commentViewModel.MovieId });
         }
 
-		
+        [HttpPost]
+        public async Task<IActionResult> Like(MovieCommentWrap comment)
+        {
+            var user = await this.userServices.GetUserByEmailAsync(this.User.Identity.Name);
 
-	}
+            await services.LikeCommentAsync(comment.commentViewModel.Id, user.Id);
+
+            return this.RedirectToAction("Movie", "Movies", new { id = comment.commentViewModel.MovieId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Dislike(MovieCommentWrap comment)
+        {
+            var user = await this.userServices.GetUserByEmailAsync(this.User.Identity.Name);
+
+            await services.DislikeCommentAsync(comment.commentViewModel.Id, user.Id);
+
+            return this.RedirectToAction("Movie", "Movies", new { id = comment.commentViewModel.MovieId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(MovieCommentWrap comment)
+        {
+            await services.DeleteAsync(comment.commentViewModel.Id);
+
+            return this.RedirectToAction("Movie", "Movies", new { id = comment.commentViewModel.MovieId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MovieCommentWrap comment)
+        {
+            await services.UpdateAsync(comment.commentViewModel.Id,comment.commentViewModel);
+
+            return this.RedirectToAction("Movie", "Movies", new { id = comment.commentViewModel.MovieId });
+        }
+
+
+
+    }
 }

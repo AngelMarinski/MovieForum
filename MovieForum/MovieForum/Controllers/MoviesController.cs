@@ -30,7 +30,7 @@ namespace MovieForum.Web.Controllers
         {
             var movie = await this.moviesService.GetByIdAsync(id);
 
-            return View(new MovieCommentWrap { MovieDTO = movie , commentViewModel = new CreateCommentViewModel() });
+            return View(new MovieCommentWrap { MovieDTO = movie , commentViewModel = new CommentDTO() });
         }
 
         [HttpGet]

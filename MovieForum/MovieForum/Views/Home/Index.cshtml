@@ -1,9 +1,90 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model MovieForum.Services.DTOModels.MovieDTO
+@inject MovieForum.Services.Interfaces.IMoviesServices movieServices
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <p>My name is @this.User.Identity.Name</p>
-</div>
+<html>
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="trending__product">
+
+                        @if (this.User.Identity.Name == null)
+                        {
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div class="section-title">
+                                        <h4>Most recent posts</h4>
+                                        <br>
+                                        <div class="row">
+                                            @foreach (var item in await this.movieServices.GetMostRecentPostsAsync())
+                                            {
+                                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                                    <div class="product__item">
+                                                        <div class="product__item__pic set-bg">
+                                                            <img src="~/@item.ImagePath">
+                                                            <div class="comment"><i class="fa fa-comments"></i>  @item.Comments.Count</div>
+                                                            <div class="view"><i class="fa fa-eye"></i> @item.Rating</div>
+                                                        </div>
+                                                        <div class="product__item__text">
+
+                                                            <h6>@item.Title</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="section-title">
+                                        <h4>Top commented posts</h4>
+                                        <br>
+                                        <div class="row">
+                                            @foreach (var item in await this.movieServices.GetTopCommentedAsync())
+                                            {
+                                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                                    <div class="product__item">
+                                                        <div class="product__item__pic set-bg">
+                                                            <img src="~/@item.ImagePath">
+                                                            <div class="comment"><i class="fa fa-comments"></i> @item.Comments.Count</div>
+                                                            <div class="view"><i class="fa fa-eye"></i>@item.Rating</div>
+                                                        </div>
+                                                        <div class="product__item__text">
+
+                                                            <h6>@item.Title</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                               <h3 style="text-align:center" class="text__hero"> For more content plese LogIn or SignUp.</h3>
+                               
+                            
+                        }
+                        else
+                        {
+                            <h3>Welcome @this.User.Identity.Name</h3>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>

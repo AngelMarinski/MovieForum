@@ -18,5 +18,6 @@ namespace MovieForum.Services.Interfaces
         Task<IEnumerable<MovieDTO>> GetTopCommentedAsync();
         Task<IEnumerable<MovieDTO>> GetMostRecentPostsAsync();
         Task<MovieDTO> RateMovieAsync(int id, int userId, int rate);
+        IEnumerable<CommentDTO> GetMovieComments(int movieId);
     }
 }

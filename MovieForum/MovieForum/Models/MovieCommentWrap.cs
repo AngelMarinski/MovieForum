@@ -6,7 +6,7 @@ namespace MovieForum.Web.Models
     {
         public MovieDTO MovieDTO { get;set;}
 
-        public CreateCommentViewModel commentViewModel { get; set; }
+        public CommentDTO commentViewModel { get; set; }
 
     }
 }

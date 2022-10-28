@@ -289,5 +289,12 @@ namespace MovieForum.Services
 
             return mapper.Map<MovieDTO>(movie);
         }
+
+        public IEnumerable<CommentDTO> GetMovieComments(int movieId)
+        {
+            var comments = this.db.Comments.Where(x => x.MovieId == movieId && x.IsDeleted == false);
+
+            return mapper.Map<IEnumerable<CommentDTO>>(comments);
+        }
     }
 }
