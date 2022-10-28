@@ -112,7 +112,8 @@
                                 {
                                     <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
-                                            <div class="product__item__pic set-bg" src="Images/Image_500.jpg">
+                                            <div class="product__item__pic set-bg" >
+                                                <img src="~/@movie.ImagePath"/>
                                                 <div class="ep">@movie.Genre.Name</div>
                                                 <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
                                                 <div class="view"><i class="fa fa-eye"></i> @movie.Rating</div>
@@ -122,7 +123,7 @@
                                                     <li>@movie.ReleaseDate</li>
                                                     <li>@movie.Username</li>
                                                 </ul>
-                                                <h5><a href="movies/@movie.Id">@movie.Title</a></h5>
+                                                <h5><a href="movies/movie/@movie.Id">@movie.Title</a></h5>
                                             </div>
                                         </div>
                                     </div>

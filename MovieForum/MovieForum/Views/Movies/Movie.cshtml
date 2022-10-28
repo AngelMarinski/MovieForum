@@ -1,4 +1,4 @@
-﻿@model MovieForum.Services.DTOModels.MovieDTO
+﻿@model MovieForum.Web.Models.MovieCommentWrap
 @inject MovieForum.Services.Interfaces.IUserServices userServices
 
 <html>
@@ -26,38 +26,38 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="anime__details__pic set-bg" img-src="Images/Image_500.jpg">
-                            <img src="~/@this.Model.ImagePath" class="anime__details__pic set-bg" />
-                            <div class="comment"><i class="fa fa-comments"></i> @this.Model.Comments.Count</div>
+                            <img src="~/@this.Model.MovieDTO.ImagePath" />
+                            <div class="comment"><i class="fa fa-comments"></i> @this.Model.MovieDTO.Comments.Count</div>
                         </div>
                     </div>
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title">
-                                <h3>@this.Model.Title</h3>
-                                <span>@this.Model.Username  Posted: @this.Model.Posted</span>
+                                <h3>@this.Model.MovieDTO.Title</h3>
+                                <span>@this.Model.MovieDTO.Username  Posted: @this.Model.MovieDTO.Posted</span>
                             </div>
                             <div class="anime__details__rating">
                                 <div class="rating">
                                     <a href="#"><i class="fa fa-star"></i></a>
                                 </div>
-                                <span>@this.Model.Rating</span>
+                                <span>@this.Model.MovieDTO.Rating</span>
                             </div>
                             <p>
-                                @this.Model.Content
+                                @this.Model.MovieDTO.Content
                             </p>
                             <div class="anime__details__widget">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
-                                            <li><span>Genre:</span> @this.Model.Genre.Name</li>
-                                            <li><span>Release aired:</span> @this.Model.ReleaseDate</li>
+                                            <li><span>Genre:</span> @this.Model.MovieDTO.Genre.Name</li>
+                                            <li><span>Release aired:</span> @this.Model.MovieDTO.ReleaseDate</li>
                                             <li>
                                                 <span>Tags:</span>
-                                                @string.Join(", ", this.Model.Tags.Select(x => x.TagName))
+                                                @string.Join(", ", this.Model.MovieDTO.Tags.Select(x => x.TagName))
                                             </li>
                                             <li>
                                                 <span>Actors:</span>
-                                                @string.Join(", ", this.Model.Cast.Select(x => x.ToString()))
+                                                @string.Join(", ", this.Model.MovieDTO.Cast.Select(x => x.ToString()))
                                             </li>
                                         </ul>
                                     </div>
@@ -73,36 +73,40 @@
                         <div class="section-title">
                             <h5>Comments</h5>
                         </div>
-                        @{
-                            foreach (var comment in this.Model.Comments)
-                            {
-                                var user = await @userServices.GetUserByIdAsync((int)comment.AuthorId);
-                                var imagePath = user.ImagePath;
-                                <div class="anime__review__item">
-                                    <div class="anime__review__item__pic">
-                                        <img src="~/@imagePath" alt="">
-                                    </div>
-                                    <div class="anime__review__item__text">
-                                        <h6>@user.Username<span>@comment.PostedOn</span></h6>
-                                            <p>
-                                                @comment.Content
-                                            </p>
-                                            <div class="comment"><i class="fa fa-comments"></i> @comment.LikesCount</div>
-                                            <div class="comment"><i class="fa fa-comments"></i> @comment.DisLikesCount</div>
-                                    </div>
+
+                        @foreach (var comment in this.Model.MovieDTO.Comments)
+                        {
+
+                            var user = await @userServices.GetUserByIdAsync((int)comment.AuthorId);
+                            var imagePath = user.ImagePath;
+                            <div class="anime__review__item">
+                                <div class="anime__review__item__pic">
+                                    <img src="~/@imagePath" alt="">
                                 </div>
-                            }
+                                <div class="anime__review__item__text">
+                                    <h6>@user.Username <span>@comment.PostedOn</span></h6>
+                                    <p>
+                                        @comment.Content
+                                    </p>
+                                    <div class="comment"><i class="fa fa-thumbs-o-up"></i> @comment.LikesCount</div>
+                                    <div class="comment"><i class="fa fa-thumbs-o-down"></i> @comment.DisLikesCount</div>
+                                </div>
+                            </div>
                         }
 
-                        
-                    <div class="anime__details__form">
-                        <div class="section-title">
-                            <h5>Your Comment</h5>
+                        <div class="anime__details__form">
+                            <div class="section-title">
+                                <h5>Your Comment</h5>
+                            </div>
+                            <form asp-controller="Comment" asp-action="Create" method="post">
+                                <textarea asp-for=" commentViewModel.Content" placeholder="Your Comment"></textarea>
+                                <span asp-validation-for="commentViewModel.Content" class="form-error"></span>
+                                <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
+                                <button type="submit"><i class="fa fa-location-arrow"></i> Comment</button>
+                            </form>
                         </div>
-                        <form asp-controller="Comment" asp-action="Create" method="post">
-                            <textarea placeholder="Your Comment"></textarea>
-                            <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
-                        </form>
+
+
                     </div>
                 </div>
             </div>
@@ -110,5 +114,3 @@
     </section>
 </body>
 </html>
-
-
