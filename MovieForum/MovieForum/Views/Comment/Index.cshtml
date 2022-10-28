@@ -5,14 +5,7 @@
 @inject ICommentServices serv
 @inject IMapper map
 
-	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+	
 <div class="row">
 					<div class="col-lg-8 col-md-8">
 						<div class="anime__details__review">
@@ -20,22 +13,22 @@
 								</br>
 								<h5>Comments</h5>
 							</div>
-			@foreach (var item in Model)
-			{
-
-									<div class="anime__review__item">
-										<div class="anime__review__item__pic">
-											<img src="Images/Image_500.jpg" alt="">
-										</div>
-										<div class="anime__review__item__text">
-											<h6>@item.AuthorUsername - <span>@item.PostedOn</span></h6>
-											<p>@item.Content</p>
-											<div class="comment"><i class="fa fa-comments"></i> @item.LikesCount</div><div class="comment"> <i class="fa fa-comments"></i> @item.DisLikesCount</div>
-
-										</div>
-									 </div>
-
-			}	
+			                 @foreach (var item in Model)
+			                 {
+			                 
+			                 	 <div class="anime__review__item">
+			                 	 	<div class="anime__review__item__pic">
+			                 	 		<img src="Images/Image_500.jpg" alt="">
+			                 	 	</div>
+			                 	 	<div class="anime__review__item__text">
+			                 	 		<h6>@item.AuthorUsername - <span>@item.PostedOn</span></h6>
+			                 	 		<p>@item.Content</p>
+			                 	 		<div class="comment"><i class="fa fa-comments"></i> @item.LikesCount</div><div class="comment"> <i class="fa fa-comments"></i> @item.DisLikesCount</div>
+			                 	 
+			                 	 	</div>
+			                 	 </div>
+			                 
+			                 }	
 			
             
 						</div>

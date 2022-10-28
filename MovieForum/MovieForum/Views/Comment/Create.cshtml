@@ -1,0 +1,19 @@
+﻿@*@model CreateCommentViewModel
+
+<html>
+    <body>
+        <form asp-controller="Comment" asp-action="Create" method="post">
+        <div>
+            <label asp-for="Content" class="form-label"></label>
+            <br />
+            <input asp-for="Content" type="text" class="form-input" />
+            <br />
+            <span asp-validation-for="Content" class="form-error"></span>
+        </div>
+        <div>
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+
+        </form>
+    </body>
+</html>*@
