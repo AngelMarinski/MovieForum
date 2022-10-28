@@ -16,5 +16,7 @@ namespace MovieForum.Web.Models
         [Required]
         [MinLength(8, ErrorMessage = "Password should be at least 8 symbols long")]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }

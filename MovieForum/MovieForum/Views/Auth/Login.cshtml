@@ -15,22 +15,24 @@
                                     <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
                                 </div>
 
-                                <form asp-action="Login" asp-controller = "Auth">
-                                    <p>Please login to your account</p>
-
+                                <form asp-action="Login" asp-controller="Auth">
+                                    
                                     <div class="form-outline mb-4">
+                                        <label asp-for=Email class="form-label" for="form2Example11">Email</label>
                                         <input asp-for=Email type="email" id="form2Example11" class="form-control"
                                                placeholder="Phone number or email address" />
-                                        <label asp-for=Email class="form-label" for="form2Example11">Email</label>
                                         <span asp-validation-for=Email class="form-erorr"></span>
-
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input asp-for=Password type="password" id="form2Example22" class="form-control" />
-                                          <span asp-validation-for=Password class="form-erorr"></span>
                                         <label asp-for=Password class="form-label" for="form2Example22">Password</label>
-                                      
+                                        <input asp-for=Password type="password" id="form2Example22" class="form-control" />
+                                        <span asp-validation-for=Password class="form-erorr"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input asp-for=RememberMe type="checkbox" />
+                                        <label asp-for=RememberMe class="form-label" for="form2Example22">Remember me</label>
                                     </div>
 
                                     <div class="text-center pt-1 mb-5 pb-1">
@@ -39,11 +41,9 @@
 
                                     <div class="d-flex align-items-center justify-content-center pb-4">
                                         <p class="mb-0 me-2">Don't have an account?</p>
-                                         <a asp-controller="Auth" asp-action="Register" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Create new</a>
+                                        <a asp-controller="Auth" asp-action="Register" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Create new</a>
                                     </div>
-
                                 </form>
-
                             </div>
                         </div>
                         <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
