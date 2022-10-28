@@ -25,11 +25,11 @@ namespace MovieForum.Services.DTOModels
 
         public Genre Genre { get; set; }
 
-        public ICollection<MovieActorDTO> Cast { get; set; }
+        public ICollection<MovieActorDTO> Cast { get; set; } = new List<MovieActorDTO>();
 
-        public ICollection<CommentDTO> Comments { get; set; }
+        public ICollection<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
 
-        public ICollection<MovieTagsDTO> Tags { get; set; }
+        public ICollection<MovieTagsDTO> Tags { get; set; } = new List<MovieTagsDTO>(); 
 
         public double Rating { get; set; }
 

@@ -60,6 +60,7 @@ namespace MovieForum
             services.AddScoped<IMoviesServices, MoviesServices>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<ICommentServices, CommentServices>();
+            services.AddScoped<IGenreServices, GenreServices>();
             services.AddScoped<IAuthHelper, AuthHelper>();
         }
 
