@@ -39,7 +39,7 @@ namespace MovieForum.Web.MappingConfig
                  .ForMember(dest => dest.Username, act => act.MapFrom(src => src.Author.Username))
                  .ForMember(dest => dest.Genre, act => act.MapFrom(src => src.Genre))
                  .ForMember(dest => dest.GenreId, act => act.MapFrom(src => src.GenreId))
-                 .ForMember(dest => dest.Rating, act => act.MapFrom(src =>  src.Rating.Sum(x=>(double)x.Rate)/src.Rating.Count))
+                 .ForMember(dest => dest.Rating, act => act.MapFrom(src =>  src.Rating.Sum(x=>(double)x.Rate)/(src.Rating.Count == 0 ? 1 : src.Rating.Count)))
                  .ForMember(dest => dest.Tags, act => act.MapFrom(src => src.Tags.Where(x => x.IsDeleted == false).ToList()))
                  .ReverseMap();
 

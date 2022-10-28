@@ -1,26 +1,26 @@
 ﻿@model IEnumerable<MovieForum.Services.DTOModels.MovieDTO>
 
 @{
-	string page_title = "Movies";
+    string page_title = "Movies";
 }
 
 
 <html>
 
-	<head>
-		<title>@page_title</title>
-			<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-	        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-	        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-	        <link rel="stylesheet" href="css/plyr.css" type="text/css">
-	        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-	        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-	        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-	        <link rel="stylesheet" href="css/style.css" type="text/css">
-	</head>
+<head>
+    <title>@page_title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
 
-	<body>
-				 <div class="col-lg-9">
+@*<body>
+                 <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title">
                                 @foreach (var movie in this.Model)
@@ -63,7 +63,7 @@
                                                 <ul>
                                                     <li>
                                                         <span>Cast:</span>
-                                                        @{ 
+                                                        @{
                                                             if(movie.Cast.Count == 0)
                                                             {
                                                                 <p>No actors to show</p>
@@ -99,6 +99,41 @@
                             </div>
                         </div>
             </div>
-	</body>
+    </body>*@
+<body>
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="trending__product">
+                        <div class="row">
+                            @{
+                                foreach (var movie in this.Model)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <div class="product__item">
+                                            <div class="product__item__pic set-bg" src="Images/Image_500.jpg">
+                                                <div class="ep">@movie.Genre.Name</div>
+                                                <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
+                                                <div class="view"><i class="fa fa-eye"></i> @movie.Rating</div>
+                                            </div>
+                                            <div class="product__item__text">
+                                                <ul>
+                                                    <li>@movie.ReleaseDate</li>
+                                                    <li>@movie.Username</li>
+                                                </ul>
+                                                <h5><a href="movies/@movie.Id">@movie.Title</a></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
 </html>
 

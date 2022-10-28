@@ -23,7 +23,15 @@ namespace MovieForum.Web.Controllers
             this.moviesService = moviesServices;
             webHostEnvironment = _webHostEnvironment;
             this.userService = userService;
-    }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Movie(int id)
+        {
+            var movie = await this.moviesService.GetByIdAsync(id);
+
+            return View(movie);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Index()

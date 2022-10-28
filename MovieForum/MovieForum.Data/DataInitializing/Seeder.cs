@@ -24,7 +24,8 @@ namespace MovieForum.Data.DataInitializing
                         Password = "12345678",
                         Email = "fakeemail@gmail.com",
                         RoleId = 2,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        ImagePath = "Images/Image_500.jpg"
                     },
                  new User
                     {
@@ -35,7 +36,8 @@ namespace MovieForum.Data.DataInitializing
                         Password = "12345678",
                         Email = "adminsemail@gmail.com",
                         RoleId = 1,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        ImagePath = "Images/Image_500.jpg"
                     },
                   new User
                     {
@@ -46,7 +48,8 @@ namespace MovieForum.Data.DataInitializing
                         Password = "12345678",
                         Email = "morefakeemails@gmail.com",
                         RoleId = 1,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        ImagePath = "Images/Image_500.jpg"
                     }
             };
 
@@ -194,7 +197,7 @@ namespace MovieForum.Data.DataInitializing
                     Content = "On of my favourite movies of all time",
                     GenreId = 5,
                     ReleaseDate = DateTime.Now,
-                    ImagePath = "D:\\Telerik\\Project 2\\movie-forum-system\\MovieForum\\MovieForum\\wwwroot\\Images\\Image_500.jpg"
+                    ImagePath = "Images/Image_500.jpg"
                 },
                 new Movie
                 {
@@ -204,7 +207,7 @@ namespace MovieForum.Data.DataInitializing
                     Content = "The bes spiderman movie so far, I love Tom Holand",
                     GenreId = 13,
                     ReleaseDate = DateTime.Now,
-                    ImagePath = "D:\\Telerik\\Project 2\\movie-forum-system\\MovieForum\\MovieForum\\wwwroot\\Images\\Image_500.jpg"
+                    ImagePath = "Images/Image_500.jpg"
 
                 }
             };

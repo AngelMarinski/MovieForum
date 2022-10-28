@@ -1,0 +1,114 @@
+﻿@model MovieForum.Services.DTOModels.MovieDTO
+@inject MovieForum.Services.Interfaces.IUserServices userServices
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Movie">
+    <title>Anime | Template</title>
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+</head>
+
+<body>
+    <section class="anime-details spad">
+        <div class="container">
+            <div class="anime__details__content">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="anime__details__pic set-bg" img-src="Images/Image_500.jpg">
+                            <img src="~/@this.Model.ImagePath" class="anime__details__pic set-bg" />
+                            <div class="comment"><i class="fa fa-comments"></i> @this.Model.Comments.Count</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="anime__details__text">
+                            <div class="anime__details__title">
+                                <h3>@this.Model.Title</h3>
+                                <span>@this.Model.Username  Posted: @this.Model.Posted</span>
+                            </div>
+                            <div class="anime__details__rating">
+                                <div class="rating">
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                </div>
+                                <span>@this.Model.Rating</span>
+                            </div>
+                            <p>
+                                @this.Model.Content
+                            </p>
+                            <div class="anime__details__widget">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <ul>
+                                            <li><span>Genre:</span> @this.Model.Genre.Name</li>
+                                            <li><span>Release aired:</span> @this.Model.ReleaseDate</li>
+                                            <li>
+                                                <span>Tags:</span>
+                                                @string.Join(", ", this.Model.Tags.Select(x => x.TagName))
+                                            </li>
+                                            <li>
+                                                <span>Actors:</span>
+                                                @string.Join(", ", this.Model.Cast.Select(x => x.ToString()))
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="anime__details__review">
+                        <div class="section-title">
+                            <h5>Comments</h5>
+                        </div>
+                        @{
+                            foreach (var comment in this.Model.Comments)
+                            {
+                                var user = await @userServices.GetUserByIdAsync((int)comment.AuthorId);
+                                var imagePath = user.ImagePath;
+                                <div class="anime__review__item">
+                                    <div class="anime__review__item__pic">
+                                        <img src="~/@imagePath" alt="">
+                                    </div>
+                                    <div class="anime__review__item__text">
+                                        <h6>@user.Username<span>@comment.PostedOn</span></h6>
+                                            <p>
+                                                @comment.Content
+                                            </p>
+                                            <div class="comment"><i class="fa fa-comments"></i> @comment.LikesCount</div>
+                                            <div class="comment"><i class="fa fa-comments"></i> @comment.DisLikesCount</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        
+                    <div class="anime__details__form">
+                        <div class="section-title">
+                            <h5>Your Comment</h5>
+                        </div>
+                        <form asp-controller="Comment" asp-action="Create" method="post">
+                            <textarea placeholder="Your Comment"></textarea>
+                            <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+
