@@ -107,9 +107,21 @@ namespace MovieForum.Web.Controllers
                 var claimsIdentity = new ClaimsIdentity(
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
+                var AuthProperties = new AuthenticationProperties
+                {
+                    IsPersistent = false
+                };
+
+                if(model.RememberMe == true)
+                {
+                    AuthProperties.IsPersistent = true;
+                }
+
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(claimsIdentity));
+                    new ClaimsPrincipal(claimsIdentity),
+                    AuthProperties
+                );
             }
             catch (Exception)
             {

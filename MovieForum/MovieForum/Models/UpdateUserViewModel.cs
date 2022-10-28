@@ -21,6 +21,10 @@ namespace MovieForum.Web.Models
 
         [MinLength(Constants.USER_PASSWORD_MIN_LENGTH)]
         public string Password { get; set; }
+
+        [Compare("Password", ErrorMessage = "Confirm password doesn't match! Type again !")]
+        public string ConfirmPassword { get; set; }
+
         public IFormFile File { get; set; }
         public string ImagePath { get; set; }
     }

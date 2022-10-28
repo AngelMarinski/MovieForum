@@ -96,6 +96,12 @@
                                 <span asp-validation-for="Password" class="form-error"></span>
                             </div>
 
+                            <!-- Confirm Password input -->
+                            <div class="form-outline mb-4">
+                                <input asp-for="ConfirmPassword" placeholder="Password" id="password" type="password"class="form-control" />
+                                <label class="form-label" for="password">Confirm Password</label>
+                                <span asp-validation-for="ConfirmPassword" class="form-error"></span>
+                            </div>
 
                             <!-- Submit button -->
                             <input class="btn btn-primary btn-block mb-4" type="submit" value="Sign Up">

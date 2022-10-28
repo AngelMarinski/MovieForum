@@ -48,6 +48,14 @@
                             <span asp-validation-for=LastName class="form-erorr"></span>
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label asp-for=Email class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                            <input asp-for=Email class="form-control" type="text">
+                            <span asp-validation-for=Email class="form-erorr"></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label asp-for=Password class="col-lg-3 control-label">Password:</label>
                         <div class="col-lg-8">
@@ -56,10 +64,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label asp-for=Email class="col-lg-3 control-label">Email:</label>
+                        <label asp-for=ConfirmPassword class="col-lg-3 control-label">Confirm Password:</label>
                         <div class="col-lg-8">
-                            <input asp-for=Email class="form-control" type="text">
-                            <span asp-validation-for=Email class="form-erorr"></span>
+                            <input asp-for=ConfirmPassword class="form-control" type="password">
+                            <span asp-validation-for=ConfirmPassword class="form-erorr"></span>
                         </div>
                     </div>
                     @if (this.User.HasClaim(x => x.Value == "Admin"))

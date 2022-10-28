@@ -16,6 +16,7 @@ using MovieForum.Web.MappingConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MovieForum
@@ -36,8 +37,14 @@ namespace MovieForum
             .AddCookie(options =>
             {
                 options.LoginPath = "/Auth/Login";
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                options.ExpireTimeSpan = TimeSpan.FromDays(14);
                 options.SlidingExpiration = true;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role,"Admin"));
+                options.AddPolicy("User", policy => policy.RequireClaim(ClaimTypes.Role,"User"));
             });
 
             services.AddDbContext<MovieForumContext>(options =>
@@ -50,6 +57,8 @@ namespace MovieForum
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+
+
 
             services.AddControllersWithViews();
             services.AddSwaggerGen();
