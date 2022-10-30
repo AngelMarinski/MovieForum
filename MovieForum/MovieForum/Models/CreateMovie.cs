@@ -26,7 +26,7 @@ namespace MovieForum.Web.Models
 
         public string Cast { get; set; }
 
-        public string Tags { get; set; }
+        public string[] Tags { get; set; }
 
         public IFormFile File { get; set; }
     }

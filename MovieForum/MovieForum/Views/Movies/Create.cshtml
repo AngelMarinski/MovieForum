@@ -6,8 +6,15 @@
 }
 
 <html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/tagsInput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~/js/TagsInputField.js"></script>
+</head>
 <body>
     <form asp-controller="Movies" asp-action="Create" method="post">
+        <button type="submit" disabled style="display:none" aria-hidden="true"></button>
         <div>
             <label asp-for="Title" class="form-label"></label>
             <br />
@@ -38,20 +45,26 @@
         <div>
             <label asp-for="Cast" class="form-label"></label>
             <br />
-            <input asp-for="Cast" type="text" class="form-input" />
+            <input asp-for="Cast" type="text" id="cast" value="" data-role="tagsinput" placeholder="Add cast" />
             <br />
             <span asp-validation-for="Cast" class="form-error"></span>
-        </div> 
+        </div>
         <div>
+            <label asp-for="Tags" class="form-label"></label>
+            <br />
+            <input asp-for="Tags" type="text" id="tags" value="" data-role="tagsinput" placeholder="Add tags" />
+        </div>
+        @*<div>
             <label asp-for="Tags" class="form-label"></label>
             <br />
             <input asp-for="Tags" type="text" class="form-input" />
             <br />
             <span asp-validation-for="Tags" class="form-error"></span>
-        </div>
+        </div>*@
         <div>
             <input type="submit" value="Create" class="btn btn-primary" />
         </div>
     </form>
 </body>
+
 </html>
