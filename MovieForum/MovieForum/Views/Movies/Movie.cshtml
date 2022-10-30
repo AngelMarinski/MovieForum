@@ -10,15 +10,18 @@
     <meta name="description" content="Movie">
     <title>Anime | Template</title>
 
+    <style>
+        ul > li {
+            display: inline-block;
+            /* You can also add some margins here to make it look prettier */
+        }
+    </style>
+   
     <!-- Css Styles -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="~/css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/style.css" type="text/css">
+    <link rel="stylesheet" href="~/css/popForm.css" type="text/css">
 </head>
 @{
     var userCheck = await this.userServices.GetUserByEmailAsync(this.User.Identity.Name);
@@ -78,7 +81,7 @@
                         <div class="section-title">
                             <h5>Comments</h5>
                         </div>
-                       
+
                         @foreach (var comment in movieServices.GetMovieComments(this.Model.MovieDTO.Id))
                         {
                             var user = await @userServices.GetUserByIdAsync((int)comment.AuthorId);
@@ -88,54 +91,68 @@
                                     <img src="~/@imagePath" alt="">
                                 </div>
                                 <div class="anime__review__item__text">
-                                    
-                                    @{
-                                        if (userCheck.Id != comment.AuthorId)
-                                        {
-                                            <h6>@user.Username <span>@comment.PostedOn</span></h6>
-                                            <p>
-                                                @comment.Content
-                                            </p>
+                                    <ul>
+                                        @{
+                                            if (userCheck.Id != comment.AuthorId)
+                                            {
+                                                <h6>@user.Username <span>@comment.PostedOn</span></h6>
+                                                <p>
+                                                    @comment.Content
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <h6>@user.Username <span>@comment.PostedOn</span></h6>
+                                                <p>
+                                                    @comment.Content
+                                                </p>
+                                                <li>
+                                                    <form asp-controller="Comment" asp-action="Delete" method="post">
+
+                                                        <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
+                                                        <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
+                                                        <button type="submit" class="btn btn-primary"> Delete  </button>
+
+                                                    </form>
+
+                                                </li>
+                                                <li >   
+                                                <button class="btn btn-primary" onclick="openForm()">Edit</button>
+                                                    <div class="form-popup" id="myForm">
+                                                        <form asp-controller="Comment" asp-action="Edit" method="post" class="form-container">
+
+                                                            <textarea asp-for=" commentViewModel.Content"  rows="10" cols="30" placeholder="@comment.Content"></textarea>
+                                                            <span asp-validation-for="commentViewModel.Content" class="form-error"></span>
+                                                            <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
+                                                            <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
+                                                            
+                                                            <button type="submit" class="btn">Edit</button>
+                                                            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                                        </form> 
+                                                    </div>                                                   
+                                                </li>
+
+
+                                            }
                                         }
-                                        else
-                                        {
-                                            <h6>@user.Username <span>@comment.PostedOn</span></h6>
-                                            <p>
-                                                @comment.Content
-                                            </p>
-                                            <div>
-                                                <form asp-controller="Comment" asp-action="Delete" method="post">
+                                        <li>
+                                            <form asp-controller="Comment" asp-action="Like" method="post">
 
-                                                    <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
-                                                    <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
-                                                    <button type="submit" class="btn-sm"> Delete </button>
-                                                </form>
-                                            </div>
-                                            <div>
-                                                <form asp-controller="Comment" asp-action="Edit" method="post">
-                                                    <textarea asp-for=" commentViewModel.Content" placeholder="@comment.Content"></textarea>
-                                                    <span asp-validation-for="commentViewModel.Content" class="form-error"></span>
-                                                    <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
-                                                    <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
-                                                    <button type="submit" class="btn-sm"> Edit </button>
-                                                </form>
-                                            </div>
-                                        }  
-                                    }
-                                    <div>
-                                    <form asp-controller="Comment" asp-action="Like" method="post">
-                                        
-                                        <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
-                                        <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
-                                        <button type="submit"><i class="fa fa-thumbs-o-up"></i> @comment.LikesCount </button>
-                                    </form>
-                                    </div> <div><form asp-controller="Comment" asp-action="Dislike" method="post">
+                                                <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
+                                                <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
+                                                <button type="submit" class=" btn btn-primary">Like @comment.LikesCount </button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form asp-controller="Comment" asp-action="Dislike" method="post">
 
-                                        <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
-                                        <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
-                                        <button type="submit"><i class="fa fa-thumbs-o-down"></i> @comment.DisLikesCount </button>
-                                    </form></div>
-                                    
+                                                <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
+                                                <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
+                                                <button type="submit" class="btn btn-primary">Dislike @comment.DisLikesCount </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+
                                 </div>
                             </div>
                         }
@@ -159,4 +176,13 @@
         </div>
     </section>
 </body>
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+</script>
 </html>
