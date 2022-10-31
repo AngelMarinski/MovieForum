@@ -16,7 +16,25 @@
 
 </head>
 <body>
-    
+
+    <div class="title">
+        <div class="title-content">
+            <h1 class="title-title">Welcome to <br> Movie forum!</h1>
+            <p class="title-subtitle">This is the place where you can share your amazing expirience with the movies that you love, laugh and enjoy!</p>
+
+            @{
+                if (this.User.Identity.Name == null)
+                {
+                    <a asp-controller="Auth" asp-action="Login" class="btn btn-theme-color modal-toggle"><i class="ti-control-play text-danger"></i> SingIn</a>
+                    <a asp-controller="Auth" asp-action="Register" class="btn btn-theme-color modal-toggle"><i class="ti-control-play text-danger"></i> SignUp</a>
+                }
+            }
+
+        </div>
+    </div><!-- end of page header -->
+    <br>
+    <br>
+    <br>
     <br>
     <div class="section-title">
         <h4>Most recent posts</h4>
@@ -26,17 +44,37 @@
                 <div class="card-wrapper swiper-wrapper">
                     @foreach (var item in await this.movieServices.GetMostRecentPostsAsync())
                     {
-                        <div class="card swiper-slide " style="background-color: transparent" >
-                            <div class="product__item__pic set-bg">
-                                <img src="~/@item.ImagePath" class="image-card">
-                                <div class="comment"><i class="fa fa-comments"></i>  @item.Comments.Count</div>
-                                <div class="view"><i class="fa fa-eye"></i> @item.Rating</div>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>@item.Title</h6>
+                        if (this.User.Identity.Name == null)
+                        {
+                            <div class="card swiper-slide " style="background-color: transparent">
+                                <div class="product__item__pic set-bg">
+                                    <img src="~/@item.ImagePath">
+                                    <div class="comment"><i class="fa fa-comments"></i>  @item.Comments.Count</div>
+                                    <div class="view"><i class="fa fa-eye"></i> @item.Rating</div>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6>@item.Title</h6>
+                                </div>
+
                             </div>
 
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="card swiper-slide " style="background-color: transparent">
+                                <a href="movies/movie/@item.Id">
+                                    <div class="product__item__pic set-bg">
+                                        <img src="~/@item.ImagePath">
+                                        <div class="comment"><i class="fa fa-comments"></i>  @item.Comments.Count</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @item.Rating</div>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <h6>@item.Title</h6>
+                                    </div>
+
+                                </a>
+                            </div>
+                        }
 
                     }
                 </div>
@@ -47,31 +85,52 @@
                 <br>
                 <div class="swiper-pagination"></div>
             </div>
-           
+
         </div>
 
-        
+
     </div>
     <br>
     <div class="section-title">
-        <h4>Most recent posts</h4>
+        <h4>Most commented posts</h4>
         <br>
         <div class="slide-container swiper">
             <div class="slide-content">
                 <div class="card-wrapper swiper-wrapper">
-                    @foreach (var item in await this.movieServices.GetMostRecentPostsAsync())
+                    @foreach (var item in await this.movieServices.GetTopCommentedAsync())
                     {
-                        <div class="card swiper-slide " style="background-color: transparent">
-                            <div class="product__item__pic set-bg">
-                                <img src="~/@item.ImagePath" class="image-card">
-                                <div class="comment"><i class="fa fa-comments"></i>  @item.Comments.Count</div>
-                                <div class="view"><i class="fa fa-eye"></i> @item.Rating</div>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>@item.Title</h6>
+                        if (this.User.Identity.Name == null)
+                        {
+                            <div class="card swiper-slide " style="background-color: transparent">
+                                <div class="product__item__pic set-bg">
+                                    <img src="~/@item.ImagePath">
+                                    <div class="comment"><i class="fa fa-comments"></i>  @item.Comments.Count</div>
+                                    <div class="view"><i class="fa fa-eye"></i> @item.Rating</div>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6>@item.Title</h6>
+                                </div>
+
                             </div>
 
-                        </div>
+                        }
+                        else
+                        {
+
+                            <div class="card swiper-slide " style="background-color: transparent">
+                                <a href="movies/movie/@item.Id">
+                                    <div class="product__item__pic set-bg">
+                                        <img src="~/@item.ImagePath">
+                                        <div class="comment"><i class="fa fa-comments"></i>  @item.Comments.Count</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @item.Rating</div>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <h6>@item.Title</h6>
+                                    </div>
+
+                                </a>
+                            </div>
+                        }
 
                     }
 
@@ -83,11 +142,11 @@
                 <br>
                 <div class="swiper-pagination"></div>
             </div>
-            
+
         </div>
 
 
-    </div>    
+    </div>
     </section>
 </body>
 <!-- Swiper JS -->
@@ -96,4 +155,5 @@
 <!-- JavaScript -->
 <!--Uncomment this line-->
 <script src="js/script.js"></script>
+
 </html>

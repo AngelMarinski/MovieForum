@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Interfaces;
 using MovieForum.Web.Models;
@@ -19,6 +20,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var comments = await this.services.GetAsync();
@@ -26,7 +28,8 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpGet]
-		public IActionResult Create()
+        [Authorize]
+        public IActionResult Create()
 		{
 			var com = new CreateCommentViewModel();
 
@@ -34,6 +37,7 @@ namespace MovieForum.Web.Controllers
 		}
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(MovieCommentWrap comment)
         {
             
@@ -54,6 +58,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Like(MovieCommentWrap comment)
         {
             var user = await this.userServices.GetUserByEmailAsync(this.User.Identity.Name);
@@ -64,6 +69,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Dislike(MovieCommentWrap comment)
         {
             var user = await this.userServices.GetUserByEmailAsync(this.User.Identity.Name);
@@ -74,6 +80,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Delete(MovieCommentWrap comment)
         {
             await services.DeleteAsync(comment.commentViewModel.Id);
@@ -82,6 +89,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(MovieCommentWrap comment)
         {
             await services.UpdateAsync(comment.commentViewModel.Id,comment.commentViewModel);

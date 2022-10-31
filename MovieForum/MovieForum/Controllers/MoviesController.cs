@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieForum.Services.DTOModels;
@@ -28,6 +29,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Movie(int id)
         {
             var movie = await this.moviesService.GetByIdAsync(id);
@@ -36,6 +38,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var movies = await this.moviesService.GetAsync();
@@ -44,6 +47,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             CreateMovie movie = new CreateMovie();
@@ -52,6 +56,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(CreateMovie movie)
         {
             if (!this.ModelState.IsValid)
