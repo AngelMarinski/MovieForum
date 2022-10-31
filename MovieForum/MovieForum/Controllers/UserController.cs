@@ -20,13 +20,38 @@ namespace MovieForum.Web.Controllers
 
         public IWebHostEnvironment hostingEnvironment;
 
-        public UserController( IUserServices userService, IWebHostEnvironment hostingEnvironment)
+        public UserController(IUserServices userService, IWebHostEnvironment hostingEnvironment)
         {
             this.userService = userService;
             this.hostingEnvironment = hostingEnvironment;
         }
+
+
+        public async Task<IActionResult> Index()
+        {
+            var userEmail = this.User.Identity.Name;
+            var user = await userService.GetUserByEmailAsync(userEmail);
+            user.ImagePath = user.ImagePath.Split("Images\\").Last();
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Block(int id)
+        {
+            await userService.BlockUser(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>Unblock(int id)
+        {
+            await userService.UnblockUser(id);
+            return RedirectToAction("Index");
+        }
+
+
         [HttpGet]
-        public  async Task<IActionResult> Update()
+        public async Task<IActionResult> Update()
         {
             var user = await userService.GetUserByEmailAsync(this.User.Identity.Name);
 
@@ -65,7 +90,7 @@ namespace MovieForum.Web.Controllers
                 userDTO.FirstName = model.FirstName ?? user.FirstName;
                 userDTO.LastName = model.LastName ?? user.LastName;
                 userDTO.Email = model.Email ?? user.Email;
-                if(model.File!= null)
+                if (model.File != null)
                 {
                     userDTO.ImagePath = UploadPhoto(model.File);
                 }
@@ -79,7 +104,7 @@ namespace MovieForum.Web.Controllers
             }
             catch (Exception)
             {
-              return this.View(model);
+                return this.View(model);
             }
 
 

@@ -1,0 +1,132 @@
+﻿@using MovieForum.Data.Models
+@model User
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/profilepage.css" rel="stylesheet">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="content" class="content content-full-width">
+                <!-- begin profile -->
+                <div class="profile">
+                    <div class="profile-header">
+                        <!-- BEGIN profile-header-cover -->
+                        <div class="profile-header-cover"></div>
+                        <!-- END profile-header-cover -->
+                        <!-- BEGIN profile-header-content -->
+                        <div class="profile-header-content">
+                            <!-- BEGIN profile-header-img -->
+                            <div class="profile-header-img">
+                                @if (@Model.ImagePath != null)
+                                {
+                                    <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
+                                }
+                                else
+                                {
+                                    <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
+                                }
+                            </div>
+                            <!-- END profile-header-img -->
+                            <!-- BEGIN profile-header-info -->
+                            <div class="profile-header-info">
+                                <h4 class="m-t-10 m-b-5">@Model.FirstName @Model.LastName</h4>
+                                @if (this.User.HasClaim(x => x.Value == "Admin") && this.User.Identity.Name != @Model.Email)
+                                {
+                                    @if (@Model.IsBlocked)
+                                    {
+                                        <a asp-action="Ublock" asp-route-id=@Model.Id class="button-1" >Unblock</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Block" asp-route-id=@Model.Id class="button-1" >Block</a>
+                                    }
+                                }
+                                else
+                                {
+                                 <a asp-action="Update" class="button-1" >Edit Profile</a>
+                                }
+                            </div>
+                            <!-- END profile-header-info -->
+                        </div>
+                        <!-- END profile-header-content -->
+                    </div>
+                </div>
+                <!-- end profile -->
+                <!-- begin profile-content -->
+                <div class="profile-content">
+                    <!-- begin tab-content -->
+                    <div class="tab-content p-0">
+                        <!-- begin #profile-post tab -->
+                        <div class="tab-pane fade active show" id="profile-post">
+                            <!-- begin timeline -->
+                            <ul class="timeline">
+
+                                @foreach (var post in @Model.Movies)
+                                {
+                                    <li>
+                                        <!-- begin timeline-time -->
+                                    <div class="timeline-time">
+                                            <span class="date">@post.ReleaseDate.Day/@post.ReleaseDate.Month/@post.ReleaseDate.Year</span>
+                                            <span class="time">@post.ReleaseDate.Hour:@post.ReleaseDate.Minute</span>
+                                        </div>
+                                        <!-- end timeline-time -->
+                                        <!-- begin timeline-icon -->
+                                    <div class="timeline-icon">
+                                            <a href="javascript:;">&nbsp;</a>
+                                        </div>
+                                        <!-- end timeline-icon -->
+                                        <!-- begin timeline-body -->
+                                    <div class="timeline-body">
+                                            <div class="timeline-header">
+                                                <span class="userimage">
+                                                    @if (@Model.ImagePath != null)
+                                                    {
+                                                        <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
+                                                    }
+                                                </span>
+                                                <span class="username"><a asp-controller="Comment" asp-action="Index">@post.Title</a> <small></small></span>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <p>
+                                                    @post.Content
+                                                </p>
+                                            </div>
+                                            <div class="timeline-likes">
+                                                <div class="stats-right">
+                                                    @if (@post.Comments.Count() != 0)
+                                                    {
+                                                        <span class="stats-text">
+                                                            @post.Comments.Count() Comments
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="stats-text">
+                                                            0 Comments
+                                                        </span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end timeline-body -->
+                                </li>
+                                }
+
+                            </ul>
+                            <!-- end timeline -->
+                        </div>
+                        <!-- end #profile-post tab -->
+                    </div>
+                    <!-- end tab-content -->
+                </div>
+                <!-- end profile-content -->
+            </div>
+        </div>
+    </div>
+</div>

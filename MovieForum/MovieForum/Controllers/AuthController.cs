@@ -109,10 +109,12 @@ namespace MovieForum.Web.Controllers
 
                 var AuthProperties = new AuthenticationProperties
                 {
-                    IsPersistent = false
+                    IsPersistent = false,
+                    ExpiresUtc = DateTime.UtcNow.AddDays(14)
                 };
 
-                if(model.RememberMe == true)
+
+                if (model.RememberMe == true)
                 {
                     AuthProperties.IsPersistent = true;
                 }
