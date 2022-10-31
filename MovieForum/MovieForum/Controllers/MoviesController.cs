@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Interfaces;
 using MovieForum.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,7 +32,7 @@ namespace MovieForum.Web.Controllers
         {
             var movie = await this.moviesService.GetByIdAsync(id);
 
-            return View(new MovieCommentWrap { MovieDTO = movie , commentViewModel = new CommentDTO() });
+            return View(new MovieCommentWrap { MovieDTO = movie, commentViewModel = new CommentDTO() });
         }
 
         [HttpGet]
@@ -52,20 +54,136 @@ namespace MovieForum.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateMovie movie)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
             var user = await userService.GetUserByEmailAsync(this.User.Identity.Name);
 
-            var cast = movie.Cast.Split(',').ToList();
+            var movieDTO = new MovieDTO
+            {
+                Title = movie.Title,
+                Content = movie.Content,
+                ReleaseDate = movie.RealeaseDate,
+                GenreId = movie.GenreId,
+                Username = user.Username,
+                Cast = AddCastToMovie(movie.Cast.Split(",").ToList()),
+                ImagePath = this.UploadPhoto(movie.File) ?? "Images/default.jpg"
+            };
 
+
+            var newMovie = await this.moviesService.PostAsync(movieDTO);
+
+            foreach (var tag in movie.Tags.Split(",").ToList())
+            {
+                await this.moviesService.AddTagAsync(newMovie.Id, tag);
+            }
+
+            return this.RedirectToAction("Index", "Movies");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(MovieCommentWrap movie)
+        {
+            try
+            {
+                await this.moviesService.DeleteAsync(movie.MovieDTO.Id);
+                return this.RedirectToAction("Index", "Movies");
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit([FromRoute] int id)
+        {
+            var movie = await this.moviesService.GetByIdAsync(id);
+
+            UpdateMovieView post = new UpdateMovieView
+            {
+                MovieID = movie.Id,
+                Title = movie.Title,
+                Content = movie.Content,
+                GenreId = movie.GenreId,
+                ReleaseDate = movie.ReleaseDate
+            };
+
+            post.Cast = string.Join(",", movie.Cast.Select(x => x.ToString()));
+            post.Tags = string.Join(",", movie.Tags.Select(x => x.TagName));
+
+            return this.View(post);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(UpdateMovieView post)
+        {
+            try
+            {
+                var movie = await this.moviesService.GetByIdAsync(post.MovieID);
+                var path = this.UploadPhoto(post.File);
+
+                var movieDTO = new MovieDTO
+                {
+                    Id = post.MovieID,
+                    Title = post.Title,
+                    Content = post.Content,
+                    GenreId = (int)post.GenreId,
+                };
+
+                if (post.Cast != null || post.Cast.Length != 0)
+                {
+                    movieDTO.Cast = new List<MovieActorDTO>(AddCastToMovie(post.Cast.Split(",").ToList()));
+                }
+
+                if (post.Tags != null)
+                {
+                    foreach (var tag in post.Tags.Split(",").ToList())
+                    {
+                        if(!movie.Tags.Any(x => x.TagName == tag))
+                        {
+                            await this.moviesService.AddTagAsync(post.MovieID, tag);
+                        }
+                    }
+                }
+
+                if(post.ReleaseDate != null)
+                {
+                    movieDTO.ReleaseDate = (DateTime)post.ReleaseDate;
+                }
+
+                if (path != null)
+                {
+                    movieDTO.ImagePath = path;
+                }
+
+                await this.moviesService.UpdateAsync(post.MovieID, movieDTO);
+
+                return this.RedirectToAction("Movie", "Movies", new { id = post.MovieID });
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+
+        private List<MovieActorDTO> AddCastToMovie(List<string> cast)
+        {
             var castList = new List<MovieActorDTO>();
 
-            foreach(var x in cast)
+            foreach (var x in cast)
             {
                 var full_name = x.Split(' ').ToList();
+
+                var lastname = string.Join(" ", full_name.Skip(1).Take(full_name.Count - 1));
 
                 var actor = new ActorDTO
                 {
                     FirstName = full_name[0],
-                    LastName = full_name[1]
+                    LastName = lastname,
                 };
 
                 var movieActor = new MovieActorDTO
@@ -76,19 +194,28 @@ namespace MovieForum.Web.Controllers
                 castList.Add(movieActor);
             }
 
-            var movieDTO = new MovieDTO
+            return castList;
+        }
+
+        private string UploadPhoto(IFormFile file)
+        {
+            if (file == null)
             {
-                Title = movie.Title,
-                Content = movie.Content,
-                ReleaseDate = movie.RealeaseDate,
-                GenreId = movie.GenreId,
-                Username = user.Username,
-                Cast = castList
-            };
-
-            await this.moviesService.PostAsync(movieDTO);
-
-            return this.RedirectToAction("Index", "Movies");
+                return null;
+            }
+            FileInfo fi = new FileInfo(file.FileName);
+            var newFileName = "Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+            if (!Directory.Exists(webHostEnvironment.WebRootPath + "\\Images\\"))
+            {
+                Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\Images\\");
+            }
+            var path = Path.Combine("", webHostEnvironment.WebRootPath + "\\Images\\" + newFileName);
+            using (FileStream stream = System.IO.File.Create(path))
+            {
+                file.CopyTo(stream);
+                stream.Flush();
+            }
+            return path;
         }
     }
 }

@@ -16,7 +16,7 @@
             /* You can also add some margins here to make it look prettier */
         }
     </style>
-   
+
     <!-- Css Styles -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
@@ -68,6 +68,17 @@
                                                 @string.Join(", ", this.Model.MovieDTO.Cast.Select(x => x.ToString()))
                                             </li>
                                         </ul>
+                                        @{
+                                            if (userCheck.Id == this.Model.MovieDTO.AuthorId)
+                                            {
+
+                                                <form asp-controller="Movies" asp-action="Delete" method="post">
+                                                    <input type="hidden" asp-for="MovieDTO.Id" value="@this.Model.MovieDTO.Id" />
+                                                    <button type="submit" class="btn btn-danger" value="Delete">Delete</button>
+                                                </form>
+                                                <a asp-controller="Movies" asp-action="Edit" asp-route-id="@this.Model.MovieDTO.Id" class="btn btn-warning">Edit</a>
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -116,20 +127,20 @@
                                                     </form>
 
                                                 </li>
-                                                <li >   
-                                                <button class="btn btn-primary" onclick="openForm()">Edit</button>
+                                                <li>
+                                                    <button class="btn btn-primary" onclick="openForm()">Edit</button>
                                                     <div class="form-popup" id="myForm">
                                                         <form asp-controller="Comment" asp-action="Edit" method="post" class="form-container">
 
-                                                            <textarea asp-for=" commentViewModel.Content"  rows="10" cols="30" placeholder="@comment.Content"></textarea>
+                                                            <textarea asp-for=" commentViewModel.Content" rows="10" cols="30" placeholder="@comment.Content"></textarea>
                                                             <span asp-validation-for="commentViewModel.Content" class="form-error"></span>
                                                             <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
                                                             <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
-                                                            
+
                                                             <button type="submit" class="btn">Edit</button>
                                                             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-                                                        </form> 
-                                                    </div>                                                   
+                                                        </form>
+                                                    </div>
                                                 </li>
 
 

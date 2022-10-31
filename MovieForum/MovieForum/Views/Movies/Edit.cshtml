@@ -1,4 +1,4 @@
-﻿@model CreateMovie
+﻿@model UpdateMovieView
 @inject MovieForum.Services.Interfaces.IGenreServices genreServices
 
 @{
@@ -13,7 +13,7 @@
     <script src="~/js/TagsInputField.js"></script>
 </head>
 <body>
-    <form asp-controller="Movies" asp-action="Create" method="post">
+    <form asp-controller="Movies" asp-action="Edit" method="post">
         <button type="submit" disabled style="display:none" aria-hidden="true"></button>
         <div>
             <label asp-for="Title" class="form-label"></label>
@@ -37,30 +37,27 @@
             <span asp-validation-for="GenreId" class="form-error"></span>
         </div>
         <div>
-            <label asp-for="RealeaseDate" class="form-label"></label>
-            <br />
-            <input asp-for="RealeaseDate" type="datetime" class="form-input" />
-            <span asp-validation-for="RealeaseDate" class="form-error"></span>
-        </div>
-        <div>
             <label asp-for="Cast" class="form-label"></label>
             <br />
-            <input asp-for="Cast" type="text" id="cast" value="" data-role="tagsinput" placeholder="Add cast" />
+            <input asp-for="Cast" type="text" id="cast" data-role="tagsinput" placeholder="Add cast" value="@this.Model.Cast"/>
             <br />
             <span asp-validation-for="Cast" class="form-error"></span>
         </div>
         <div>
             <label asp-for="Tags" class="form-label"></label>
             <br />
-            <input asp-for="Tags" type="text" id="tags" value="" data-role="tagsinput" placeholder="Add tags" />
+            <input asp-for="Tags" type="text" id="tags" data-role="tagsinput" placeholder="Add tags" value="@this.Model.Tags"/>
         </div>
         <div>
             <label asp-for="File" class="form-label"></label>
             <br />
-            <input asp-for="File" type="file" required />
+            <input asp-for="File" type="file" />
         </div>
         <div>
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="hidden" asp-for="MovieID" value="@this.Model.MovieID" />
+        </div>
+        <div>
+            <input type="submit" value="Edit" class="btn btn-primary" />
         </div>
     </form>
 </body>

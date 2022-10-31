@@ -19,101 +19,21 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
-@*<body>
-                 <div class="col-lg-9">
-                        <div class="anime__details__text">
-                            <div class="anime__details__title">
-                                @foreach (var movie in this.Model)
-                                {
-                                    <div>
-                                        <h3>@movie.Title</h3>
-                                    </div>
-                                    <div class="anime__details__rating">
-                                        <div class="rating">
-                                            <a href="#"><i class="fa fa-star"></i></a>
-                                            <a href="#"><i class="fa fa-star"></i></a>
-                                            <a href="#"><i class="fa fa-star"></i></a>
-                                            <a href="#"><i class="fa fa-star"></i></a>
-                                            <a href="#"><i class="fa fa-star-half-o"></i></a>
-                                        </div>
-                                        <span>12 Votes</span>
-                                    </div>
-                                    <p>@movie.Content</p>
-                                    <div class="anime__details__widget">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6">
-                                                <ul>
-                                                    <li><span>Type:</span> @movie.Genre.Name</li>
-                                                    <li><span>Release Date:</span> @movie.ReleaseDate</li>
-                                                    <li>
-                                                        <span>Tags:</span>
-                                                        @foreach (var tag in @movie.Tags)
-                                                        {
-                                                            @tag.TagName
-                                                        }
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="anime__details__widget">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6">
-                                                <ul>
-                                                    <li>
-                                                        <span>Cast:</span>
-                                                        @{
-                                                            if(movie.Cast.Count == 0)
-                                                            {
-                                                                <p>No actors to show</p>
-                                                            }
-                                                            else
-                                                            {
-                                                                <p> @string.Join(", ", movie.Cast) </p>
-                                                            }
-                                                        }
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="anime__details__btn">
-                                    </div>
-                                    @foreach (var item in movie.Comments)
-                                    {
-
-                                        <div class="anime__review__item">
-                                            <div class="anime__review__item__pic">
-                                                <img src="Images/Image_500.jpg" alt="">
-                                            </div>
-                                            <div class="anime__review__item__text">
-                                                <h6>@item.AuthorUsername - <span>@item.PostedOn</span></h6>
-                                                <p>@item.Content</p>
-                                                <div class="comment"><i class="fa fa-comments"></i> @item.LikesCount</div><div class="comment"> <i class="fa fa-comments"></i> @item.DisLikesCount</div>
-
-                                            </div>
-                                        </div>
-                                    }
-                                }
-                            </div>
-                        </div>
-            </div>
-    </body>*@
 <body>
     <section class="product spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="trending__product">
-                        <div class="row">
-                            @{
-                                foreach (var movie in this.Model)
-                                {
-                                    <div class="col-lg-4 col-md-6 col-sm-6">
+
+                <div class="trending__product">
+                    <div class="row">
+                        @{
+                            foreach (var movie in this.Model)
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <a href="movies/movie/@movie.Id">
                                         <div class="product__item">
-                                            <div class="product__item__pic set-bg" >
-                                                <img src="~/@movie.ImagePath"/>
+                                            <div class="product__item__pic set-bg">
+                                                <img src="~/@movie.ImagePath" class="movie-album-pic" />
                                                 <div class="ep">@movie.Genre.Name</div>
                                                 <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
                                                 <div class="view"><i class="fa fa-eye"></i> @movie.Rating</div>
@@ -123,13 +43,13 @@
                                                     <li>@movie.ReleaseDate</li>
                                                     <li>@movie.Username</li>
                                                 </ul>
-                                                <h5><a href="movies/movie/@movie.Id">@movie.Title</a></h5>
+                                                <h5>@movie.Title</h5>
                                             </div>
                                         </div>
-                                    </div>
-                                }
+                                    </a>
+                                </div>
                             }
-                        </div>
+                        }
                     </div>
                 </div>
             </div>

@@ -111,7 +111,7 @@ namespace MovieForum.Services
 
             if(obj.Cast != null)
             {
-                movie.Cast = mapper.Map<ICollection<MovieActor>>(obj.Cast);
+                movie.Cast = new List<MovieActor>(mapper.Map<ICollection<MovieActor>>(obj.Cast));
             }
             if(obj.Title != null)
             {
@@ -127,10 +127,11 @@ namespace MovieForum.Services
                      ?? throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
                 movie.Genre = genre;
             }
-            if(obj.Tags != null)
+/*            if(obj.Tags != null)
             {
-                movie.Tags = mapper.Map<ICollection<MovieTags>>(obj.Tags);
-            }
+                movie.Tags = new List<MovieTags>(mapper.Map<ICollection<MovieTags>>(obj.Tags));
+            }*/
+
             if(obj.ReleaseDate != null)
             {
                 movie.ReleaseDate = (DateTime)obj.ReleaseDate;
@@ -153,6 +154,12 @@ namespace MovieForum.Services
 
             movie.DeletedOn = DateTime.Now;
             movie.IsDeleted = true;
+
+            foreach (var comment in movie.Comments)
+            {
+                comment.IsDeleted = true;
+                comment.DeletedOn = DateTime.Now;
+            }
 
             db.Movies.Remove(movie);
 
@@ -240,7 +247,7 @@ namespace MovieForum.Services
             };
 
             movie.Tags.Add(movieTag);
-            tag.Movies.Add(movieTag);
+            //tag.Movies.Add(movieTag);
 
             await db.SaveChangesAsync();
 

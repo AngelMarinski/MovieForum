@@ -299,6 +299,7 @@ ol {
 	height: auto;
 	position: relative;
 	border-radius: 5px;
+    min-height: 350px;
 }
 
 .product__item__pic .ep {
@@ -333,8 +334,9 @@ ol {
 	padding: 2px 10px;
 	border-radius: 4px;
 	position: absolute;
-	right: 10px;
+	right: 22%;
 	bottom: 10px;
+    width: auto;
 }
 
 .product__item__text {
@@ -620,5 +622,14 @@ ol {
     padding: 10px 15px;
     border-radius: 2px;
 }
- 
+
+.image-card{
+    min-height: 450px;
+    max-height: 450px;
+}
+
+.movie-album-pic{
+    min-height: 350px;
+    max-height: 350px;
+    max-width: 280px;
 }
