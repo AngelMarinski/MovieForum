@@ -44,6 +44,21 @@ namespace MovieForum.Services.Services
             return user ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
         }
 
+        public async Task<IEnumerable<UserDTO>> Search(string userSearch)
+        {
+            IEnumerable<UserDTO> userQuery = null;
+
+            if (!String.IsNullOrEmpty(userSearch))
+            {
+                userQuery = await db.Users.Where(x => (x.Username.Contains(userSearch) && x.IsDeleted == false) || (x.Email.Contains(userSearch) && x.IsDeleted == false)).Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
+            }
+            else
+            {
+                userQuery = await db.Users.Where(x => x.IsDeleted == false).Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
+            }
+            return userQuery;
+        }
+
         public int UserCount()
         {
             var numOfUsers = db.Users.Count();

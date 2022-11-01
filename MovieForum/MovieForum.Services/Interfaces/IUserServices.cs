@@ -12,6 +12,7 @@ namespace MovieForum.Services.Interfaces
         Task<UserDTO> PostAsync(UpdateUserDTO obj);
         Task<UserDTO> UpdateAsync(int id, UpdateUserDTO obj);
         Task<UserDTO> DeleteAsync(int id);
+        Task<IEnumerable<UserDTO>> Search(string userSearch);
         Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(int userId);
         Task<IEnumerable<CommentDTO>> GetAllCommentsAsync(string username);
         Task<IEnumerable<MovieDTO>> GetAllMoviesAsync(int userId);
