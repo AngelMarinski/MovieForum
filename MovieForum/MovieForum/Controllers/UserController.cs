@@ -31,7 +31,7 @@ namespace MovieForum.Web.Controllers
         {
             var userEmail = this.User.Identity.Name;
             var user = await userService.GetUserByEmailAsync(userEmail);
-            user.ImagePath = user.ImagePath.Split("Images\\").Last();
+            user.Movies = user.Movies.OrderByDescending(x => x.ReleaseDate).ToList();
             return View(user);
         }
 
@@ -61,7 +61,7 @@ namespace MovieForum.Web.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                ImagePath = user.ImagePath.Split("Images\\").Last()
+                ImagePath = user.ImagePath
             };
             return this.View(update);
         }
@@ -130,7 +130,7 @@ namespace MovieForum.Web.Controllers
                 file.CopyTo(stream);
                 stream.Flush();
             }
-            return path;
+            return newFileName;
         }
     }
 }

@@ -57,7 +57,8 @@ namespace MovieForum.Web.Controllers
                 Username = model.Username,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Email = model.Email
+                Email = model.Email,
+                ImagePath = "defaultphoto.jpg"
             };
 
             var newUser = await userService.PostAsync(userDTO);
@@ -92,7 +93,8 @@ namespace MovieForum.Web.Controllers
                 {
                     new Claim(ClaimTypes.Name,user.Email),
                     new Claim("Username", user.Username),
-                    new Claim("Full Name", user.FirstName +" " + user.LastName)
+                    new Claim("Full Name", user.FirstName +" " + user.LastName),
+                    new Claim("Image", user.ImagePath)
                 };
 
                 if(user.RoleId == 1)
