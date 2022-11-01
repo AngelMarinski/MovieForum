@@ -11,56 +11,64 @@
     <link rel="stylesheet" href="~/css/tagsInput.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="~/js/TagsInputField.js"></script>
+
 </head>
 <body>
-    <form asp-controller="Movies" asp-action="Create" method="post">
-        <button type="submit" disabled style="display:none" aria-hidden="true"></button>
-        <div>
-            <label asp-for="Title" class="form-label"></label>
-            <input asp-for="Title" type="text" class="form-input" />
-            <br />
-            <span asp-validation-for="Title" class="form-error" style="color: red"></span>
-            <br />
-        </div>
-        <div>
-            <label asp-for="Content" class="form-label"></label>
-            <input asp-for="Content" type="text" class="form-input" />
-            <br />
-            <span asp-validation-for="Content" class="form-error" style="color: red"></span>
-            <br />
-        </div>
-        <div>
-            <label asp-for="GenreId" class="form-label"></label>
-            <select asp-items="@genres" asp-for="GenreId" class="form-input"></select>
-            <span asp-validation-for="GenreId" class="form-error" style="color: red"></span>
-            <br />
-        </div>
-        <div>
-            <label asp-for="RealeaseDate" class="form-label"></label>
-            <input asp-for="RealeaseDate" type="datetime-local" value="@DateTime.Now" class="form-input" />
-            <span asp-validation-for="RealeaseDate" class="form-error" style="color: red"></span>
-            <br />
-        </div>
-        <div>
-            <label asp-for="Cast" class="form-label"></label>
-            <input asp-for="Cast" type="text" id="cast" value="" data-role="tagsinput" placeholder="Add cast" />
-            <span asp-validation-for="Cast" class="form-error" style="color: red"></span>
-            <br />
-        </div>
-        <div>
-            <label asp-for="Tags" class="form-label"></label>
-            <input asp-for="Tags" type="text" id="tags" value="" data-role="tagsinput" placeholder="Add tags" />
-            <br />
-        </div>
-        <div>
-            <label asp-for="File" class="form-label"></label>
-            <input asp-for="File" type="file" />
-            <br />
-        </div>
-        <div>
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </form>
+    <div class="create-edit-form">
+        <form asp-controller="Movies" asp-action="Create" method="post">
+            <button type="submit" disabled style="display:none" aria-hidden="true"></button>
+            <div>
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" type="text" class="form-input" />
+                <br />
+                <span asp-validation-for="Title" class="form-error" style="color: red"></span>
+                <br />
+            </div>
+            <div>
+                <label asp-for="Content" class="form-label"></label>
+                <input asp-for="Content" type="text" class="form-input" />
+                <br />
+                <span asp-validation-for="Content" class="form-error" style="color: red"></span>
+                <br />
+            </div>
+            <div>
+                <label asp-for="GenreId" class="form-label"></label>
+                <select asp-items="@genres" asp-for="GenreId" class="form-input"></select>
+                <span asp-validation-for="GenreId" class="form-error" style="color: red"></span>
+                <br />
+                <br />
+            </div>
+            <div>
+                <label asp-for="RealeaseDate" class="form-label"></label>
+                <input asp-for="RealeaseDate" type="datetime-local" value="@DateTime.Now" class="form-input" />
+                <span asp-validation-for="RealeaseDate" class="form-error" style="color: red"></span>
+                <br />
+                <br />
+            </div>
+            <div>
+                <label asp-for="Cast" class="form-label"></label>
+                <input asp-for="Cast" type="text" id="cast" value="" data-role="tagsinput" placeholder="Add cast" />
+                <span asp-validation-for="Cast" class="form-error" style="color: red"></span>
+                <br />
+                <br />
+            </div>
+            <div>
+                <label asp-for="Tags" class="form-label"></label>
+                <input asp-for="Tags" type="text" id="tags" value="" data-role="tagsinput" placeholder="Add tags" />
+                <br />
+                <br />
+            </div>
+            <div>
+                <label asp-for="File" class="form-label"></label>
+                <input asp-for="File" type="file" />
+                <br />
+                <br />
+            </div>
+            <div>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

@@ -69,3 +69,23 @@
                 .bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
                     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
                 }
+
+.create-edit-form {
+    justify-content: center;
+    border: 1px solid #e53637;
+    padding: 5%;
+    margin: auto;
+    margin-top: 5%;
+    width: 26%;
+    background: #1d1e39;
+    min-width: fit-content;
+    color: whitesmoke;
+    border-radius: 10px;
+}
+
+body {
+    height: 100%;
+    font-family: "Mulish", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #0b0c2a;
+}

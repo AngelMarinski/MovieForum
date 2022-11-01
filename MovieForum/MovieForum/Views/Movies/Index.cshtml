@@ -20,6 +20,11 @@
 </head>
 
 <body>
+    <div >
+        <form asp-controller="Movies" asp-action="Create" method="get">
+            <button type="submit" asp-action="Create" class="btn btn-success create-btn">Create post</button>
+        </form>
+    </div>
     <section class="product spad">
         <div class="container">
             <div class="row">
@@ -36,7 +41,7 @@
                                                 <img src="~/@movie.ImagePath" class="movie-album-pic" />
                                                 <div class="ep">@movie.Genre.Name</div>
                                                 <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
-                                                <div class="view"><i class="fa fa-star"></i> @string.Format("{0:0.0}",movie.Rating)</div>
+                                                <div class="rating-preview"><i class="fa fa-star"></i> @string.Format("{0:0.0}",movie.Rating)</div>
                                             </div>
                                             <div class="product__item__text">
                                                 <ul>

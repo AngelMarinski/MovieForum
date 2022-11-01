@@ -754,3 +754,24 @@ ol {
     max-height: 350px;
     max-width: 280px;
 }
+
+.create-btn {
+    margin-top: 1%;
+    margin-left: 100%;
+    margin-right: 10%;
+    width: 10%;
+    border-radius: 10px;
+}
+
+.rating-preview {
+    font-size: 13px;
+    color: #ffffff;
+    background: #3d3d3d;
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    position: absolute;
+    right: 22%;
+    bottom: 10px;
+    width: auto;
+}
