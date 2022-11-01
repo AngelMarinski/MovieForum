@@ -18,15 +18,8 @@
                         <!-- BEGIN profile-header-content -->
                         <div class="profile-header-content">
                             <!-- BEGIN profile-header-img -->
-                            <div class="profile-header-img">
-                                @if (@Model.ImagePath != "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg")
-                                {
-                                    <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
-                                }
-                                else
-                                {
-                                    <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
-                                }
+                            <div class="profile-header-img">                               
+                                    <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">                                
                             </div>
                             <!-- END profile-header-img -->
                             <!-- BEGIN profile-header-info -->
@@ -36,7 +29,7 @@
                                 {
                                     @if (@Model.IsBlocked)
                                     {
-                                        <a asp-action="Ublock" asp-route-id=@Model.Id class="button-1" >Unblock</a>
+                                        <a asp-action="Unblock" asp-route-id=@Model.Id class="button-1">Unblock</a>
                                     }
                                     else
                                     {
@@ -81,14 +74,8 @@
                                     <div class="timeline-body">
                                             <div class="timeline-header">
                                                 <span class="userimage">
-                                                    @if (@Model.ImagePath != null)
-                                                    {
                                                         <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
-                                                    }
-                                                    else
-                                                    {
-                                                        <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
-                                                    }
+                                                   
                                                 </span>
                                                 <span class="username"><a asp-controller="Comment" asp-action="Index">@post.Title</a> <small></small></span>
                                             </div>

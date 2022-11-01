@@ -53,13 +53,13 @@
                         <li class="nav-item me-3 me-lg-0 dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
-                                @*<img src="~/Images/@this.User.Claims.FirstOrDefault(x=>x.Type == "Image").Value" class="rounded-circle" height="22"
-        alt="" loading="lazy" />*@
-                                <img src="~/Images/Image_500.jpg" class="rounded-circle" height="22"
-                                     alt="" loading="lazy" />
+                                <img src="~/Images/@this.User.Claims.FirstOrDefault(x=>x.Type == "Image").Value" class="rounded-circle" height="22"
+        alt="" loading="lazy" />
+                                @*<img src="~/Images/Image_500.jpg" class="rounded-circle" height="22"
+                                     alt="" loading="lazy" />*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
-                                <li><a asp-controller="User" asp-action="Index" class="dropdown-item">Profile</a></li>
+                                <li><a asp-controller="User" asp-action="Index" asp-route-email="@User.Identity.Name" class="dropdown-item">Profile</a></li>
                                 <li><a asp-controller="User" asp-action="Update" class="dropdown-item">Settings</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />

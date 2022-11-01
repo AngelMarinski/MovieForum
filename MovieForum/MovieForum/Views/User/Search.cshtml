@@ -17,10 +17,9 @@
         @{
             foreach (var user in this.Model)
             {
-
                 <tbody>
                     <tr class="table-secondary">
-                        <td scope="row">@user.Username</td>
+                        <td scope="row"><a asp-controller="User" asp-action="Index" asp-route-email="@user.Email" class="dropdown-item">@user.Username</a>td>
                         <td scope="row">@user.FirstName</td>
                         <td scope="row">@user.LastName</td>
                         <td scope="row">@user.Email</td>

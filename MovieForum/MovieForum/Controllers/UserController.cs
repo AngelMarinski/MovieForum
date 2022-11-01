@@ -27,10 +27,10 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string email)
         {
-            var userEmail = this.User.Identity.Name;
-            var user = await userService.GetUserByEmailAsync(userEmail);
+           // var userEmail = this.User.Identity.Name;
+            var user = await userService.GetUserByEmailAsync(email);
             user.Movies = user.Movies.OrderByDescending(x => x.ReleaseDate).ToList();
             return View(user);
         }
@@ -41,20 +41,22 @@ namespace MovieForum.Web.Controllers
             return View(await userService.Search(userSearch));
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize(Policy ="Admin")]
         public async Task<IActionResult> Block(int id)
         {
             await userService.BlockUser(id);
-            return RedirectToAction("Index");
+            var user = await userService.GetUserByIdAsync(id);
+            return RedirectToAction("Index",new { user.Email });
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult>Unblock(int id)
         {
-            await userService.UnblockUser(id);
-            return RedirectToAction("Index");
+            await userService.UnblockUser(id); 
+            var user = await userService.GetUserByIdAsync(id);
+            return RedirectToAction("Index", new { user.Email });
         }
 
 
