@@ -32,9 +32,20 @@ namespace MovieForum.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Movie(int id)
         {
-            var movie = await this.moviesService.GetByIdAsync(id);
+            try
+            {
+               var movie = await this.moviesService.GetByIdAsync(id);
 
-            return View(new MovieCommentWrap { MovieDTO = movie, commentViewModel = new CommentDTO() });
+                return View(new MovieCommentWrap { MovieDTO = movie, commentViewModel = new CommentDTO(),
+                rateMovieView = new RateMovieView()});
+            }
+            catch(InvalidOperationException ex)
+            {
+                return this.View("Error", new ErrorViewModel
+                {
+                    RequestId = ex.Message
+                });
+            }
         }
 
         [HttpGet]
@@ -61,7 +72,7 @@ namespace MovieForum.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.View(movie);
             }
 
             var user = await userService.GetUserByEmailAsync(this.User.Identity.Name);
@@ -89,6 +100,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Delete(MovieCommentWrap movie)
         {
             try
@@ -96,13 +108,14 @@ namespace MovieForum.Web.Controllers
                 await this.moviesService.DeleteAsync(movie.MovieDTO.Id);
                 return this.RedirectToAction("Index", "Movies");
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
-                return this.NotFound(ex.Message);
+                return this.View("Error", new ErrorViewModel { RequestId = ex.Message });
             }
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit([FromRoute] int id)
         {
             var movie = await this.moviesService.GetByIdAsync(id);
@@ -123,8 +136,14 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(UpdateMovieView post)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(post);
+            }
+
             try
             {
                 var movie = await this.moviesService.GetByIdAsync(post.MovieID);
@@ -168,9 +187,31 @@ namespace MovieForum.Web.Controllers
 
                 return this.RedirectToAction("Movie", "Movies", new { id = post.MovieID });
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
-                return this.BadRequest(ex.Message);
+                return this.View("Error", new ErrorViewModel { RequestId = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Rate(MovieCommentWrap rate)
+        {
+            try
+            {
+                await this.moviesService.RateMovieAsync(rate.rateMovieView.MovieId,
+                                                    rate.rateMovieView.UserId,
+                                                     rate.rateMovieView.Rate);
+
+                return this.RedirectToAction("Movie", "Movies",
+                    new { id = rate.rateMovieView.MovieId });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return this.View("Error", new ErrorViewModel
+                {
+                    RequestId = ex.Message
+                });
             }
         }
 

@@ -8,5 +8,7 @@ namespace MovieForum.Web.Models
 
         public CommentDTO commentViewModel { get; set; }
 
+        public RateMovieView rateMovieView { get; set; }
+
     }
 }

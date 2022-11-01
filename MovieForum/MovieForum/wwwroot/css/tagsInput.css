@@ -1,5 +1,9 @@
 ﻿/* bootstrap-tagsinput.css file - add in local */
 
+.form-error{
+    color: red;
+}
+
 .bootstrap-tagsinput {
     background-color: #fff;
     border: 1px solid #ccc;

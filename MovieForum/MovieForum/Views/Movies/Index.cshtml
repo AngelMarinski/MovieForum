@@ -36,7 +36,7 @@
                                                 <img src="~/@movie.ImagePath" class="movie-album-pic" />
                                                 <div class="ep">@movie.Genre.Name</div>
                                                 <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
-                                                <div class="view"><i class="fa fa-eye"></i> @movie.Rating</div>
+                                                <div class="view"><i class="fa fa-star"></i> @string.Format("{0:0.0}",movie.Rating)</div>
                                             </div>
                                             <div class="product__item__text">
                                                 <ul>

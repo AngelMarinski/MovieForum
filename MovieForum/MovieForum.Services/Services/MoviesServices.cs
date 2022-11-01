@@ -303,5 +303,19 @@ namespace MovieForum.Services
 
             return mapper.Map<IEnumerable<CommentDTO>>(comments);
         }
+
+  /*      private List<MovieActor> UpdateCast(Movie movie, List<MovieActor> newCast)
+        {
+            HashSet<MovieActor> set = new HashSet<MovieActor>(newCast);
+
+            foreach (var actor in movie.Cast)
+            {
+                if (!set.Contains(actor))
+                {
+                    actor.IsDeleted = true;
+                    actor.DeletedOn = DateTime.Now;
+                }
+            }
+        }*/
     }
 }

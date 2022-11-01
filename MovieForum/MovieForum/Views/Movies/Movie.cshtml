@@ -46,9 +46,20 @@
                             </div>
                             <div class="anime__details__rating">
                                 <div class="rating">
-                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    @*<a href="#"><i class="fa fa-star"></i></a>*@
+                                    <button class="fa fa-star" onclick="openForm()"></button>
+                                    <div class="form-popup" id="myForm">
+                                        <form asp-controller="Movies" asp-action="Rate" method="post" class="form-container">
+                                            <input asp-for="rateMovieView.Rate" type="number" min="0" max="10">
+                                            <input type="hidden" asp-for="rateMovieView.MovieId" value="@this.Model.MovieDTO.Id">
+                                            <input type="hidden" asp-for="rateMovieView.UserId" value="@userCheck.Id">
+
+                                            <button type="submit" class="btn btn-success">Rate</button>
+                                            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <span>@this.Model.MovieDTO.Rating</span>
+                                <span>@String.Format("{0:0.0}", this.Model.MovieDTO.Rating)/10.0</span>
                             </div>
                             <p>
                                 @this.Model.MovieDTO.Content
