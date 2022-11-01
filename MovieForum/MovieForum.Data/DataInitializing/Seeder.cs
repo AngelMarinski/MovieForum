@@ -25,7 +25,7 @@ namespace MovieForum.Data.DataInitializing
                         Email = "fakeemail@gmail.com",
                         RoleId = 2,
                         IsDeleted = false,
-                        ImagePath = "Images/Image_500.jpg"
+                        ImagePath = "defaultphoto.jpg"
                     },
                  new User
                     {
@@ -37,7 +37,7 @@ namespace MovieForum.Data.DataInitializing
                         Email = "adminsemail@gmail.com",
                         RoleId = 1,
                         IsDeleted = false,
-                        ImagePath = "Images/Image_500.jpg"
+                        ImagePath = "defaultphoto.jpg"
                     },
                   new User
                     {
@@ -49,7 +49,7 @@ namespace MovieForum.Data.DataInitializing
                         Email = "morefakeemails@gmail.com",
                         RoleId = 1,
                         IsDeleted = false,
-                        ImagePath = "Images/Image_500.jpg"
+                        ImagePath = "defaultphoto.jpg"
                     }
             };
 

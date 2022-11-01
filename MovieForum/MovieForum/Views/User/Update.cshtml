@@ -13,20 +13,13 @@
             <!-- left column -->
             <div class="col-md-3">
                 <div class="text-center">
-                    @if (@Model.ImagePath !=null) 
-                    {
-                        <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
-                    }
-                    else
-                    {
-                        <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
-                    }
+                    <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
                 </div>
             </div>
 
             <!-- edit form column -->
             <div class="col-md-9 personal-info">
-                
+
                 <form asp-action="Update" asp-controller="User" class="form-horizontal" enctype="multipart/form-data">
                     <div class="form-group">
                         <label asp-for=ImagePath class="col-lg-3 control-label">Profile Picture:</label>
@@ -48,7 +41,7 @@
                             <span asp-validation-for=LastName class="form-erorr"></span>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label asp-for=Email class="col-lg-3 control-label">Email:</label>
                         <div class="col-lg-8">
