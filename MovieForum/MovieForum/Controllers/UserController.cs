@@ -26,7 +26,7 @@ namespace MovieForum.Web.Controllers
             this.hostingEnvironment = hostingEnvironment;
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var userEmail = this.User.Identity.Name;
@@ -36,6 +36,13 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> Search(string userSearch)
+        {
+            return View(await userService.Search(userSearch));
+        }
+
+        [HttpPost]
+        [Authorize(Policy ="Admin")]
         public async Task<IActionResult> Block(int id)
         {
             await userService.BlockUser(id);
@@ -43,6 +50,7 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult>Unblock(int id)
         {
             await userService.UnblockUser(id);
@@ -67,7 +75,6 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Update(UpdateUserViewModel model)
         {
             if (!this.ModelState.IsValid)
