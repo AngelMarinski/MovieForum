@@ -33,6 +33,8 @@ namespace MovieForum.Services.DTOModels
 
         public double Rating { get; set; }
 
+        public ICollection<int> RatedBy { get; set; } = new List<int>();
+
         public string ImagePath { get; set; }
     }
 }

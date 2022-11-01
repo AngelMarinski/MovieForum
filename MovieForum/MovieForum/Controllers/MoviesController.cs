@@ -213,6 +213,13 @@ namespace MovieForum.Web.Controllers
                     RequestId = ex.Message
                 });
             }
+            catch(UnauthorizedAccessException ex)
+            {
+                return this.View("Error", new ErrorViewModel
+                {
+                    RequestId = ex.Message
+                });
+            }
         }
 
 

@@ -284,6 +284,11 @@ namespace MovieForum.Services
             var user = await this.db.Users.FirstOrDefaultAsync(x => x.Id == userId)
                              ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
 
+            if (movie.Rating.Any(x => x.UserID == user.Id)) 
+            {
+                throw new UnauthorizedAccessException(Constants.ALREADY_RATED);
+            }
+
             movie.Rating.Add(new Rating
             {
                 UserID = user.Id,

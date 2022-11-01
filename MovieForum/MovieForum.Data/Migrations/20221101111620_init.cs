@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MovieForum.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -312,35 +312,35 @@ namespace MovieForum.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
-                values: new object[] { 2, null, "adminsemail@gmail.com", "Maggie", "defaultphoto.jpg", false, false, "TheBoss", "AQAAAAEAACcQAAAAEP3wP+DMIIe2DWhlgNy3xN4hScfV3hyyzWWsvjmG7vZkuFhRDE3Opks7mfqICBb8tQ==", null, 1, "Maggie" });
+                values: new object[] { 2, null, "adminsemail@gmail.com", "Maggie", "defaultphoto.jpg", false, false, "TheBoss", "AQAAAAEAACcQAAAAEFWd3AHb9Rfv2f5fqvJSM6WgxD6/nYbckOiznUdfmWbFkXq+VWT20eqUkwJchckojQ==", null, 1, "Maggie" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
-                values: new object[] { 3, null, "morefakeemails@gmail.com", "Radoslav", "defaultphoto.jpg", false, false, "Berov", "AQAAAAEAACcQAAAAEA1a8Q+S89i/w9yCMRrI9BX90icFQGjXPRpBi+pFdVzv29xGrJ5BRhp7QlBx9oIR4w==", null, 1, "Rado561" });
+                values: new object[] { 3, null, "morefakeemails@gmail.com", "Radoslav", "defaultphoto.jpg", false, false, "Berov", "AQAAAAEAACcQAAAAEGE4JekAp1WfqV/G8HnIJZv+hh2WcospCD5yCNngOym22QpGRpux+JK1A78iP0ShhQ==", null, 1, "Rado561" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
-                values: new object[] { 1, null, "fakeemail@gmail.com", "Angel", "defaultphoto.jpg", false, false, "Marinski", "AQAAAAEAACcQAAAAEJfSYVxbnephA2udvdcO+Wr5os2bXPqa55wmnlYyPDTHyWGAmovE5jfzzGhzVm8sNg==", null, 2, "AngelMarinski" });
+                values: new object[] { 1, null, "fakeemail@gmail.com", "Angel", "defaultphoto.jpg", false, false, "Marinski", "AQAAAAEAACcQAAAAEGRTFIxNHVg1x8BDDeeRSoXJrfLSa4mXNPFC5nJxU/OA15dHYWVR24TbFkPmPdIbtA==", null, 2, "AngelMarinski" });
 
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "Id", "AuthorID", "Content", "DeletedOn", "GenreId", "ImagePath", "IsDeleted", "Posted", "ReleaseDate", "Title" },
-                values: new object[] { 2, 2, "The bes spiderman movie so far, I love Tom Holand", null, 13, "Images/Image_500.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 10, 31, 15, 40, 36, 585, DateTimeKind.Local).AddTicks(1056), "Spiderman: Far From Home" });
+                values: new object[] { 2, 2, "The bes spiderman movie so far, I love Tom Holand", null, 13, "Images/Image_500.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 11, 1, 13, 16, 19, 543, DateTimeKind.Local).AddTicks(2751), "Spiderman: Far From Home" });
 
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "Id", "AuthorID", "Content", "DeletedOn", "GenreId", "ImagePath", "IsDeleted", "Posted", "ReleaseDate", "Title" },
-                values: new object[] { 1, 1, "On of my favourite movies of all time", null, 5, "Images/Image_500.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 10, 31, 15, 40, 36, 585, DateTimeKind.Local).AddTicks(251), "Top Gun the new one" });
+                values: new object[] { 1, 1, "On of my favourite movies of all time", null, 5, "Images/Image_500.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 11, 1, 13, 16, 19, 543, DateTimeKind.Local).AddTicks(2217), "Top Gun the new one" });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "AuthorId", "Content", "DeletedOn", "DisLikesCount", "IsDeleted", "LikesCount", "MovieId", "PostedOn" },
                 values: new object[,]
                 {
-                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 10, 31, 15, 40, 36, 584, DateTimeKind.Local).AddTicks(5664) },
-                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 10, 31, 15, 40, 36, 575, DateTimeKind.Local).AddTicks(7642) }
+                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 11, 1, 13, 16, 19, 542, DateTimeKind.Local).AddTicks(9547) },
+                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 11, 1, 13, 16, 19, 540, DateTimeKind.Local).AddTicks(9205) }
                 });
 
             migrationBuilder.InsertData(

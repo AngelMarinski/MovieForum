@@ -11,9 +11,11 @@ namespace MovieForum.Web.Models
     public class CreateMovie
     {
         [MinLength(Constants.MOVIE_TITLE_MIN_LENGHT), MaxLength(Constants.MOVIE_TITLE_MAX_LENGHT)]
+        [Required]
         public string Title { get; set; }
 
         [MinLength(Constants.MOVIE_CONTENT_MIN_LENGHT), MaxLength(Constants.MOVIE_CONTENT_MAX_LENGHT)]
+        [Required]
         public string Content { get; set; }
 
         public int AuthorId { get; set; }

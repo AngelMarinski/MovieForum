@@ -37,5 +37,6 @@ namespace MovieForum.Services.Helpers
         public const string DISLIKED = "disliked";
         public const string NO_TAGS_FOUND = "There is no tags found!";
         public const string DELETED_TAG = "Tag is deleted successfully!";
+        public const string ALREADY_RATED = "You have already rated this movie!";
     }
 }
