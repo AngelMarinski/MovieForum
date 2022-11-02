@@ -1,12 +1,16 @@
 ﻿@model IEnumerable<MovieForum.Services.DTOModels.MovieDTO>
+@inject MovieForum.Services.Interfaces.IGenreServices genreServices
+
 
 @{
     string page_title = "Movies";
     var paramToSort = new List<string>
 {
-        "","Title", "Releasedate", "Rating", "Comments"
+        "Title", "Releasedate", "Rating", "Comments"
     };
     var sortBy = new SelectList(paramToSort);
+
+    var genres = new SelectList(await this.genreServices.GetAll(), "Name", "Name");
 }
 
 
@@ -30,22 +34,39 @@
             <button type="submit" asp-action="Create" class="btn btn-success create-btn">Create post</button>
         </form>
     </div>
+    <div class="sort-by-div" style="margin-bottom: 10px">
+        <form asp-controller="Movies" asp-action="Index" method="get">
+            <label>Sort By</label>
+            <select asp-items="@sortBy" name="SortBy" class="select-sortBy"
+                    style="border-radius: 9px" id="sortByDropdown">
+                <option value="" selected disabled hidden> </option>
+            </select>
+
+            <label>Genre</label>
+            <select asp-items="@genres" name="Genre" class="select-sortBy"
+                    style="border-radius: 9px" id="sortByDropdown">
+                <option value="" selected disabled hidden> </option>
+            </select>
+
+            <label>Rating</label>
+            <input name="MinRating" type="range" id="volume"
+                   min="0" max="10" value="0" />
+
+            <input type="submit" value="Filter" class="btn btn-primary" />
+        </form>
+    </div>
     <section class="product spad">
         <div class="container">
-            <div class="sort-by-div" style="margin-bottom: 10px">
-                <form asp-controller="Movies" asp-action="Index" method="get">
-                    <label>Sort By</label>
-                    <select asp-items="@sortBy" name="SortBy" class="select-sortBy" onchange="this.form.submit()"
-                            style="border-radius: 9px"></select>
-                </form>
-            </div>
+
             <div class="row">
 
                 <div class="trending__product">
                     <div class="row">
                         @{
+                            bool Empty = true;
                             foreach (var movie in this.Model)
                             {
+                                Empty = false;
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <a href="movies/movie/@movie.Id">
                                         <div class="product__item">
@@ -66,12 +87,31 @@
                                     </a>
                                 </div>
                             }
+
+                            if (Empty)
+                            {
+                                <center><h5>No Results Found! &#128531;	</h5></center>
+                            }
                         }
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </body>
+@*<script>
+        document.getElementById('sortByDropdown').addEventListener('submit', () => {
+            var input = document.getElementById('sortByDropdown');
+            if (localStorage['sortByDropdown']) {
+                input.nodeValue.nodeValue = localStorage['sortByDropdown'];
+            }
+            input.onchange = function () {
+                localStorage['sortByDropdown'] = this.nodeValue;
+            }
+
+            console.log("CMOOOOOOOOON");
+        });
+    </script>*@
 </html>
 

@@ -54,7 +54,7 @@ namespace MovieForum.Web.Controllers
         public async Task<IActionResult> Index(MovieQueryParameters parameters)
         {
             var movies = await this.moviesService.FilterByAsync(parameters);
-       
+
             return View(movies);
         }
 

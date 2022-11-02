@@ -177,7 +177,7 @@ namespace MovieForum.Services
                 result = result.FindAll(x => x.Title.Contains(parameters.Title)).ToList();
             }
 
-            if (parameters.MinRating.HasValue)
+            if (parameters.MinRating.HasValue && parameters.MinRating != 0)
             {
                 result = result.FindAll(x => !Double.IsNaN(x.Rating) && x.Rating >= parameters.MinRating);
             }
@@ -186,6 +186,12 @@ namespace MovieForum.Services
             {
                 result = result.FindAll(x => !string.IsNullOrEmpty(x.Username) 
                         && x.Username.Contains(parameters.Username)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Genre))
+            {
+                result = result.FindAll(x => x.Genre != null && x.Genre.Name == parameters.Genre)
+                               .ToList();
             }
 
             if (!string.IsNullOrEmpty(parameters.SortBy))

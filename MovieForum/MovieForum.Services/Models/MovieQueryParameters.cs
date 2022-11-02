@@ -9,6 +9,7 @@ namespace MovieForum.Services.Models
         public string Title { get; set; }
         public int? MinRating { get; set; }
         public string SortBy { get; set; }
+        public string Genre { get; set; }
         public string SortOrder { get; set; }
         public string Username { get; set; }
     }
