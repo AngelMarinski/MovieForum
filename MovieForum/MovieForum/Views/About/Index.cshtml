@@ -1,0 +1,50 @@
+﻿@inject MovieForum.Services.Interfaces.IMoviesServices movieServices
+@inject MovieForum.Services.Interfaces.IUserServices userServices
+
+<html>
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+    <div class="about_photo">
+        <div class="title-content">
+            <h1 class="title-title">About us!</h1>
+
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="blog__details__item__text">
+        <h4>Tobio-Nishinoya showdown:</h4>
+
+        <p>
+            In Japan the idea of a first-year speaking to a senior the way Kageyama did to Asahi is a
+            lot more shocking than it would be in the West, but Tobio calling out teammates in
+            genuinely rude fashion in the middle of a match is what got him isolated in the first
+            place.  It’s better for the Crows to sort this out in practice matches than the real
+            deal, but this is really on Tobio – he has to figure out how to co-exist with others in
+            a team environment.
+        </p>
+    </div>
+    <div class="about">
+        <center>
+        <div class="about_info">
+                <h4 class="about_text">Total forum movies: @await movieServices.GetPostsCount() </h4>
+        </div>
+        <div class="about_info">
+            <h4 class="about_text">Total forum users: @await userServices.UserCount() </h4>
+
+        </div>
+        </center>
+
+    </div>
+</body>
+</html>
