@@ -775,3 +775,11 @@ ol {
     bottom: 10px;
     width: auto;
 }
+
+.select-sortBy {
+    border-radius: 9px;
+}
+
+.sort-by-div {
+    margin-bottom: 10px;
+}

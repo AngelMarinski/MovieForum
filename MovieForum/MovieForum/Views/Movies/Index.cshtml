@@ -2,6 +2,11 @@
 
 @{
     string page_title = "Movies";
+    var paramToSort = new List<string>
+{
+        "","Title", "Releasedate", "Rating", "Comments"
+    };
+    var sortBy = new SelectList(paramToSort);
 }
 
 
@@ -20,13 +25,20 @@
 </head>
 
 <body>
-    <div >
+    <div>
         <form asp-controller="Movies" asp-action="Create" method="get">
             <button type="submit" asp-action="Create" class="btn btn-success create-btn">Create post</button>
         </form>
     </div>
     <section class="product spad">
         <div class="container">
+            <div class="sort-by-div" style="margin-bottom: 10px">
+                <form asp-controller="Movies" asp-action="Index" method="get">
+                    <label>Sort By</label>
+                    <select asp-items="@sortBy" name="SortBy" class="select-sortBy" onchange="this.form.submit()"
+                            style="border-radius: 9px"></select>
+                </form>
+            </div>
             <div class="row">
 
                 <div class="trending__product">
@@ -41,7 +53,7 @@
                                                 <img src="~/@movie.ImagePath" class="movie-album-pic" />
                                                 <div class="ep">@movie.Genre.Name</div>
                                                 <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
-                                                <div class="rating-preview"><i class="fa fa-star"></i> @string.Format("{0:0.0}",movie.Rating)</div>
+                                                <div class="rating-preview"><i class="fa fa-star"></i> @string.Format("{0:0.0}", movie.Rating)</div>
                                             </div>
                                             <div class="product__item__text">
                                                 <ul>

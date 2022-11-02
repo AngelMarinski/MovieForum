@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Interfaces;
+using MovieForum.Services.Models;
 using MovieForum.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -50,10 +51,10 @@ namespace MovieForum.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(MovieQueryParameters parameters)
         {
-            var movies = await this.moviesService.GetAsync();
-
+            var movies = await this.moviesService.FilterByAsync(parameters);
+       
             return View(movies);
         }
 
