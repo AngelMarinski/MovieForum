@@ -177,7 +177,7 @@ namespace MovieForum.Services
                 result = result.FindAll(x => x.Title.Contains(parameters.Title)).ToList();
             }
 
-            if (parameters.MinRating.HasValue)
+            if (parameters.MinRating.HasValue && parameters.MinRating != 0)
             {
                 result = result.FindAll(x => !Double.IsNaN(x.Rating) && x.Rating >= parameters.MinRating);
             }
@@ -186,6 +186,32 @@ namespace MovieForum.Services
             {
                 result = result.FindAll(x => !string.IsNullOrEmpty(x.Username) 
                         && x.Username.Contains(parameters.Username)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Genre))
+            {
+                result = result.FindAll(x => x.Genre != null && x.Genre.Name == parameters.Genre)
+                               .ToList();
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Username))
+            {
+                result = result.FindAll(x => x.Username.Contains(parameters.Username)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Tag))
+            {
+                var list = new List<MovieDTO>(result);
+                result.Clear();
+                result.AddRange(from item in list
+                                from tags in item.Tags
+                                where tags.TagName.ToLower().Contains(parameters.Tag.ToLower())
+                                select item);
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Year))
+            {
+                result = result.FindAll(t => t.ReleaseDate.ToString().Contains(parameters.Year));
             }
 
             if (!string.IsNullOrEmpty(parameters.SortBy))
@@ -307,6 +333,13 @@ namespace MovieForum.Services
             var comments = this.db.Comments.Where(x => x.MovieId == movieId && x.IsDeleted == false);
 
             return mapper.Map<IEnumerable<CommentDTO>>(comments);
+        }
+
+        public async Task<int> GetPostsCount()
+        {
+            var movies = await GetAsync();
+
+            return movies.Count();
         }
 
   /*      private List<MovieActor> UpdateCast(Movie movie, List<MovieActor> newCast)

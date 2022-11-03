@@ -26,6 +26,6 @@ namespace MovieForum.Services.Interfaces
         Task<bool> IsExistingUsernameAsync(string username);
         Task BlockUser(int id);
         Task UnblockUser(int id);
-        int UserCount();
+        Task<int> UserCount();
     }
 }

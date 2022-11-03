@@ -59,10 +59,10 @@ namespace MovieForum.Services.Services
             return userQuery;
         }
 
-        public int UserCount()
+        public async Task<int> UserCount()
         {
-            var numOfUsers = db.Users.Count();
-            return numOfUsers;
+            var numOfUsers =  await GetAsync();
+            return numOfUsers.Count();
         }
 
         public async Task<bool> IsExistingAsync(string email)
@@ -253,6 +253,6 @@ namespace MovieForum.Services.Services
             return mapper.Map<UserDTO>(userToDelete);
         }
 
-
+       
     }
 }

@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
     <header>
@@ -34,6 +41,7 @@
                     </div>
                     <input type="submit" class="btn btn-dark">
                 </form>
+
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
 
                     @if (!this.User.Identity.IsAuthenticated)
@@ -56,7 +64,7 @@
                                 <img src="~/Images/Image_631.jpg" class="rounded-circle" height="22"
                                  alt="" loading="lazy" />
                                 @*<img src="~/Images/Image_500.jpg" class="rounded-circle" height="22"
-                                    alt="" loading="lazy" />*@
+                            alt="" loading="lazy" />*@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
                                 <li><a asp-controller="User" asp-action="Index" asp-route-email="@User.Identity.Name" class="dropdown-item">Profile</a></li>
@@ -83,11 +91,41 @@
             @RenderBody()
         </main>
     </div>
-    @*<footer class="border-top footer text-muted">
-        <div class="container">
-        &copy; 2022 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="footer">
+        <div class="page-up">
+            <a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
         </div>
-        </footer>*@
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer__logo">
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="footer__nav">
+                        <ul>
+                            <li class="active"><a href="./Home">Homepage</a></li>
+                            <li><a href="./Movies">Movies</a></li>
+                            <li><a href="./About">Our Forum</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <p class="footer__copyright__text">
+                        Copyright &copy; Team01 Telerik Alpha#41! <i class="fa fa-heart" aria-hidden="true"></i> 
+                       
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    @*<footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2022 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

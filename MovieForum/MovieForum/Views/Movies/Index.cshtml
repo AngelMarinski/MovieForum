@@ -1,7 +1,16 @@
 ﻿@model IEnumerable<MovieForum.Services.DTOModels.MovieDTO>
+@inject MovieForum.Services.Interfaces.IGenreServices genreServices
+
 
 @{
     string page_title = "Movies";
+    var paramToSort = new List<string>
+{
+        "Title", "Releasedate", "Rating", "Comments"
+    };
+    var sortBy = new SelectList(paramToSort);
+
+    var genres = new SelectList(await this.genreServices.GetAll(), "Name", "Name");
 }
 
 
@@ -17,49 +26,138 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+
+
 </head>
 
 <body>
-    <div >
+    <br>
+    <br>
+    <br>
+    <center>
+        <div class="wrapper" style="position:center">
+            <div class="search_box">
+                <div class="dropdown">
+                    <div id="defopt" class="default_option">Title</div>
+                    <ul>
+                        <li>Title</li>
+                        <li>Tag</li>
+                        <li>Username</li>
+                        <li>Year</li>
+                    </ul>
+                </div>
+                <div class="search_field">
+                    <form asp-controller="Movies" asp-action="Index" method="get" class="search_field">
+                        <input type="text" class="input" name="Title" placeholder="Search">
+                        <i class="fas fa-search"></i>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </center>
+    <div>
         <form asp-controller="Movies" asp-action="Create" method="get">
             <button type="submit" asp-action="Create" class="btn btn-success create-btn">Create post</button>
         </form>
     </div>
+    <div class="sort-by-div" style="margin-bottom: 10px">
+        <form asp-controller="Movies" asp-action="Index" method="get">
+            <label>Sort By</label>
+            <select asp-items="@sortBy" name="SortBy" class="select-sortBy"
+                    style="border-radius: 9px" id="sortByDropdown">
+                <option value="" selected disabled hidden> </option>
+            </select>
+
+            <label>Genre</label>
+            <select asp-items="@genres" name="Genre" class="select-sortBy"
+                    style="border-radius: 9px" id="sortByDropdown">
+                <option value="" selected disabled hidden> </option>
+            </select>
+
+            <label>Rating</label>
+            <input name="MinRating" type="range" id="volume"
+                   min="0" max="10" value="0" />
+
+            <input type="submit" value="Filter" class="btn btn-primary" />
+        </form>
+    </div>
     <section class="product spad">
         <div class="container">
+
             <div class="row">
 
                 <div class="trending__product">
                     <div class="row">
                         @{
+                            bool Empty = true;
                             foreach (var movie in this.Model)
                             {
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <a href="movies/movie/@movie.Id">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg">
-                                                <img src="~/@movie.ImagePath" class="movie-album-pic" />
-                                                <div class="ep">@movie.Genre.Name</div>
-                                                <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
-                                                <div class="rating-preview"><i class="fa fa-star"></i> @string.Format("{0:0.0}",movie.Rating)</div>
+                                Empty = false;
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                        <a href="movies/movie/@movie.Id">
+                                            <div class="product__item">
+                                                <div class="product__item__pic set-bg">
+                                                    <img src="~/@movie.ImagePath" class="movie-album-pic" />
+                                                    <div class="ep">@movie.Genre.Name</div>
+                                                    <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
+                                                    <div class="rating-preview"><i class="fa fa-star"></i> @string.Format("{0:0.0}", movie.Rating)</div>
+                                                </div>
+                                                <div class="product__item__text">
+                                                    <ul>
+                                                        <li>@movie.ReleaseDate</li>
+                                                        <li>@movie.Username</li>
+                                                    </ul>
+                                                    <h5>@movie.Title</h5>
+                                                </div>
                                             </div>
-                                            <div class="product__item__text">
-                                                <ul>
-                                                    <li>@movie.ReleaseDate</li>
-                                                    <li>@movie.Username</li>
-                                                </ul>
-                                                <h5>@movie.Title</h5>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+                            }
+
+                            if (Empty)
+                            {
+                                    <center><h5>No Results Found! &#128531;	</h5></center>
                             }
                         }
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </body>
+@*<script>
+        document.getElementById('sortByDropdown').addEventListener('submit', () => {
+            var input = document.getElementById('sortByDropdown');
+            if (localStorage['sortByDropdown']) {
+                input.nodeValue.nodeValue = localStorage['sortByDropdown'];
+            }
+            input.onchange = function () {
+                localStorage['sortByDropdown'] = this.nodeValue;
+            }
+
+            console.log("CMOOOOOOOOON");
+        });
+    </script>*@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".default_option").click(function () {
+            $(".dropdown ul").addClass("active");
+
+        });
+
+        $(".dropdown ul li").click(function () {
+            var text = $(this).text();
+            $(".default_option").text(text);
+            $(".dropdown ul").removeClass("active");
+            $('input').attr('name', text);          
+
+
+        });
+       
+    });
+</script>
 </html>
 
