@@ -845,7 +845,7 @@ ol {
 -----------------------*/
 
 .product {
-    padding-bottom: 40px;
+    padding-bottom: 0px;
     padding-top: 40px;
 }
 
@@ -2014,7 +2014,9 @@ ol {
         margin-bottom: 0;
     }
 
-.page-buttons {
-    display: inline;
-    word-wrap: break-word;
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 40px;
 }

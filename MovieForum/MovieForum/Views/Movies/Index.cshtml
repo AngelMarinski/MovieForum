@@ -56,7 +56,7 @@
   <br>
   <center>
     <div class="sort-by-div" style="margin-bottom: 10px">
-        <form asp-controller="Movies" asp-action="Index" method="get">
+        <form asp-controller="Movies" asp-action="Index" method="get" id="filter-form">
             <label>Sort By</label>
             <select asp-items="@sortBy" name="SortBy" class="select-sortBy"
                     style="border-radius: 9px" id="sortByDropdown">
@@ -65,13 +65,15 @@
 
             <label>Genre</label>
             <select asp-items="@genres" name="Genre" class="select-sortBy"
-                    style="border-radius: 9px" id="sortByDropdown">
+                    style="border-radius: 9px" id="genreDropdown">
                 <option value="" selected disabled hidden> </option>
             </select>
 
             <label>Rating</label>
             <input name="MinRating" type="range" id="volume"
                    min="0" max="10" value="0" />
+
+            @*<input asp-route-Title="@this.ViewData["Title"]" name="PageNumber" hidden value="@this.Model.PageNumber"  />*@
 
             <input type="submit" value="Filter" class="btn btn-primary" />
         </form>
@@ -129,25 +131,41 @@
         string hasNextPage = this.Model.HasNextPage ? "" : "disabled";
     }
     <hr />
-    <center>
-        <a asp-controller="Movies" asp-action="Index" asp-route-PageNumber="@(this.Model.PageNumber - 1)" class="btn btn-outline-light @hasPrevPage page-buttons"> &lt;Prev</a>
+    <div class="pagination">
+        <a asp-controller="Movies" asp-action="Index" asp-route-Title="@this.ViewData["Title"]"
+           asp-route-SortBy="@this.ViewData["SortBy"]" asp-route-Genre="@this.ViewData["Genre"]" asp-route-MinRating="@this.ViewData["Rating"]" 
+           asp-route-PageNumber="@(this.Model.PageNumber - 1)" class="btn btn-outline-light @hasPrevPage page-buttons"> &lt;Prev</a>
         <br />
-        <a asp-controller="Movies" asp-action="Index" asp-route-PageNumber="@(this.Model.PageNumber + 1)" class="btn btn-outline-light @hasNextPage page-buttons">Next&gt;</a>
-    </center>
+        <a asp-controller="Movies" asp-action="Index" asp-route-Title="@this.ViewData["Title"]" asp-route-SortBy="@this.ViewData["SortBy"]" 
+           asp-route-Genre="@this.ViewData["Genre"]" asp-route-MinRating="@this.ViewData["Rating"]" 
+           asp-route-PageNumber="@(this.Model.PageNumber + 1)" class="btn btn-outline-light @hasNextPage page-buttons">Next&gt;</a>
+    </div>
 </body>
-@*<script>
-        document.getElementById('sortByDropdown').addEventListener('submit', () => {
-            var input = document.getElementById('sortByDropdown');
-            if (localStorage['sortByDropdown']) {
-                input.nodeValue.nodeValue = localStorage['sortByDropdown'];
-            }
-            input.onchange = function () {
-                localStorage['sortByDropdown'] = this.nodeValue;
-            }
+<script>
+    @*if (localStorage['sortByDropdown']) {
+        document.getElementById('sortByDropdown').value = localStorage['sortByDropdown'];
+    }
 
-            console.log("CMOOOOOOOOON");
-        });
-    </script>*@
+    if (localStorage['genreDropdown']) {
+        document.getElementById('genreDropdown').value = localStorage['genreDropdown'];
+    }
+
+    if (localStorage['volume']) {
+        document.getElementById('volume').value = localStorage['volume'];
+    }
+
+    document.getElementById('filter-form').addEventListener('submit', (event) => {
+
+        var sortByInput = document.getElementById('sortByDropdown').value;
+        var genreInput = document.getElementById('genreDropdown').value;
+        var ratingInput = document.getElementById('volume').value;
+
+
+        localStorage['sortByDropdown'] = sortByInput;
+        localStorage['genreDropdown'] = genreInput;
+        localStorage['volume'] = ratingInput;
+     });*@
+    </script>
 <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>

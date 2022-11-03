@@ -186,7 +186,7 @@ namespace MovieForum.Services
             if (!string.IsNullOrEmpty(parameters.Title))
             {
                
-                result = result.Where(x => x.Title.Contains(parameters.Title));
+                result = result.Where(x => x.Title.Contains(parameters.Title, StringComparison.InvariantCultureIgnoreCase));
             }
 
             if (parameters.MinRating.HasValue && parameters.MinRating != 0)
