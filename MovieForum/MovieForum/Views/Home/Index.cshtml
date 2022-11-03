@@ -22,13 +22,13 @@
             <h1 class="title-title">Welcome to <br> Movie forum!</h1>
             <p class="title-subtitle">This is the place where you can share your amazing expirience with the movies that you love, laugh and enjoy!</p>
 
-            @{
+          @*  @{
                 if (this.User.Identity.Name == null)
                 {
                     <a asp-controller="Auth" asp-action="Login" class="btn btn-theme-color modal-toggle"><i class="ti-control-play text-danger"></i> SingIn</a>
                     <a asp-controller="Auth" asp-action="Register" class="btn btn-theme-color modal-toggle"><i class="ti-control-play text-danger"></i> SignUp</a>
                 }
-            }
+            }*@
 
         </div>
     </div><!-- end of page header -->

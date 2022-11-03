@@ -1,64 +1,95 @@
 ﻿@model LoginViewModel
+<!DOCTYPE html>
+<html lang="zxx">
 
-<section class="h-100 gradient-form" style="background-color: #eee;">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-10">
-                <div class="card rounded-3 text-black">
-                    <div class="row g-0">
-                        <div class="col-lg-6">
-                            <div class="card-body p-md-5 mx-md-4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Anime Template">
+    <meta name="keywords" content="Anime, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Anime | Template</title>
 
-                                <div class="text-center">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                                         style="width: 185px;" alt="logo">
-                                    <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
-                                </div>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
 
-                                <form asp-action="Login" asp-controller="Auth">
-                                    
-                                    <div class="form-outline mb-4">
-                                        <label asp-for=Email class="form-label" for="form2Example11">Email</label>
-                                        <input asp-for=Email type="email" id="form2Example11" class="form-control"
-                                               placeholder="Phone number or email address" />
-                                        <span asp-validation-for=Email class="form-erorr"></span>
-                                    </div>
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
 
-                                    <div class="form-outline mb-4">
-                                        <label asp-for=Password class="form-label" for="form2Example22">Password</label>
-                                        <input asp-for=Password type="password" id="form2Example22" class="form-control" />
-                                        <span asp-validation-for=Password class="form-erorr"></span>
-                                    </div>
-
-                                    <div class="form-outline mb-4">
-                                        <input asp-for=RememberMe type="checkbox" />
-                                        <label asp-for=RememberMe class="form-label" for="form2Example22">Remember me</label>
-                                    </div>
-
-                                    <div class="text-center pt-1 mb-5 pb-1">
-                                        <input class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit" value="Sign in">
-                                    </div>
-
-                                    <div class="d-flex align-items-center justify-content-center pb-4">
-                                        <p class="mb-0 me-2">Don't have an account?</p>
-                                        <a asp-controller="Auth" asp-action="Register" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Create new</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                            <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                                <h4 class="mb-4">We are more than just a company</h4>
-                                <p class="small mb-0">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                            </div>
-                        </div>
+<body>
+   @* <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+*@
+    <!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text">
+                        <h2>Login</h2>
+                        <p>Welcome to the official Anime blog.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <!-- Normal Breadcrumb End -->
+    <!-- Login Section Begin -->
+    <section class="login spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="login__form">
+                        <h3>Login</h3>
+                        <form asp-controller="Auth" asp-action="Login">
+                            <div class="input__item">
+                                <input asp-for="Email" type="text" placeholder="Email address">
+                                <span class="icon_mail"></span>
+                            </div>
+                            <div class="input__item">
+                                <input asp-for="Password" type="password" placeholder="Password">
+                                <span class="icon_lock"></span>
+                            </div>
+                            <button type="submit" class="site-btn">Login Now</button>
+                        </form>
+                        <a href="#" class="forget_pass">Forgot Your Password?</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="login__register">
+                        <h3>Dont’t Have An Account?</h3>
+                        <a asp-controller=Auth asp-action="Register" class="primary-btn">Register Now</a>
+                    </div>
+                </div>
+            </div>           
+        </div>
+    </section>
+    <!-- Login Section End -->
+    
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+
+
+</body>
+
+</html>
