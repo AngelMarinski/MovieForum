@@ -36,9 +36,17 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(string userSearch)
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> Search(string userSearch, int type)
         {
-            return View(await userService.Search(userSearch));
+            return View("Users",await userService.Search(userSearch, type));
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> Users()
+        {
+            return View(await userService.GetAllUsersAsync());
         }
 
         [HttpGet]
@@ -46,7 +54,7 @@ namespace MovieForum.Web.Controllers
         public async Task<IActionResult> Block(int id)
         {
             await userService.BlockUser(id);
-            var user = await userService.GetUserByIdAsync(id);
+            var user = await userService.GetUserDTOByIdAsync(id);
             return RedirectToAction("Index",new { user.Email });
         }
 
@@ -55,7 +63,7 @@ namespace MovieForum.Web.Controllers
         public async Task<IActionResult>Unblock(int id)
         {
             await userService.UnblockUser(id); 
-            var user = await userService.GetUserByIdAsync(id);
+            var user = await userService.GetUserDTOByIdAsync(id);
             return RedirectToAction("Index", new { user.Email });
         }
 

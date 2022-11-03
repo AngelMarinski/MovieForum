@@ -25,6 +25,12 @@ namespace MovieForum.Services.Services
             this.mapper = mapper;
         }
 
+        public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
+        {
+            var users = await db.Users.Where(x => x.IsDeleted == false).ToListAsync();
+            return mapper.Map<IEnumerable<UserDTO>>(users);
+        }
+
         public async Task<User> GetUserAsync(int id)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
@@ -40,28 +46,40 @@ namespace MovieForum.Services.Services
         public async Task<User> GetUserByEmailAsync(string email)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Email == email && x.IsDeleted == false);
-    
+
             return user ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
         }
 
-        public async Task<IEnumerable<UserDTO>> Search(string userSearch)
+        public async Task<IEnumerable<UserDTO>> Search(string userSearch, int type)
         {
             IEnumerable<UserDTO> userQuery = null;
 
-            if (!String.IsNullOrEmpty(userSearch))
+            if (String.IsNullOrEmpty(userSearch))
             {
-                userQuery = await db.Users.Where(x => (x.Username.Contains(userSearch) && x.IsDeleted == false) || (x.Email.Contains(userSearch) && x.IsDeleted == false)).Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
+                return userQuery = await db.Users.Where(x => x.IsDeleted == false).Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
             }
-            else
+
+            switch (type)
             {
-                userQuery = await db.Users.Where(x => x.IsDeleted == false).Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
+                case 1:
+                    userQuery = await db.Users.Where(x => (x.Username.Contains(userSearch) && x.IsDeleted == false))
+                        .Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
+                    break;
+                case 2:
+                    userQuery = await db.Users.Where(x => (x.Email.Contains(userSearch) && x.IsDeleted == false))
+                        .Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
+                    break;
+                case 3:
+                    userQuery = await db.Users.Where(x => (x.FirstName.Contains(userSearch) && x.IsDeleted == false))
+                        .Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
+                    break;
             }
             return userQuery;
         }
 
         public async Task<int> UserCount()
         {
-            var numOfUsers =  await GetAsync();
+            var numOfUsers = await GetAsync();
             return numOfUsers.Count();
         }
 
@@ -75,14 +93,21 @@ namespace MovieForum.Services.Services
             return await db.Users.AnyAsync(x => x.Username == username && x.IsDeleted == false);
         }
 
-        public async Task<UserDTO> GetUserByUsernameAsync(string username)
+        public async Task<UserDTO> GetUserDTOByUsernameAsync(string username)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
 
             return mapper.Map<UserDTO>(user) ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
-        public async Task<UserDTO> GetUserByIdAsync(int id)
+        public async Task<UserDTO> GetUserDTOByEmailAsync(string email)
+        {
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Email == email && x.IsDeleted == false);
+
+            return mapper.Map<UserDTO>(user) ?? throw new Exception(Constants.USER_NOT_FOUND);
+        }
+
+        public async Task<UserDTO> GetUserDTOByIdAsync(int id)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
 
@@ -196,7 +221,7 @@ namespace MovieForum.Services.Services
             var userToUpdate = await GetUserAsync(id);
 
             var isEmailValid = Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
-           
+
             if (obj.Email != userToUpdate.Email)
             {
                 if (await IsExistingAsync(obj.Email))
@@ -205,14 +230,15 @@ namespace MovieForum.Services.Services
                 }
             }
 
-            if(obj.Password != userToUpdate.Password && (obj.Password.Length >= Constants.USER_PASSWORD_MIN_LENGTH))
+            if (obj.Password != userToUpdate.Password && (obj.Password.Length >= Constants.USER_PASSWORD_MIN_LENGTH))
             {
                 var passHasher = new PasswordHasher<User>();
                 userToUpdate.Password = passHasher.HashPassword(userToUpdate, obj.Password);
             }
 
-            
-            if (obj.FirstName != null && (obj.FirstName.Length >= Constants.USER_FIRSTNAME_MIN_LENGTH && obj.FirstName.Length <= Constants.USER_FIRSTNAME_MAX_LENGTH)) {
+
+            if (obj.FirstName != null && (obj.FirstName.Length >= Constants.USER_FIRSTNAME_MIN_LENGTH && obj.FirstName.Length <= Constants.USER_FIRSTNAME_MAX_LENGTH))
+            {
                 userToUpdate.FirstName = obj.FirstName;
             }
 
@@ -221,11 +247,12 @@ namespace MovieForum.Services.Services
                 userToUpdate.LastName = obj.LastName;
             }
 
-            if (isEmailValid) {
+            if (isEmailValid)
+            {
                 userToUpdate.Email = obj.Email;
             }
-            
-            userToUpdate.ImagePath =  obj.ImagePath ?? userToUpdate.ImagePath;
+
+            userToUpdate.ImagePath = obj.ImagePath ?? userToUpdate.ImagePath;
 
             if (obj.PhoneNumber != null)
             {
@@ -253,6 +280,6 @@ namespace MovieForum.Services.Services
             return mapper.Map<UserDTO>(userToDelete);
         }
 
-       
+
     }
 }

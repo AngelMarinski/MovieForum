@@ -34,7 +34,7 @@ namespace MovieForum.Web.Controllers
         {
             try
             {
-                var user = await userService.GetUserByIdAsync(id);
+                var user = await userService.GetUserDTOByIdAsync(id);
                 return this.Ok(user);
             }
             catch (Exception ex)

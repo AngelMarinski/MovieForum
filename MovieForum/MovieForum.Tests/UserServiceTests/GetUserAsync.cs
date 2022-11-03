@@ -160,7 +160,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var service = new UserServices(context, _mapper);
 
-            var actual = await service.GetUserByIdAsync(id);
+            var actual = await service.GetUserDTOByIdAsync(id);
 
             Assert.AreEqual(expected.Username, actual.Username);
         }
@@ -174,7 +174,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var service = new UserServices(context, _mapper);
 
-            await service.GetUserByIdAsync(int.MinValue);
+            await service.GetUserDTOByIdAsync(int.MinValue);
         }
 
         [TestMethod]

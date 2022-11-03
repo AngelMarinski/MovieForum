@@ -116,7 +116,7 @@
 
                         @foreach (var comment in movieServices.GetMovieComments(this.Model.MovieDTO.Id))
                         {
-                            var user = await @userServices.GetUserByIdAsync((int)comment.AuthorId);
+                            var user = await @userServices.GetUserDTOByIdAsync((int)comment.AuthorId);
                             var imagePath = user.ImagePath;
                             <div class="anime__review__item">
                                 <div class="anime__review__item__pic">

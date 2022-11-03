@@ -6,14 +6,13 @@
     <title>@ViewData["Title"] - WebApplication1</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
 </head>
 <body>
     <header>
@@ -35,6 +34,14 @@
                         <a class="nav-link" asp-controller="Movies" asp-action="Index">Movies</a>
                     </li>
                 </ul>
+                @if (this.User.HasClaim(x => x.Value == "Admin"))
+                {
+                    <ul class="navbar-nav ">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="User" asp-action="Users">Users</a>
+                        </li>
+                    </ul>
+                }
                 <form asp-controller="User" asp-action="Search" class="d-flex align-items-center w-50 form-search" style="margin:auto">
                     <div class="input-group">
                         <input name="userSearch" type="search" class="form-control" placeholder="Search" aria-label="Search" />

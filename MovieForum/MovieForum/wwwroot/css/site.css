@@ -16,3 +16,19 @@ html {
 body {
   margin-bottom: 60px;
 }*/
+
+a{
+    text-decoration: none;
+}
+
+
+.pb-3 {
+    padding-bottom: 1rem !important;
+    padding-top: 2rem !important;
+}
+
+.containerUsers {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+}

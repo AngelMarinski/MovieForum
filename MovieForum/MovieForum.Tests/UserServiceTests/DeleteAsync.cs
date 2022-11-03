@@ -51,7 +51,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var service = new UserServices(context, _mapper);
 
-            var expected = await service.GetUserByIdAsync(userId);
+            var expected = await service.GetUserDTOByIdAsync(userId);
 
             var actual = await service.DeleteAsync(userId);
 
