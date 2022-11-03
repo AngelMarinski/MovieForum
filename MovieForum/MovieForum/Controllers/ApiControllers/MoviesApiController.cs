@@ -49,7 +49,7 @@ namespace MovieForum.Controllers
         {
             try
             {
-                var movies = await this.moviesService.FilterByAsync(parameters);
+                var movies =  await this.moviesService.FilterByAsync(parameters);
 
                 return this.Ok(movies);
             }

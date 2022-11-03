@@ -487,8 +487,8 @@ ol {
 -----------------------*/
 
 .product {
-    padding-bottom: 60px;
-    padding-top: 80px;
+    padding-bottom: 40px;
+    padding-top: 40px;
 }
 
 .product-page {
@@ -1038,3 +1038,8 @@ ol {
         line-height: 30px;
         margin-bottom: 0;
     }
+
+.page-buttons{
+    display: inline;
+    word-wrap: break-word;
+}
