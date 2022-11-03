@@ -1,16 +1,8 @@
-﻿@model PaginatedList<MovieForum.Services.DTOModels.MovieDTO>
-@inject MovieForum.Services.Interfaces.IGenreServices genreServices
+﻿@model IEnumerable<MovieForum.Services.DTOModels.UserDTO>
 
 
 @{
-    string page_title = "Movies";
-    var paramToSort = new List<string>
-{
-        "Title", "Releasedate", "Rating", "Comments"
-    };
-    var sortBy = new SelectList(paramToSort);
-
-    var genres = new SelectList(await this.genreServices.GetAll(), "Name", "Name");
+    string page_title = "Users";
 }
 
 
@@ -35,16 +27,15 @@
         <div class="wrapper" style="position:center">
             <div class="search_box">
                 <div class="dropdown">
-                    <div id="defopt" class="default_option">Title</div>
+                    <div id="defopt" class="default_option">UserName</div>
                     <ul>
-                        <li>Title</li>
-                        <li>Tag</li>
-                        <li>Username</li>
-                        <li>Year</li>
+                        <li>UserName</li>
+                        <li>Email</li>
+                        <li>Firstname</li>
                     </ul>
                 </div>
                 <div class="search_field">
-                    <form asp-controller="Movies" asp-action="Index" method="get" class="search_field">
+                    <form asp-controller="User" asp-action="Index" method="get" class="search_field">
                         <input type="text" class="input" name="Title" placeholder="Search">
                         <i class="fas fa-search"></i>
                     </form>
@@ -52,31 +43,28 @@
             </div>
         </div>
     </center>
-  <br>
-  <br>
-  <center>
-    <div class="sort-by-div" style="margin-bottom: 10px">
-        <form asp-controller="Movies" asp-action="Index" method="get">
-            <label>Sort By</label>
-            <select asp-items="@sortBy" name="SortBy" class="select-sortBy"
-                    style="border-radius: 9px" id="sortByDropdown">
-                <option value="" selected disabled hidden> </option>
-            </select>
 
-            <label>Genre</label>
-            <select asp-items="@genres" name="Genre" class="select-sortBy"
-                    style="border-radius: 9px" id="sortByDropdown">
-                <option value="" selected disabled hidden> </option>
-            </select>
+    @*<div class="sort-by-div" style="margin-bottom: 10px">
+    <form asp-controller="Movies" asp-action="Index" method="get">
+    <label>Sort By</label>
+    <select asp-items="@sortBy" name="SortBy" class="select-sortBy"
+    style="border-radius: 9px" id="sortByDropdown">
+    <option value="" selected disabled hidden> </option>
+    </select>
 
-            <label>Rating</label>
-            <input name="MinRating" type="range" id="volume"
-                   min="0" max="10" value="0" />
+    <label>Genre</label>
+    <select asp-items="@genres" name="Genre" class="select-sortBy"
+    style="border-radius: 9px" id="sortByDropdown">
+    <option value="" selected disabled hidden> </option>
+    </select>
 
-            <input type="submit" value="Filter" class="btn btn-primary" />
-        </form>
-    </div>
-    </center>
+    <label>Rating</label>
+    <input name="MinRating" type="range" id="volume"
+    min="0" max="10" value="0" />
+
+    <input type="submit" value="Filter" class="btn btn-primary" />
+    </form>
+    </div>*@
     <section class="product spad">
         <div class="container">
 
@@ -86,24 +74,21 @@
                     <div class="row">
                         @{
                             bool Empty = true;
-                            foreach (var movie in this.Model)
+                            foreach (var user in this.Model)
                             {
                                 Empty = false;
                                 <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <a href="movies/movie/@movie.Id">
+                                    <a href="user/profile/@user.UserId">
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg">
-                                                <img src="~/@movie.ImagePath" class="movie-album-pic" />
-                                                <div class="ep">@movie.Genre.Name</div>
-                                                <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
-                                                <div class="rating-preview"><i class="fa fa-star"></i> @string.Format("{0:0.0}", movie.Rating)</div>
+                                                <img src="~/Images/@user.ImagePath" class="movie-album-pic" />
+                                                <div class="ep">@user.Role</div>
                                             </div>
                                             <div class="product__item__text">
-                                                <ul>
-                                                    <li>@movie.ReleaseDate</li>
-                                                    <li>@movie.Username</li>
-                                                </ul>
-                                                <h5>@movie.Title</h5>
+                                                <h6>@user.Username</h6>
+                                                <h6>@user.Email</h6>
+                                                <h6>@user.FirstName @user.LastName</h6>
+
                                             </div>
                                         </div>
                                     </a>
@@ -124,16 +109,6 @@
         </div>
     </section>
 
-    @{
-        string hasPrevPage = this.Model.HasPreviousPage ? "" : "disabled";
-        string hasNextPage = this.Model.HasNextPage ? "" : "disabled";
-    }
-    <hr />
-    <center>
-        <a asp-controller="Movies" asp-action="Index" asp-route-PageNumber="@(this.Model.PageNumber - 1)" class="btn btn-outline-light @hasPrevPage page-buttons"> &lt;Prev</a>
-        <br />
-        <a asp-controller="Movies" asp-action="Index" asp-route-PageNumber="@(this.Model.PageNumber + 1)" class="btn btn-outline-light @hasNextPage page-buttons">Next&gt;</a>
-    </center>
 </body>
 @*<script>
         document.getElementById('sortByDropdown').addEventListener('submit', () => {
@@ -165,7 +140,7 @@
 
 
         });
-       
+
     });
 </script>
 </html>

@@ -26,16 +26,19 @@
                             <ul>
                                 <li class="active"><a asp-controller="Home" asp-action="Index">Homepage</a></li>
                                 <li>
-                                    <a asp-controller="Movies">Movies</a>
+                                    <a Href="/Movies">Movies</a>
                                 </li>
 
-                                <li><a href="#">Contacts</a></li>
+                                @if (this.User.HasClaim(x=>x.Value=="Admin"))
+                                {
+                                    <li><a href="/User/All">Users</a></li>
+                                }
                                 @if (!this.User.Identity.IsAuthenticated)
                                 {
-                                    <li><a asp-controller="Auth" asp-action="Login">Sign In</a></li>
-                                    <li><a asp-controller="Auth" asp-action="Register">Sign Up</a></li>
+                                    <li><a href="/Auth/Login">Sign In</a></li>
+                                    <li><a href="/Auth/Login">Sign Up</a></li>
                                 }
-                                <li> <a class="search-switch"><span class="icon_search"></span></a></li>
+                                <li> <a href="Movies/Create"><span class="icon_plus_alt2"></span></a></li>
                                 @if (this.User.Identity.IsAuthenticated)
                                 {
 

@@ -120,7 +120,13 @@ namespace MovieForum.Web.Controllers
             return this.RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var users = await this.userService.GetAsync();
 
+            return this.View(users);
+        }
         private string UploadPhoto(IFormFile file)
         {
             if (file == null)
