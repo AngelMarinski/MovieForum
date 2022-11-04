@@ -263,7 +263,8 @@ namespace MovieForum.Data.DataInitializing
                     "Top Guns perform a miracle, give the enemy hell, and come back home in one piece?",
                     GenreId = 5,
                     ReleaseDate = new DateTime(2022,05,27),
-                    ImagePath = "Images/top-gun.jpg"
+                    ImagePath = "Images/top-gun.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -273,8 +274,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.\r\n\r\nPeter Parker's secret identity is revealed to the entire world. Desperate for help, Peter turns to Doctor Strange to make the world forget that he is Spider-Man. The spell goes horribly wrong and shatters the multiverse, bringing in monstrous villains that could destroy the world.\r\n\r\nPicking up where Far From Home left off, Peter Parker's whole world is turned upside down when his old enemy Mysterio posthumously reveals his identity to the public. Wanting to make his identity a secret, Peter turns to Doctor Strange for help. But when Strange's spell goes haywire, Peter must go up against five deadly new enemies--the Green Goblin, Dr. Octopus, Electro, the Lizard and Sandman--all while discovering what it truly means to be Spider-Man.",
                     GenreId = 13,
                     ReleaseDate = new DateTime(2021,12,17),
-                    ImagePath = "Images/spider-man.jpg"
-
+                    ImagePath = "Images/spider-man.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -284,8 +285,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "Former cop Brian O'Conner is called upon to bust a dangerous criminal and he recruits the help of a former childhood friend and street racer who has a chance to redeem himself.",
                     GenreId = 4,
                     ReleaseDate = new DateTime(2003,06,06),
-                    ImagePath = "Images/2f2f.jpg"
-
+                    ImagePath = "Images/2f2f.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -295,8 +296,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "A 1950s housewife living with her husband in a utopian experimental community begins to worry that his glamorous company could be hiding disturbing secrets.",
                     GenreId = 4,
                     ReleaseDate = new DateTime(2022,09,23),
-                    ImagePath = "Images/dwd.jpg"
-
+                    ImagePath = "Images/dwd.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -306,8 +307,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "For his final assignment, a top temporal agent must pursue the one criminal that has eluded him throughout time. The chase turns into a unique, surprising and mind-bending exploration of love, fate, identity and time travel taboos.\r\n\r\nPREDESTINATION chronicles the life of a Temporal Agent sent on an intricate series of time-travel journeys designed to ensure the continuation of his law enforcement career for all eternity. Now, on his final assignment, the Agent must pursue the one criminal that has eluded him throughout time.",
                     GenreId = 8,
                     ReleaseDate = new DateTime(2014,08,28),
-                    ImagePath = "Images/predestination.jpg"
-
+                    ImagePath = "Images/predestination.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -317,8 +318,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "Three friends discover a mysterious machine that takes pictures twenty-four hours into the future, and conspire to use it for personal gain, until disturbing and dangerous images begin to develop.\r\n\r\nThree friends discover a time machine which takes pictures of the future. They begin to use it to win race bets and everything goes fine till one gets greedier than another. They begin to lose faith in each other giving a sense of backstabbing as uglier truths unfold in the photos and the situation soon gets out of control.",
                     GenreId = 8,
                     ReleaseDate = new DateTime(2014,04,18),
-                    ImagePath = "Images/timelapse.jpg"
-
+                    ImagePath = "Images/timelapse.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -328,8 +329,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "Foul-mouthed mutant mercenary Wade Wilson (a.k.a. Deadpool) assembles a team of fellow mutant rogues to protect a young boy with supernatural abilities from the brutal, time-traveling cyborg Cable.\r\n\r\nAfter losing Vanessa (Morena Baccarin), the love of his life, 4th-wall breaking mercenary Wade Wilson aka Deadpool (Ryan Reynolds) must assemble a team and protect a young, fat mutant Russell Collins aka Firefist (Julian Dennison) from Cable (Josh Brolin), a no-nonsense, dangerous cyborg from the future, and must also learn the most important lesson of all: to be part of a family again.",
                     GenreId = 11,
                     ReleaseDate = new DateTime(2018,05,18),
-                    ImagePath = "Images/dp2.jpg"
-
+                    ImagePath = "Images/dp2.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -339,8 +340,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "Six people unwillingly find themselves locked in another series of escape rooms, slowly uncovering what they have in common to survive. Joining forces with two of the original survivors, they soon discover they've all played the game before.\r\n\r\nAfter escaping death by the skin of their teeth and surviving the bloody games devised by the nefarious Minos Corporation, lucky players Zoey and Ben are now coping with trauma after the events of Escape Room (2019). But instead of finding answers and closure, Zoey and Ben are soon dragged into another set of fiendishly designed death traps. And as a handful of former escapees join in, the competitors must work together to outsmart their inhuman tormentors and give their all to solve increasingly sophisticated puzzles. This time, the unseen perils are more elaborate, and escape is futile. Who shall live and who shall die in the sadistic Tournament of Champions?",
                     GenreId = 6,
                     ReleaseDate = new DateTime(2021,07,16),
-                    ImagePath = "Images/escape-room.jpg"
-
+                    ImagePath = "Images/escape-room.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -350,8 +351,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "Naru, a skilled warrior of the Comanche Nation, fights to protect her tribe against one of the first highly-evolved Predators to land on Earth.",
                     GenreId = 3,
                     ReleaseDate = new DateTime(2022,07,21),
-                    ImagePath = "Images/prey.png"
-
+                    ImagePath = "Images/prey.png",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -361,8 +362,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "A divorced couple teams up and travels to Bali to stop their daughter from making the same mistake they think they made 25 years ago.",
                     GenreId = 4,
                     ReleaseDate = new DateTime(2022,09,20),
-                    ImagePath = "Images/ticket.jpg"
-
+                    ImagePath = "Images/ticket.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -372,8 +373,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "America's third political party, the New Founding Fathers of America, comes to power and conducts an experiment: no laws for 12 hours on Staten Island. No one has to stay on the island, but $5,000 is given to anyone who does.\r\n\r\nThis horror/action-adventure film from director Gerard McMurray serves as a prequel that recounts events that led up to the first Purge event. To push the crime rate below one percent for the rest of the year, the New Founding Fathers of America (NFFA) test a sociological theory that vents aggression for one night in one isolated community.",
                     GenreId = 9,
                     ReleaseDate = new DateTime(2018,07,04),
-                    ImagePath = "Images/purge.jpg"
-
+                    ImagePath = "Images/purge.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -383,8 +384,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "When one of their own is kidnapped by an angry gangster, the Wolf Pack must track down Mr. Chow, who has escaped from prison and is on the run.",
                     GenreId = 1,
                     ReleaseDate = new DateTime(2013,05,31),
-                    ImagePath = "Images/hangover.jpg"
-
+                    ImagePath = "Images/hangover.jpg",
+                    Posted = DateTime.Now
                 },
                 new Movie
                 {
@@ -394,8 +395,8 @@ namespace MovieForum.Data.DataInitializing
                     Content = "Set in the future when technology has subtly altered society, a woman discovers a secret connection to an alternate reality as well as a dark future of her own.",
                     GenreId = 2,
                     ReleaseDate = new DateTime(2022,10,21),
-                    ImagePath = "Images/periph.jpg"
-
+                    ImagePath = "Images/periph.jpg",
+                    Posted = DateTime.Now
                 },
             };
             db.Entity<Movie>().HasData(movies);

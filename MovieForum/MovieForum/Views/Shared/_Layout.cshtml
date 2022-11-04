@@ -25,17 +25,17 @@
                             <ul>
                                 <li class="active"><a asp-controller="Home" asp-action="Index">Homepage</a></li>
                                 <li>
-                                    <a Href="/Movies">Movies</a>
+                                    <a asp-controller="Movies" asp-action="Index">Movies</a>
                                 </li>
 
                                 @if (this.User.HasClaim(x=>x.Value=="Admin"))
                                 {
-                                    <li><a href="/User/AllUsers">Users</a></li>
+                                    <li><a asp-controller="User" asp-action="AllUsers">Users</a></li>
                                 }
                                 @if (!this.User.Identity.IsAuthenticated)
                                 {
-                                    <li><a href="/Auth/Login">Sign In</a></li>
-                                    <li><a href="/Auth/Register">Sign Up</a></li>
+                                    <li><a asp-controller="Auth" asp-action="Login">Sign In</a></li>
+                                    <li><a asp-controller="Auth" asp-action="Register">Sign Up</a></li>
                                 }
                                 <li> <a href="Movies/Create"><span class="icon_plus_alt2"></span></a></li>
                                 @if (this.User.Identity.IsAuthenticated)
@@ -83,9 +83,9 @@
                 <div class="col-lg-6">
                     <div class="footer__nav">
                         <ul>
-                            <li class="active"><a href="./Home">Homepage</a></li>
-                            <li><a href="./Movies">Movies</a></li>
-                            <li><a href="./About">About</li>
+                            <li class="active"><a asp-controller="Home" asp-action="Index">Homepage</a></li>
+                            <li><a asp-controller="Movies" asp-action="Index">Movies</a></li>
+                            <li><a asp-controller="About" asp-action="Index">About</a></li>
                         </ul>
                     </div>
                 </div>

@@ -67,8 +67,8 @@
                                             <li>
                                                 <!-- begin timeline-time -->
                                             <div class="timeline-time">
-                                                    <span class="date">@post.ReleaseDate.Day/@post.ReleaseDate.Month/@post.ReleaseDate.Year</span>
-                                                    <span class="time">@post.ReleaseDate.Hour:@post.ReleaseDate.Minute</span>
+                                                    <span class="date">@post.Posted.ToString("dd/mm/yyyy")</span>
+                                                    <span class="time">@post.Posted.ToString("HH:mm")</span>
                                                 </div>
                                                 <!-- end timeline-time -->
                                                 <!-- begin timeline-icon -->

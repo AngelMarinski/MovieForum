@@ -194,7 +194,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 832, DateTimeKind.Local).AddTicks(4855)
+                            PostedOn = new DateTime(2022, 11, 4, 22, 2, 53, 146, DateTimeKind.Local).AddTicks(8690)
                         },
                         new
                         {
@@ -205,7 +205,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 835, DateTimeKind.Local).AddTicks(9302)
+                            PostedOn = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(1885)
                         },
                         new
                         {
@@ -216,7 +216,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 3,
-                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 835, DateTimeKind.Local).AddTicks(9359)
+                            PostedOn = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(1945)
                         },
                         new
                         {
@@ -227,7 +227,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 4,
-                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 835, DateTimeKind.Local).AddTicks(9366)
+                            PostedOn = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(1953)
                         },
                         new
                         {
@@ -238,7 +238,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 5,
-                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 835, DateTimeKind.Local).AddTicks(9371)
+                            PostedOn = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(1958)
                         });
                 });
 
@@ -701,7 +701,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAEBdkZwoIPPzYKnNyaMK0G8LZWfOONPEpjSsSf6USY4+6bd6tSrdj7xoiMblrWc8jRA==",
+                            Password = "AQAAAAEAACcQAAAAEAysoiTt6oB1u4poBwj3Ax8GBSj9ZQzyJj2hDQ2v5K/DuLK/scCqW80vyXBB61Tl+w==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -715,7 +715,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAEK1U7hgGCm7AVi79SDJctcEvcXtQ4qTe/lnCA7IvmrntHcmhxti0aHZ7GO+pobKN6g==",
+                            Password = "AQAAAAEAACcQAAAAEPe5LQ/M4j5EwJfAxTZiPZq1GTT6xjVJV9O/j3vGYm3IWkB03E8YDw4z0L1/soi8yA==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -729,7 +729,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAEC8Bql50QiZtA96AF2jmCCybXlg4UVXvtFP5ovJlDnMpIRwOQGBX1J1BlMHdR9EoFw==",
+                            Password = "AQAAAAEAACcQAAAAEHzy3sxwos7yJN+Mp1pyUL2Te7s0jE/40L7x+05rA2aXJ+zYHLIbM/P6fJnYoc5GNg==",
                             RoleId = 1,
                             Username = "Rado561"
                         },
@@ -743,7 +743,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Bond",
-                            Password = "AQAAAAEAACcQAAAAEMl1597zn60k2rKZ5XzwQzs9wAd2gA8DpnBx0tdP7dR/TbF1gzrK6EaEoSFKeA0nmw==",
+                            Password = "AQAAAAEAACcQAAAAEHcwFfNE7Y5Cf1wf4L1NnAxQk28ZLfIcvW3HsVdC07q6GBKKrp9w6vvRUi6dGARw+Q==",
                             RoleId = 1,
                             Username = "James96"
                         },
@@ -757,7 +757,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "zuckerberg",
-                            Password = "AQAAAAEAACcQAAAAEDFGDEHin70W0dby513su7LaYhFhrLn+zFh+s5JacWDsU4G8f2y7d6f038VFlAhM3Q==",
+                            Password = "AQAAAAEAACcQAAAAEMttkl2cnjR+GdBeEa85P49c7bd3x0ViDpjJlj8z6TboXM6GXnON0MVXEWwHvGHHpw==",
                             RoleId = 1,
                             Username = "MarkZ"
                         });
@@ -823,7 +823,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 5,
                             ImagePath = "Images/top-gun.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(6679),
                             ReleaseDate = new DateTime(2022, 5, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Top Gun:Maverick"
                         },
@@ -835,7 +835,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 13,
                             ImagePath = "Images/spider-man.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7117),
                             ReleaseDate = new DateTime(2021, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Spiderman: No Way Home"
                         },
@@ -847,7 +847,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 4,
                             ImagePath = "Images/2f2f.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7141),
                             ReleaseDate = new DateTime(2003, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "2 Fast 2 Furious"
                         },
@@ -859,7 +859,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 4,
                             ImagePath = "Images/dwd.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7148),
                             ReleaseDate = new DateTime(2022, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Don't Worry Darling"
                         },
@@ -871,7 +871,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 8,
                             ImagePath = "Images/predestination.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7154),
                             ReleaseDate = new DateTime(2014, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Predestination"
                         },
@@ -883,7 +883,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 8,
                             ImagePath = "Images/timelapse.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7163),
                             ReleaseDate = new DateTime(2014, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Time Lapse"
                         },
@@ -895,7 +895,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 11,
                             ImagePath = "Images/dp2.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7169),
                             ReleaseDate = new DateTime(2018, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Deadpool 2"
                         },
@@ -907,7 +907,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 6,
                             ImagePath = "Images/escape-room.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7175),
                             ReleaseDate = new DateTime(2021, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Escape Room: Tournament of Champions"
                         },
@@ -919,7 +919,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 3,
                             ImagePath = "Images/prey.png",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7180),
                             ReleaseDate = new DateTime(2022, 7, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Prey"
                         },
@@ -931,7 +931,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 4,
                             ImagePath = "Images/ticket.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7188),
                             ReleaseDate = new DateTime(2022, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Ticket to Paradise"
                         },
@@ -943,7 +943,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 9,
                             ImagePath = "Images/purge.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7193),
                             ReleaseDate = new DateTime(2018, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The First Purge"
                         },
@@ -955,7 +955,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 1,
                             ImagePath = "Images/hangover.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7343),
                             ReleaseDate = new DateTime(2013, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Hangover Part III"
                         },
@@ -967,7 +967,7 @@ namespace MovieForum.Data.Migrations
                             GenreId = 2,
                             ImagePath = "Images/periph.jpg",
                             IsDeleted = false,
-                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Posted = new DateTime(2022, 11, 4, 22, 2, 53, 151, DateTimeKind.Local).AddTicks(7351),
                             ReleaseDate = new DateTime(2022, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Peripheral"
                         });
