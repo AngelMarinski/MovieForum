@@ -1462,6 +1462,7 @@ ol {
 }
 
     .anime__details__text p {
+       
         color: #b7b7b7;
         font-size: 18px;
         line-height: 30px;
@@ -1473,8 +1474,10 @@ ol {
     position: relative;
 }
 
-    .anime__details__pic img{
-        border-radius:10px
+    .anime__details__pic img {
+        border-radius: 10px;
+        min-height: 330px;
+        max-height: 330px;
     }
 
     .anime__details__pic .comment {

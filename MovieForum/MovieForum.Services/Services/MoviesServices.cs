@@ -54,7 +54,7 @@ namespace MovieForum.Services
 
         public async Task<IEnumerable<MovieDTO>> GetTopCommentedAsync()
         {
-            var movies = await db.Movies.OrderByDescending(x => x.Comments.Count)
+            var movies = await db.Movies.OrderByDescending(x => x.Comments.Count).Where(x=>x.IsDeleted==false)
                                         .Take(10).ToListAsync();
 
             return mapper.Map<IEnumerable<MovieDTO>>(movies);
@@ -62,7 +62,7 @@ namespace MovieForum.Services
 
         public async Task<IEnumerable<MovieDTO>> GetMostRecentPostsAsync()
         {
-            var movies = await db.Movies.OrderByDescending(x => x.Posted)
+            var movies = await db.Movies.OrderByDescending(x => x.Posted).Where(x => x.IsDeleted == false)
                                         .Take(10).ToListAsync();
 
             return mapper.Map<IEnumerable<MovieDTO>>(movies);
