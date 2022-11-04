@@ -2279,3 +2279,14 @@ ol {
     gap: 6px;
     margin-bottom: 40px;
 }
+
+#volume {
+    border-radius: 17px;
+    padding-left: 25px;
+    max-width: 66px;
+}
+
+pageSize-Dropdown{
+    margin-top:20px;
+    border-radius: 30px;
+}

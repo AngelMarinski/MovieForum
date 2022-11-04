@@ -251,6 +251,10 @@ namespace MovieForum.Services
                 }
             }
             int totalPages = (result.Count() + 1) / parameters.PageSize;
+            if((result.Count() + 1) % parameters.PageSize != 0)
+            {
+                totalPages++;
+            }
 
             result = Paginate(result, parameters.PageNumber, parameters.PageSize);
 
