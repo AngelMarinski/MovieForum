@@ -55,6 +55,11 @@ namespace MovieForum.Web.Controllers
         {
             var movies = await this.moviesService.FilterByAsync(parameters);
 
+            this.ViewData["SortBy"] = parameters.SortBy;
+            this.ViewData["Rating"] = parameters.MinRating;
+            this.ViewData["Genre"] = parameters.Genre;
+            this.ViewData["Title"] = parameters.Title;
+
             return View(movies);
         }
 
