@@ -223,8 +223,8 @@ ol {
 
         .wrapper .search_box .search_field .fas {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 10%;
+            right: 0%;
             font-size: 22px;
             color: #5078ef;
             cursor: pointer;
@@ -1126,13 +1126,14 @@ ol {
     height: auto;
     position: relative;
     border-radius: 10px;
-    min-height: 350px;
+    max-width:300px;
 }
-
     .product__item__pic img {
         border-radius: 10px;
-        min-height:413px;
-        max-height:413px;
+        min-height: 350px;
+        max-height:350px;
+        max-width: 300px;
+        min-width: 300px;
     }
 
     .product__item__pic .ep {
@@ -1471,6 +1472,10 @@ ol {
     border-radius: 5px;
     position: relative;
 }
+
+    .anime__details__pic img{
+        border-radius:10px
+    }
 
     .anime__details__pic .comment {
         font-size: 13px;
@@ -1817,7 +1822,7 @@ ol {
     padding: 2px 10px;
     border-radius: 4px;
     position: absolute;
-    right: 22%;
+    right: 3%;
     bottom: 10px;
     width: auto;
 }

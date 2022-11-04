@@ -46,7 +46,7 @@
                 <div class="search_field">
                     <form asp-controller="Movies" asp-action="Index" method="get" class="search_field">
                         <input type="text" class="input" name="Title" placeholder="Search">
-                        <i class="fas fa-search"></i>
+                        <button type="submit" class="fas fa-search btn btn-outline-light" style="top:10%";></button>
                     </form>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <a href="movies/movie/@movie.Id">
                                         <div class="product__item">
-                                            <div class="product__item__pic set-bg">
+                                            <div class="product__item__pic">
                                                 <img src="~/@movie.ImagePath" class="movie-album-pic" />
                                                 <div class="ep">@movie.Genre.Name</div>
                                                 <div class="comment"><i class="fa fa-comments"></i> @movie.Comments.Count</div>
@@ -181,6 +181,10 @@
             $(".dropdown ul").removeClass("active");
             $('input').attr('name', text);
 
+
+        });
+        $(".input").click(function () {
+            $(".dropdown ul").removeClass("active");
 
         });
        
