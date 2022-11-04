@@ -22,5 +22,9 @@ namespace MovieForum.Services.Interfaces
         IEnumerable<CommentDTO> GetMovieComments(int movieId);
 
         Task<int> GetPostsCount();
+
+        Task<MovieDTO> AddActorAsync(int movieID, string firstName, string lastName);
+
+        Task<MovieDTO> RemoveActorAsync(int movieId, string firstName, string lastName);
     }
 }

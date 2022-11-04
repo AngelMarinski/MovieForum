@@ -6,6 +6,7 @@
 <html>
 
 <head>
+     <title>Movie: @this.Model.MovieDTO.Title</title>
     <meta charset="UTF-8">
     <meta name="description" content="Movie">
     <title>Anime | Template</title>
@@ -42,7 +43,7 @@
                         <div class="anime__details__text">
                             <div class="anime__details__title">
                                 <h3>@this.Model.MovieDTO.Title</h3>
-                                <span>@this.Model.MovieDTO.Username  Posted: @this.Model.MovieDTO.Posted</span>
+                                <span>@this.Model.MovieDTO.Username  Posted: @{((DateTime)this.Model.MovieDTO.Posted).ToString("MM/dd/yyyy h:mm tt");}</span>
                             </div>
                             <div class="anime__details__rating">
                                 <div class="rating">
@@ -71,15 +72,13 @@
                                 </div>
                                 <span>@String.Format("{0:0.0}", this.Model.MovieDTO.Rating)/10.0</span>
                             </div>
-                            <p>
-                                @this.Model.MovieDTO.Content
-                            </p>
+                            <p>@this.Model.MovieDTO.Content</p>
                             <div class="anime__details__widget">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
                                             <li><span>Genre:</span> @this.Model.MovieDTO.Genre.Name</li>
-                                            <li><span>Release aired:</span> @this.Model.MovieDTO.ReleaseDate</li>
+                                            <li><span>Release aired:</span> @this.Model.MovieDTO.ReleaseDate.ToString("MMMM dd, yyyy")</li>
                                             <li>
                                                 <span>Tags:</span>
                                                 @string.Join(", ", this.Model.MovieDTO.Tags.Select(x => x.TagName))
@@ -90,13 +89,17 @@
                                             </li>
                                         </ul>
                                         @{
-                                            if (userCheck.Id == this.Model.MovieDTO.AuthorId)
+                                            if (userCheck.Id == this.Model.MovieDTO.AuthorId || this.User.HasClaim(x=>x.Value=="Admin"))
                                             {
 
                                                 <form asp-controller="Movies" asp-action="Delete" method="post">
                                                     <input type="hidden" asp-for="MovieDTO.Id" value="@this.Model.MovieDTO.Id" />
                                                     <button type="submit" class="btn btn-danger" value="Delete">Delete</button>
                                                 </form>
+                                               
+                                            }
+                                            if (userCheck.Id == this.Model.MovieDTO.AuthorId)
+                                            {
                                                 <a asp-controller="Movies" asp-action="Edit" asp-route-id="@this.Model.MovieDTO.Id" class="btn btn-warning" style="margin-top: 5px">Edit</a>
                                             }
                                         }
@@ -127,17 +130,32 @@
                                         @{
                                             if (userCheck.Id != comment.AuthorId)
                                             {
-                                                <h6>@user.Username <span>@comment.PostedOn</span></h6>
+                                                <h6>@user.Username <span>@{((DateTime)comment.PostedOn).ToString("MM/dd/yyyy h:mm tt");}</span></h6>
                                                 <p>
                                                     @comment.Content
                                                 </p>
+                                                if (this.User.HasClaim(x => x.Value == "Admin"))
+                                                {
+
+                                                    <li>
+                                                        <form asp-controller="Comment" asp-action="Delete" method="post">
+
+                                                            <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
+                                                            <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
+                                                            <button type="submit" class="btn btn-primary"> Delete  </button>
+
+                                                        </form>
+
+                                                    </li>
+                                                }
                                             }
                                             else
                                             {
-                                                <h6>@user.Username <span>@comment.PostedOn</span></h6>
+                                                <h6>@user.Username <span>@{((DateTime)comment.PostedOn).ToString("MM/dd/yyyy h:mm tt");}</span></h6>
                                                 <p>
                                                     @comment.Content
-                                                </p>
+                                                </p>                                               
+                                                    
                                                 <li>
                                                     <form asp-controller="Comment" asp-action="Delete" method="post">
 

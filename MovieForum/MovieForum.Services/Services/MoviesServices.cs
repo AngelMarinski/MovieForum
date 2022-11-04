@@ -54,7 +54,7 @@ namespace MovieForum.Services
 
         public async Task<IEnumerable<MovieDTO>> GetTopCommentedAsync()
         {
-            var movies = await db.Movies.OrderByDescending(x => x.Comments.Count)
+            var movies = await db.Movies.OrderByDescending(x => x.Comments.Count).Where(x=>x.IsDeleted==false)
                                         .Take(10).ToListAsync();
 
             return mapper.Map<IEnumerable<MovieDTO>>(movies);
@@ -62,7 +62,7 @@ namespace MovieForum.Services
 
         public async Task<IEnumerable<MovieDTO>> GetMostRecentPostsAsync()
         {
-            var movies = await db.Movies.OrderByDescending(x => x.Posted)
+            var movies = await db.Movies.OrderByDescending(x => x.Posted).Where(x => x.IsDeleted == false)
                                         .Take(10).ToListAsync();
 
             return mapper.Map<IEnumerable<MovieDTO>>(movies);
@@ -120,10 +120,10 @@ namespace MovieForum.Services
             var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false)
                         ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
 
-            if (obj.Cast != null)
+/*            if (obj.Cast != null)
             {
                 movie.Cast = new List<MovieActor>(mapper.Map<ICollection<MovieActor>>(obj.Cast));
-            }
+            }*/
             if (obj.Title != null)
             {
                 movie.Title = obj.Title;
@@ -185,7 +185,7 @@ namespace MovieForum.Services
 
             if (!string.IsNullOrEmpty(parameters.Title))
             {
-               
+
                 result = result.Where(x => x.Title.Contains(parameters.Title, StringComparison.InvariantCultureIgnoreCase));
             }
 
@@ -215,9 +215,9 @@ namespace MovieForum.Services
                 var list = result;
                 result = Enumerable.Empty<MovieDTO>().AsQueryable();
                 result.Concat(from item in list
-                                from tags in item.Tags
-                                where tags.TagName.ToLower().Contains(parameters.Tag.ToLower())
-                                select item);
+                              from tags in item.Tags
+                              where tags.TagName.ToLower().Contains(parameters.Tag.ToLower())
+                              select item);
             }
 
             if (!string.IsNullOrEmpty(parameters.Year))
@@ -251,6 +251,10 @@ namespace MovieForum.Services
                 }
             }
             int totalPages = (result.Count() + 1) / parameters.PageSize;
+            if((result.Count() + 1) % parameters.PageSize != 0)
+            {
+                totalPages++;
+            }
 
             result = Paginate(result, parameters.PageNumber, parameters.PageSize);
 
@@ -269,7 +273,7 @@ namespace MovieForum.Services
 
             var tag = await db.Tags.FirstOrDefaultAsync(t => t.TagName == tagName);
 
-            if(tag == null)
+            if (tag == null)
             {
                 tag = new Tag
                 {
@@ -293,6 +297,74 @@ namespace MovieForum.Services
 
             movie.Tags.Add(movieTag);
             //tag.Movies.Add(movieTag);
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<MovieDTO>(movie);
+        }
+
+        public async Task<MovieDTO> AddActorAsync(int movieID, string firstName, string lastName)
+        {
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == movieID && m.IsDeleted == false)
+                        ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+
+            var actor = await this.db.Actors.FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
+
+            if (actor == null)
+            {
+                actor = new Actor
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    IsDeleted = false
+                };
+            }
+            else if (actor.IsDeleted)
+            {
+                actor.IsDeleted = false;
+            }
+
+            if (movie.Cast.Any(x => x.ActorId == actor.Id))
+            {
+                movie.Cast.FirstOrDefault(x => x.ActorId == actor.Id).IsDeleted = false;
+            }
+            else
+            {
+                var movieActor = new MovieActor
+                {
+                    MovieId = movie.Id,
+                    Actor = actor,
+                    ActorId = actor.Id,
+                    IsDeleted = false
+                };
+
+
+                movie.Cast.Add(movieActor);
+            }
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<MovieDTO>(movie);
+        }
+
+        public async Task<MovieDTO> RemoveActorAsync(int movieId, string firstName, string lastName)
+        {
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == movieId && m.IsDeleted == false)
+                                   ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
+
+            var actor = await db.Actors.FirstOrDefaultAsync(t => t.FirstName == firstName
+                                                            && t.LastName == lastName)
+                                    ?? throw new InvalidOperationException(Constants.ACTOR_NOT_FOUND); ;
+
+            var movieActor = await db.MovieActors
+                            .Where(m => m.MovieId == movie.Id && m.ActorId == actor.Id)
+                            .ToListAsync();
+
+            foreach (var item in movieActor)
+            {
+                item.IsDeleted = true;
+                item.DeletedOn = DateTime.Now;
+            }
 
             await db.SaveChangesAsync();
 
@@ -329,7 +401,7 @@ namespace MovieForum.Services
             var user = await this.db.Users.FirstOrDefaultAsync(x => x.Id == userId)
                              ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
 
-            if (movie.Rating.Any(x => x.UserID == user.Id)) 
+            if (movie.Rating.Any(x => x.UserID == user.Id))
             {
                 throw new UnauthorizedAccessException(Constants.ALREADY_RATED);
             }

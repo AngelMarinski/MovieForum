@@ -22,7 +22,7 @@ namespace MovieForum.Models
         [Required, StringLength(64, MinimumLength = 2)]
         public string Title { get; set; }
 
-        [Required, StringLength(64, MinimumLength = 32)]
+        [Required, StringLength(2000, MinimumLength = 32)]
         public string Content { get; set; }
 
         [Required]

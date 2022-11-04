@@ -223,8 +223,8 @@ ol {
 
         .wrapper .search_box .search_field .fas {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 10%;
+            right: 0%;
             font-size: 22px;
             color: #5078ef;
             cursor: pointer;
@@ -585,10 +585,11 @@ ol {
 	background: #070720;
 }
 
-.header__logo {
+.header__logo  {
 	padding: 20px 0 17px;
 }
 
+   
 .header__logo a {
 	display: inline-block;
 }
@@ -1126,13 +1127,14 @@ ol {
     height: auto;
     position: relative;
     border-radius: 10px;
-    min-height: 350px;
+    max-width:300px;
 }
-
     .product__item__pic img {
         border-radius: 10px;
-        min-height:413px;
-        max-height:413px;
+        min-height: 380px;
+        max-height:380px;
+        max-width: 300px;
+        min-width: 300px;
     }
 
     .product__item__pic .ep {
@@ -1461,6 +1463,7 @@ ol {
 }
 
     .anime__details__text p {
+       
         color: #b7b7b7;
         font-size: 18px;
         line-height: 30px;
@@ -1471,6 +1474,12 @@ ol {
     border-radius: 5px;
     position: relative;
 }
+
+    .anime__details__pic img {
+        border-radius: 10px;
+        min-height: 350px;
+        max-height: 350px;
+    }
 
     .anime__details__pic .comment {
         font-size: 13px;
@@ -1817,7 +1826,7 @@ ol {
     padding: 2px 10px;
     border-radius: 4px;
     position: absolute;
-    right: 22%;
+    right: 3%;
     bottom: 10px;
     width: auto;
 }
@@ -2269,4 +2278,15 @@ ol {
     justify-content: center;
     gap: 6px;
     margin-bottom: 40px;
+}
+
+#volume {
+    border-radius: 17px;
+    padding-left: 25px;
+    max-width: 66px;
+}
+
+pageSize-Dropdown{
+    margin-top:20px;
+    border-radius: 30px;
 }

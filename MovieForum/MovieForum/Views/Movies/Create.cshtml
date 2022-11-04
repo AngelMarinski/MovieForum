@@ -7,6 +7,7 @@
 
 <html lang="en">
 <head>
+    <title>Create Movie</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/tagsInput.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -40,7 +41,7 @@
             </div>
             <div>
                 <label asp-for="RealeaseDate" class="form-label"></label>
-                <input asp-for="RealeaseDate" type="datetime-local" value="@DateTime.Now" class="form-input" />
+                <input asp-for="RealeaseDate" type="date" value="@DateTime.Now" class="form-input" />
                 <span asp-validation-for="RealeaseDate" class="form-error" style="color: red"></span>
                 <br />
                 <br />

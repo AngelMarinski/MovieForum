@@ -58,6 +58,83 @@ namespace MovieForum.Data.Migrations
                             FirstName = "Tom",
                             IsDeleted = false,
                             LastName = "Holand"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FirstName = "Paul",
+                            IsDeleted = false,
+                            LastName = "Walker"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FirstName = "Florence",
+                            IsDeleted = false,
+                            LastName = "Pugh"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FirstName = "Ethan",
+                            IsDeleted = false,
+                            LastName = "Hawke"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FirstName = "Danielle",
+                            IsDeleted = false,
+                            LastName = "Panabaker"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FirstName = "Ryan",
+                            IsDeleted = false,
+                            LastName = "Reynolds"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FirstName = "Taylor",
+                            IsDeleted = false,
+                            LastName = "Russel"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FirstName = "Amber",
+                            IsDeleted = false,
+                            LastName = "Midthunder"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FirstName = "George",
+                            IsDeleted = false,
+                            LastName = "Clooney"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            FirstName = "Y'Lan",
+                            IsDeleted = false,
+                            LastName = "Noel"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            FirstName = "Bradley",
+                            IsDeleted = false,
+                            LastName = "Cooper"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            FirstName = "Chloë ",
+                            IsDeleted = false,
+                            LastName = "Moretz"
                         });
                 });
 
@@ -112,23 +189,56 @@ namespace MovieForum.Data.Migrations
                         {
                             Id = 1,
                             AuthorId = 1,
-                            Content = "Pulna Boza",
+                            Content = "This movie is awful!",
                             DisLikesCount = 0,
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 11, 4, 16, 10, 14, 244, DateTimeKind.Local).AddTicks(2213)
+                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 832, DateTimeKind.Local).AddTicks(4855)
                         },
                         new
                         {
                             Id = 2,
-                            AuthorId = 3,
-                            Content = "unikalna produkciq siujeta e ubiec",
+                            AuthorId = 2,
+                            Content = "Amazing movie! I strongly recomend it!",
                             DisLikesCount = 0,
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 11, 4, 16, 10, 14, 250, DateTimeKind.Local).AddTicks(4255)
+                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 835, DateTimeKind.Local).AddTicks(9302)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AuthorId = 3,
+                            Content = "It's not as good as the first and repeats the first film's plot but 2 Fast 2 Furious is still fun due to great performances from Paul Walker and Tyrese Gibson and their great chemistry. The enjoyable and over the top action helps as well.!",
+                            DisLikesCount = 0,
+                            IsDeleted = false,
+                            LikesCount = 0,
+                            MovieId = 3,
+                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 835, DateTimeKind.Local).AddTicks(9359)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuthorId = 4,
+                            Content = "The concept of the movie was good, but needed to be taken a bit further in my opinion with detail. A lot happens in the movie that basically requires the audience to accept without question.\r\n",
+                            DisLikesCount = 0,
+                            IsDeleted = false,
+                            LikesCount = 0,
+                            MovieId = 4,
+                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 835, DateTimeKind.Local).AddTicks(9366)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AuthorId = 5,
+                            Content = "One of the greatest mindblowing movies of all the times!",
+                            DisLikesCount = 0,
+                            IsDeleted = false,
+                            LikesCount = 0,
+                            MovieId = 5,
+                            PostedOn = new DateTime(2022, 11, 4, 21, 28, 25, 835, DateTimeKind.Local).AddTicks(9371)
                         });
                 });
 
@@ -262,8 +372,74 @@ namespace MovieForum.Data.Migrations
                         },
                         new
                         {
-                            MovieId = 1,
+                            MovieId = 2,
                             ActorId = 2,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 3,
+                            ActorId = 3,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 4,
+                            ActorId = 4,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 5,
+                            ActorId = 5,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 6,
+                            ActorId = 6,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 7,
+                            ActorId = 7,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 8,
+                            ActorId = 8,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 9,
+                            ActorId = 9,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 10,
+                            ActorId = 10,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 11,
+                            ActorId = 11,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 12,
+                            ActorId = 12,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            MovieId = 13,
+                            ActorId = 13,
                             IsDeleted = false
                         });
                 });
@@ -520,12 +696,12 @@ namespace MovieForum.Data.Migrations
                             Id = 1,
                             Email = "fakeemail@gmail.com",
                             FirstName = "Angel",
-                            ImagePath = "defaultphoto.jpg",
+                            ImagePath = "gum.jpg",
                             IsBlocked = false,
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAELvDfad+xy4XUrIRDYsK8375ZfjxTb9IG0pqFBu9s/PDT73pcgJu8zXA5ifiiinC5g==",
+                            Password = "AQAAAAEAACcQAAAAEBdkZwoIPPzYKnNyaMK0G8LZWfOONPEpjSsSf6USY4+6bd6tSrdj7xoiMblrWc8jRA==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -534,12 +710,12 @@ namespace MovieForum.Data.Migrations
                             Id = 2,
                             Email = "adminsemail@gmail.com",
                             FirstName = "Maggie",
-                            ImagePath = "defaultphoto.jpg",
+                            ImagePath = "anais.png",
                             IsBlocked = false,
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAEOPth25SoBbmCojznYltNLJq5JIMI/4mHuGJ+qIP5Hwg/NGDTGe7UKoMy/vu7MZrGQ==",
+                            Password = "AQAAAAEAACcQAAAAEK1U7hgGCm7AVi79SDJctcEvcXtQ4qTe/lnCA7IvmrntHcmhxti0aHZ7GO+pobKN6g==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -548,14 +724,42 @@ namespace MovieForum.Data.Migrations
                             Id = 3,
                             Email = "morefakeemails@gmail.com",
                             FirstName = "Radoslav",
-                            ImagePath = "defaultphoto.jpg",
+                            ImagePath = "darw.png",
                             IsBlocked = false,
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAECsi3zbgIVXwWJWCMX6inYfpd73TCTtcWHxnhREEKKAZYK2YtFIWd1TFdp/mH20jdw==",
+                            Password = "AQAAAAEAACcQAAAAEC8Bql50QiZtA96AF2jmCCybXlg4UVXvtFP5ovJlDnMpIRwOQGBX1J1BlMHdR9EoFw==",
                             RoleId = 1,
                             Username = "Rado561"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "agent007@gmail.com",
+                            FirstName = "James",
+                            ImagePath = "bond.png",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            LastName = "Bond",
+                            Password = "AQAAAAEAACcQAAAAEMl1597zn60k2rKZ5XzwQzs9wAd2gA8DpnBx0tdP7dR/TbF1gzrK6EaEoSFKeA0nmw==",
+                            RoleId = 1,
+                            Username = "James96"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Email = "mzfb@gmail.com",
+                            FirstName = "Mark",
+                            ImagePath = "marck.jpg",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            LastName = "zuckerberg",
+                            Password = "AQAAAAEAACcQAAAAEDFGDEHin70W0dby513su7LaYhFhrLn+zFh+s5JacWDsU4G8f2y7d6f038VFlAhM3Q==",
+                            RoleId = 1,
+                            Username = "MarkZ"
                         });
                 });
 
@@ -572,8 +776,8 @@ namespace MovieForum.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
@@ -615,25 +819,157 @@ namespace MovieForum.Data.Migrations
                         {
                             Id = 1,
                             AuthorID = 1,
-                            Content = "On of my favourite movies of all time",
+                            Content = "After more than thirty years of service, military awards, medals and decorations for extraordinary heroism in combat, distinguished US Navy Captain Pete Mitchell, call sign Maverick, finds himself exactly where he belongs: pushing the limits as a top test pilot. Having spent years avoiding promotions after the events of Top Gun (1986), Maverick must now confront the ugly past and an uncertain future while tasked with training the next generation of elite fighter pilots for a nearly impossible suicide mission. But as the veteran naval aviator prepares the brilliant graduates for the top-secret assignment, stretching the rules to the breaking point, Mitchell has to face an equally critical challenge: navigate through an uncomfortable, bitter relationship with a hotshot lieutenant holding a grudge. Can Maverick and his Top Guns perform a miracle, give the enemy hell, and come back home in one piece?",
                             GenreId = 5,
-                            ImagePath = "Images/Image_500.jpg",
+                            ImagePath = "Images/top-gun.jpg",
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 11, 4, 16, 10, 14, 251, DateTimeKind.Local).AddTicks(9600),
-                            Title = "Top Gun the new one"
+                            ReleaseDate = new DateTime(2022, 5, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Top Gun:Maverick"
                         },
                         new
                         {
                             Id = 2,
                             AuthorID = 2,
-                            Content = "The bes spiderman movie so far, I love Tom Holand",
+                            Content = "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.\r\n\r\nPeter Parker's secret identity is revealed to the entire world. Desperate for help, Peter turns to Doctor Strange to make the world forget that he is Spider-Man. The spell goes horribly wrong and shatters the multiverse, bringing in monstrous villains that could destroy the world.\r\n\r\nPicking up where Far From Home left off, Peter Parker's whole world is turned upside down when his old enemy Mysterio posthumously reveals his identity to the public. Wanting to make his identity a secret, Peter turns to Doctor Strange for help. But when Strange's spell goes haywire, Peter must go up against five deadly new enemies--the Green Goblin, Dr. Octopus, Electro, the Lizard and Sandman--all while discovering what it truly means to be Spider-Man.",
                             GenreId = 13,
-                            ImagePath = "Images/Image_500.jpg",
+                            ImagePath = "Images/spider-man.jpg",
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 11, 4, 16, 10, 14, 252, DateTimeKind.Local).AddTicks(1507),
-                            Title = "Spiderman: Far From Home"
+                            ReleaseDate = new DateTime(2021, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Spiderman: No Way Home"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AuthorID = 3,
+                            Content = "Former cop Brian O'Conner is called upon to bust a dangerous criminal and he recruits the help of a former childhood friend and street racer who has a chance to redeem himself.",
+                            GenreId = 4,
+                            ImagePath = "Images/2f2f.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2003, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "2 Fast 2 Furious"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuthorID = 4,
+                            Content = "A 1950s housewife living with her husband in a utopian experimental community begins to worry that his glamorous company could be hiding disturbing secrets.",
+                            GenreId = 4,
+                            ImagePath = "Images/dwd.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2022, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Don't Worry Darling"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AuthorID = 5,
+                            Content = "For his final assignment, a top temporal agent must pursue the one criminal that has eluded him throughout time. The chase turns into a unique, surprising and mind-bending exploration of love, fate, identity and time travel taboos.\r\n\r\nPREDESTINATION chronicles the life of a Temporal Agent sent on an intricate series of time-travel journeys designed to ensure the continuation of his law enforcement career for all eternity. Now, on his final assignment, the Agent must pursue the one criminal that has eluded him throughout time.",
+                            GenreId = 8,
+                            ImagePath = "Images/predestination.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2014, 8, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Predestination"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AuthorID = 1,
+                            Content = "Three friends discover a mysterious machine that takes pictures twenty-four hours into the future, and conspire to use it for personal gain, until disturbing and dangerous images begin to develop.\r\n\r\nThree friends discover a time machine which takes pictures of the future. They begin to use it to win race bets and everything goes fine till one gets greedier than another. They begin to lose faith in each other giving a sense of backstabbing as uglier truths unfold in the photos and the situation soon gets out of control.",
+                            GenreId = 8,
+                            ImagePath = "Images/timelapse.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2014, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Time Lapse"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AuthorID = 2,
+                            Content = "Foul-mouthed mutant mercenary Wade Wilson (a.k.a. Deadpool) assembles a team of fellow mutant rogues to protect a young boy with supernatural abilities from the brutal, time-traveling cyborg Cable.\r\n\r\nAfter losing Vanessa (Morena Baccarin), the love of his life, 4th-wall breaking mercenary Wade Wilson aka Deadpool (Ryan Reynolds) must assemble a team and protect a young, fat mutant Russell Collins aka Firefist (Julian Dennison) from Cable (Josh Brolin), a no-nonsense, dangerous cyborg from the future, and must also learn the most important lesson of all: to be part of a family again.",
+                            GenreId = 11,
+                            ImagePath = "Images/dp2.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2018, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Deadpool 2"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AuthorID = 3,
+                            Content = "Six people unwillingly find themselves locked in another series of escape rooms, slowly uncovering what they have in common to survive. Joining forces with two of the original survivors, they soon discover they've all played the game before.\r\n\r\nAfter escaping death by the skin of their teeth and surviving the bloody games devised by the nefarious Minos Corporation, lucky players Zoey and Ben are now coping with trauma after the events of Escape Room (2019). But instead of finding answers and closure, Zoey and Ben are soon dragged into another set of fiendishly designed death traps. And as a handful of former escapees join in, the competitors must work together to outsmart their inhuman tormentors and give their all to solve increasingly sophisticated puzzles. This time, the unseen perils are more elaborate, and escape is futile. Who shall live and who shall die in the sadistic Tournament of Champions?",
+                            GenreId = 6,
+                            ImagePath = "Images/escape-room.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2021, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Escape Room: Tournament of Champions"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AuthorID = 3,
+                            Content = "Naru, a skilled warrior of the Comanche Nation, fights to protect her tribe against one of the first highly-evolved Predators to land on Earth.",
+                            GenreId = 3,
+                            ImagePath = "Images/prey.png",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2022, 7, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Prey"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AuthorID = 4,
+                            Content = "A divorced couple teams up and travels to Bali to stop their daughter from making the same mistake they think they made 25 years ago.",
+                            GenreId = 4,
+                            ImagePath = "Images/ticket.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2022, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Ticket to Paradise"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AuthorID = 5,
+                            Content = "America's third political party, the New Founding Fathers of America, comes to power and conducts an experiment: no laws for 12 hours on Staten Island. No one has to stay on the island, but $5,000 is given to anyone who does.\r\n\r\nThis horror/action-adventure film from director Gerard McMurray serves as a prequel that recounts events that led up to the first Purge event. To push the crime rate below one percent for the rest of the year, the New Founding Fathers of America (NFFA) test a sociological theory that vents aggression for one night in one isolated community.",
+                            GenreId = 9,
+                            ImagePath = "Images/purge.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2018, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The First Purge"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AuthorID = 3,
+                            Content = "When one of their own is kidnapped by an angry gangster, the Wolf Pack must track down Mr. Chow, who has escaped from prison and is on the run.",
+                            GenreId = 1,
+                            ImagePath = "Images/hangover.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2013, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Hangover Part III"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AuthorID = 1,
+                            Content = "Set in the future when technology has subtly altered society, a woman discovers a secret connection to an alternate reality as well as a dark future of her own.",
+                            GenreId = 2,
+                            ImagePath = "Images/periph.jpg",
+                            IsDeleted = false,
+                            Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReleaseDate = new DateTime(2022, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Peripheral"
                         });
                 });
 
