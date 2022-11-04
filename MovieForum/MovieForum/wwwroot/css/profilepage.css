@@ -8,7 +8,6 @@
 }
 
     .profile-header .profile-header-cover {
-        background-image: url(https://bootdey.com/img/Content/bg1.jpg);
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -26,19 +25,19 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #A9C9FF;
-            background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
         }
 
     .profile-header .profile-header-content {
         color: #fff;
-        padding: 25px
+        padding-top: 5px;
+        padding-bottom: 20px;
+
     }
 
 .profile-header-img {
     float: left;
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
     position: relative;
     z-index: 10;
@@ -53,7 +52,9 @@
 
 .profile-header-info h4 {
     font-weight: 500;
-    color: #fff
+    color: #fff;
+    margin: 5px 24px;
+
 }
 
 .profile-header-img + .profile-header-info {
@@ -453,7 +454,8 @@ select.form-control:not([size]):not([multiple]) {
         .timeline .timeline-time .date,
         .timeline .timeline-time .time {
             display: block;
-            font-weight: 600
+            font-weight: 600;
+            color:white
         }
 
         .timeline .timeline-time .date {
@@ -464,7 +466,7 @@ select.form-control:not([size]):not([multiple]) {
         .timeline .timeline-time .time {
             line-height: 24px;
             font-size: 20px;
-            color: #242a30
+            color: white;
         }
 
     .timeline .timeline-icon {
@@ -485,14 +487,14 @@ select.form-control:not([size]):not([multiple]) {
             line-height: 10px;
             color: #fff;
             font-size: 14px;
-            border: 5px solid #2d353c;
+            border: 5px solid white;
             transition: border-color .2s linear
         }
 
     .timeline .timeline-body {
         margin-left: 23%;
         margin-right: 17%;
-        background: #fff;
+        background: white;
         position: relative;
         padding: 20px 25px;
         border-radius: 6px
@@ -503,7 +505,7 @@ select.form-control:not([size]):not([multiple]) {
             display: block;
             position: absolute;
             border: 10px solid transparent;
-            border-right-color: #fff;
+            border-right-color: white;
             left: -20px;
             top: 20px
         }
@@ -581,7 +583,7 @@ select.form-control:not([size]):not([multiple]) {
         }
 
 .button-1 {
-    background-color: #EA4C89;
+    background-color: #e53637;
     border-radius: 8px;
     border-style: none;
     box-sizing: border-box;
@@ -594,7 +596,7 @@ select.form-control:not([size]):not([multiple]) {
     height: 40px;
     line-height: 20px;
     list-style: none;
-    margin: 0;
+    margin: 20px 15px;
     outline: none;
     padding: 10px 16px;
     position: relative;

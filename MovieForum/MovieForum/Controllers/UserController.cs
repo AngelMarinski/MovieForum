@@ -39,12 +39,12 @@ namespace MovieForum.Web.Controllers
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Search(string userSearch, int type)
         {
-            return View("Users",await userService.Search(userSearch, type));
+            return View("AllUsers",await userService.Search(userSearch, type));
         }
 
         [HttpGet]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Users()
+        public async Task<IActionResult> AllUsers()
         {
             return View(await userService.GetAllUsersAsync());
         }
@@ -127,8 +127,6 @@ namespace MovieForum.Web.Controllers
 
             return this.RedirectToAction("Index", "Home");
         }
-
-
         private string UploadPhoto(IFormFile file)
         {
             if (file == null)

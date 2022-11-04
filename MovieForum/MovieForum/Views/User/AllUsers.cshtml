@@ -1,0 +1,176 @@
+﻿@*@using MovieForum.Services.DTOModels
+
+    @model IEnumerable<UserDTO>
+    <html>
+    <head>
+    <link href="/css/users.css" rel="stylesheet">
+    </head>
+    <body>
+    <!-- search form -->
+    <form asp-controller="User" asp-action="Search" class="d-flex align-items-center w-50 form-search">
+    <div>
+    <select class="form-search" name="type">
+    <option value="1">Username</option>
+    <option value="2">Email</option>
+    <option value="3">First Name</option>
+    </select>
+    </div>
+    <div class="input-group">
+    <input name="userSearch" type="search" class="form-control" placeholder="Search" aria-label="Search" />
+    </div>
+    <input type="submit" class="btn btn-dark" />
+    </form>
+
+    <div class="align-items-center container containerUsers"  >
+    <div>
+    <div class="col-md-8">
+    <div class="people-nearby">
+    @if (this.Model.Count() > 0)
+    {
+    @foreach (var user in this.Model)
+    {
+    <div class="nearby-user">
+    <div class="row">
+    <div class="col-md-2 col-sm-2">
+    <img src="~/Images/@user.ImagePath" alt="user" class="profile-photo-lg">
+    </div>
+    <div class="col-md-7 col-sm-7">
+    <h5><a asp-controller="User" asp-action="Index" asp-route-email="@user.Email">@user.FirstName @user.LastName</a></h5>
+    <p>@user.Username</p>
+    <p class="text-muted">@user.Email</p>
+    </div>
+    </div>
+    </div>
+    }
+    }
+    else
+    {
+    <h3>No user found!</h3>
+    }
+    </div>
+    </div>
+    </div>
+    </div>
+    </body>
+    </html>*@
+
+@model IEnumerable<MovieForum.Services.DTOModels.UserDTO>
+
+@{
+    string page_title = "Users";
+}
+
+<html>
+
+<head>
+    <title>@page_title</title>
+
+    <link rel="stylesheet" href="~/css/all-users.css" type="text/css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css">
+    <link rel="stylesheet" href="~/css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+</head>
+
+<body>
+    <br>
+    <br>
+    <br>
+    <center>
+        <div class="wrapper" style="position:center">
+            <form asp-controller="User" asp-action="Search" class="search_field">
+                <select style="padding:16px" name="type">
+                    <option value="1">Username</option>
+                    <option value="2">Email</option>
+                    <option value="3">First Name</option>
+                </select>
+                <input type="text" style="padding:14px" name="userSearch" placeholder="Search" />
+                <input type="submit" style="padding:15px;background-color:#E53637" value="Search" />
+            </form>
+        </div>
+    </center>
+    <section class="product spad">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="trending__product">
+                    <div class="row">
+                        @{
+                            bool Empty = true;
+                            foreach (var user in this.Model)
+                            {
+                                Empty = false;
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <a asp-controller="User" asp-action="Index" asp-route-email="@user.Email">
+                                        <div class="product__item">
+                                            <div class="product__item__pic set-bg" id="profile_pics">
+                                                <img src="~/Images/@user.ImagePath" class="movie-album-pic" id="user-album-pic" />
+                                                <div class="ep">@user.Role</div>
+                                            </div>
+                                            <div class="product__item__text" id="item_text">
+                                                <h6>@user.Username</h6>
+                                                <h6>@user.Email</h6>
+                                                <h6>@user.FirstName @user.LastName</h6>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+
+                            if (Empty)
+                            {
+                                <center>
+                                    <h5 style="font-size: 30px; padding: 70px 0;">
+                                        Soryy, we couldn't find any user matching the name!
+                                    </h5>
+                                </center>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+@*<script>
+    document.getElementById('sortByDropdown').addEventListener('submit', () => {
+    var input = document.getElementById('sortByDropdown');
+    if (localStorage['sortByDropdown']) {
+    input.nodeValue.nodeValue = localStorage['sortByDropdown'];
+    }
+    input.onchange = function () {
+    localStorage['sortByDropdown'] = this.nodeValue;
+    }
+
+    console.log("CMOOOOOOOOON");
+    });
+    </script>*@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".default_option").click(function () {
+            $(".dropdown option").addClass("active");
+
+        });
+
+        $(".dropdown ul li").click(function () {
+            var text = $(this).text();
+            $(".default_option").text(text);
+            $(".dropdown option").removeClass("active");
+            $('input').attr('name', text);
+
+
+        });
+
+    });
+</script>
+</html>
+

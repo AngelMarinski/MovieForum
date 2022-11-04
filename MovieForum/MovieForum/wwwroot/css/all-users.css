@@ -1,0 +1,17 @@
+﻿
+#profile_pics {
+    min-height: 310px;
+}
+
+    #profile_pics img {
+        min-height: 300px;
+        max-height: 300px;
+    }
+
+#user-album-pic {
+    max-width: 300px;
+}
+
+#item_text {
+    padding-top: 5px;
+}

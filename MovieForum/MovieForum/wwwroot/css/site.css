@@ -16,6 +16,15 @@ html {
 body {
   margin-bottom: 60px;
 }*/
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
 
 a{
     text-decoration: none;
@@ -24,11 +33,14 @@ a{
 
 .pb-3 {
     padding-bottom: 1rem !important;
-    padding-top: 2rem !important;
 }
 
 .containerUsers {
     display: block;
     width: 90%;
     margin: 0 auto;
+}
+
+label{
+    color: white;
 }

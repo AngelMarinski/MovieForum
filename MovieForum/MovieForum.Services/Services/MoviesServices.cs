@@ -7,6 +7,7 @@ using MovieForum.Services.DTOModels;
 using MovieForum.Services.Helpers;
 using MovieForum.Services.Interfaces;
 using MovieForum.Services.Models;
+using MovieForum.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,9 +34,19 @@ namespace MovieForum.Services
             return mapper.Map<IEnumerable<MovieDTO>>(movies);
         }
 
+        public async Task<IQueryable<MovieDTO>> GetQueryableAsync()
+        {
+            var movies = await db.Movies.Where(x => x.IsDeleted == false).ToListAsync();
+
+            var moviesDTO = this.mapper.Map<IEnumerable<MovieDTO>>(movies);
+
+            return moviesDTO.AsQueryable();
+        }
+
+
         public async Task<MovieDTO> GetByIdAsync(int id)
         {
-            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false) 
+            var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false)
                 ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
 
             return mapper.Map<MovieDTO>(movie);
@@ -67,7 +78,7 @@ namespace MovieForum.Services
 
             if (obj.Title.Length < Constants.MOVIE_TITLE_MIN_LENGHT
                 || obj.Title.Length > Constants.MOVIE_TITLE_MAX_LENGHT
-                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT 
+                || obj.Content.Length < Constants.MOVIE_CONTENT_MIN_LENGHT
                 || obj.Content.Length > Constants.MOVIE_CONTENT_MAX_LENGHT)
             {
                 throw new Exception(Constants.INVALID_DATA);
@@ -89,7 +100,7 @@ namespace MovieForum.Services
             var tags = mapper.Map<ICollection<MovieTags>>(obj.Tags);
             var cast = mapper.Map<ICollection<MovieActor>>(obj.Cast);
 
-            if(obj.ImagePath != null)
+            if (obj.ImagePath != null)
             {
                 movie.ImagePath = obj.ImagePath;
             }
@@ -109,11 +120,11 @@ namespace MovieForum.Services
             var movie = await db.Movies.FirstOrDefaultAsync(m => m.Id == id && m.IsDeleted == false)
                         ?? throw new InvalidOperationException(Constants.MOVIE_NOT_FOUND);
 
-            if(obj.Cast != null)
+            if (obj.Cast != null)
             {
                 movie.Cast = new List<MovieActor>(mapper.Map<ICollection<MovieActor>>(obj.Cast));
             }
-            if(obj.Title != null)
+            if (obj.Title != null)
             {
                 movie.Title = obj.Title;
             }
@@ -121,26 +132,26 @@ namespace MovieForum.Services
             {
                 movie.Content = obj.Content;
             }
-            if(obj.GenreId != movie.GenreId && obj.GenreId != default(int))
+            if (obj.GenreId != movie.GenreId && obj.GenreId != default(int))
             {
                 var genre = await db.Genres.FirstOrDefaultAsync(x => x.Id == obj.GenreId)
                      ?? throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
                 movie.Genre = genre;
             }
-/*            if(obj.Tags != null)
-            {
-                movie.Tags = new List<MovieTags>(mapper.Map<ICollection<MovieTags>>(obj.Tags));
-            }*/
+            /*            if(obj.Tags != null)
+                        {
+                            movie.Tags = new List<MovieTags>(mapper.Map<ICollection<MovieTags>>(obj.Tags));
+                        }*/
 
-            if(obj.ReleaseDate != null)
+            if (obj.ReleaseDate != null)
             {
                 movie.ReleaseDate = (DateTime)obj.ReleaseDate;
             }
-            if(obj.ImagePath != null)
+            if (obj.ImagePath != null)
             {
                 movie.ImagePath = obj.ImagePath;
             }
-         
+
 
             await db.SaveChangesAsync();
 
@@ -168,42 +179,42 @@ namespace MovieForum.Services
             return mapper.Map<MovieDTO>(movie);
         }
 
-        public async Task<IEnumerable<MovieDTO>> FilterByAsync(MovieQueryParameters parameters)
+        public async Task<PaginatedList<MovieDTO>> FilterByAsync(MovieQueryParameters parameters)
         {
-            List<MovieDTO> result = new List<MovieDTO>(await this.GetAsync());
+            var result = await this.GetQueryableAsync();
 
             if (!string.IsNullOrEmpty(parameters.Title))
             {
-                result = result.FindAll(x => x.Title.Contains(parameters.Title)).ToList();
+               
+                result = result.Where(x => x.Title.Contains(parameters.Title));
             }
 
             if (parameters.MinRating.HasValue && parameters.MinRating != 0)
             {
-                result = result.FindAll(x => !Double.IsNaN(x.Rating) && x.Rating >= parameters.MinRating);
+                result = result.Where(x => !Double.IsNaN(x.Rating) && x.Rating >= parameters.MinRating);
             }
 
             if (!string.IsNullOrEmpty(parameters.Username))
             {
-                result = result.FindAll(x => !string.IsNullOrEmpty(x.Username) 
-                        && x.Username.Contains(parameters.Username)).ToList();
+                result = result.Where(x => !string.IsNullOrEmpty(x.Username)
+                        && x.Username.Contains(parameters.Username));
             }
 
             if (!string.IsNullOrEmpty(parameters.Genre))
             {
-                result = result.FindAll(x => x.Genre != null && x.Genre.Name == parameters.Genre)
-                               .ToList();
+                result = result.Where(x => x.Genre.Name == parameters.Genre);
             }
 
             if (!string.IsNullOrEmpty(parameters.Username))
             {
-                result = result.FindAll(x => x.Username.Contains(parameters.Username)).ToList();
+                result = result.Where(x => x.Username.Contains(parameters.Username));
             }
 
             if (!string.IsNullOrEmpty(parameters.Tag))
             {
-                var list = new List<MovieDTO>(result);
-                result.Clear();
-                result.AddRange(from item in list
+                var list = result;
+                result = Enumerable.Empty<MovieDTO>().AsQueryable();
+                result.Concat(from item in list
                                 from tags in item.Tags
                                 where tags.TagName.ToLower().Contains(parameters.Tag.ToLower())
                                 select item);
@@ -211,36 +222,44 @@ namespace MovieForum.Services
 
             if (!string.IsNullOrEmpty(parameters.Year))
             {
-                result = result.FindAll(t => t.ReleaseDate.ToString().Contains(parameters.Year));
+                result = result.Where(t => t.ReleaseDate.ToString().Contains(parameters.Year));
             }
 
             if (!string.IsNullOrEmpty(parameters.SortBy))
             {
-                if(parameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
+                if (parameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    result = result.OrderBy(x => x.Title).ToList();
+                    result = result.OrderBy(x => x.Title);
                 }
-                else if(parameters.SortBy.Equals("releasedate", StringComparison.InvariantCultureIgnoreCase))
+                else if (parameters.SortBy.Equals("releasedate", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    result = result.OrderBy(x => x.ReleaseDate).ToList();
+                    result = result.OrderBy(x => x.ReleaseDate);
                 }
                 else if (parameters.SortBy.Equals("rating", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    result = result.OrderByDescending(x => x.Rating).ToList();
+                    result = result.OrderByDescending(x => x.Rating);
                 }
                 else if (parameters.SortBy.Equals("comments", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    result = result.OrderByDescending(x => x.Comments.Count).ToList();
+                    result = result.OrderByDescending(x => x.Comments.Count);
                 }
 
-                if (!string.IsNullOrEmpty(parameters.SortOrder) 
+                if (!string.IsNullOrEmpty(parameters.SortOrder)
                     && parameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result.Reverse();
                 }
             }
+            int totalPages = (result.Count() + 1) / parameters.PageSize;
 
-            return result;
+            result = Paginate(result, parameters.PageNumber, parameters.PageSize);
+
+            return new PaginatedList<MovieDTO>(result.ToList(), totalPages, parameters.PageNumber);
+        }
+
+        private IQueryable<MovieDTO> Paginate(IQueryable<MovieDTO> movies, int pageNumber, int pageSize)
+        {
+            return movies.Skip((pageNumber - 1) * pageSize).Take(pageSize);
         }
 
         public async Task<MovieDTO> AddTagAsync(int movieId, string tagName)
@@ -342,18 +361,5 @@ namespace MovieForum.Services
             return movies.Count();
         }
 
-  /*      private List<MovieActor> UpdateCast(Movie movie, List<MovieActor> newCast)
-        {
-            HashSet<MovieActor> set = new HashSet<MovieActor>(newCast);
-
-            foreach (var actor in movie.Cast)
-            {
-                if (!set.Contains(actor))
-                {
-                    actor.IsDeleted = true;
-                    actor.DeletedOn = DateTime.Now;
-                }
-            }
-        }*/
     }
 }

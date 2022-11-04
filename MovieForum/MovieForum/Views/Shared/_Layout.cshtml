@@ -4,92 +4,66 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebApplication1</title>
+    
+    <!-- Css Styles -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="~/css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <header class="header">
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <h4>Movie forum</h4>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Movies" asp-action="Index">Movies</a>
-                    </li>
-                </ul>
-                @if (this.User.HasClaim(x => x.Value == "Admin"))
-                {
-                    <ul class="navbar-nav ">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="User" asp-action="Users">Users</a>
-                        </li>
-                    </ul>
-                }
-                <form asp-controller="User" asp-action="Search" class="d-flex align-items-center w-50 form-search" style="margin:auto">
-                    <div class="input-group">
-                        <input name="userSearch" type="search" class="form-control" placeholder="Search" aria-label="Search" />
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header__logo">
+                        <a href="./index.html">
+                        </a>
                     </div>
-                    <input type="submit" class="btn btn-dark">
-                </form>
-
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-
-                    @if (!this.User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Auth" asp-action="Login">Sign In</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Auth" asp-action="Register">Sign Up</a>
-                        </li>
-                    }
-                </ul>
-
-                @if (this.User.Identity.IsAuthenticated)
-                {
-                    <ul class="navbar-nav d-flex flex-row ms-auto me-3">
-                        <li class="nav-item me-3 me-lg-0 dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                                <img src="~/Images/Image_631.jpg" class="rounded-circle" height="22"
-                                 alt="" loading="lazy" />
-                                @*<img src="~/Images/Image_500.jpg" class="rounded-circle" height="22"
-                            alt="" loading="lazy" />*@
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
-                                <li><a asp-controller="User" asp-action="Index" asp-route-email="@User.Identity.Name" class="dropdown-item">Profile</a></li>
-                                <li><a asp-controller="User" asp-action="Update" class="dropdown-item">Settings</a></li>
+                </div>
+                <div class="col-lg-8">
+                    <div class="header__nav">
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li class="active"><a asp-controller="Home" asp-action="Index">Homepage</a></li>
                                 <li>
-                                    <hr class="dropdown-divider" />
+                                    <a Href="/Movies">Movies</a>
                                 </li>
-                                <li>
-                                    <a asp-controller="Auth" asp-action="Logout" class="dropdown-item">Sign Out</a>
-                                </li>
+
+                                @if (this.User.HasClaim(x=>x.Value=="Admin"))
+                                {
+                                    <li><a asp-controller="User" asp-action="AllUsers">Users</a></li>
+                                }
+                                @if (!this.User.Identity.IsAuthenticated)
+                                {
+                                    <li><a asp-controller="Auth" asp-action="Login">Sign In</a></li>
+                                    <li><a asp-controller="Auth" asp-action="Register">Sign Up</a></li>
+                                }
+                                <li> <a href="Movies/Create"><span class="icon_plus_alt2"></span></a></li>
+                                @if (this.User.Identity.IsAuthenticated)
+                                {
+
+                                    <li class="header__right">
+                                        <span  class="icon_profile arrow_carrot-down" style="color:#b7b7b7"></span>
+                                        <ul class="dropdown">
+                                            <li><a asp-controller="User" asp-action="Index" asp-route-email="@User.Identity.Name">Profile</a></li>
+
+                                            <li><a asp-controller="User" asp-action="Update">Settings</a></li>
+                                            <li><a asp-controller="Auth" asp-action="Logout">Sign Out</a></li>
+                                        </ul>
+                                    </li>
+                                }
                             </ul>
-                        </li>
-                    </ul>
-                }
-            </div>
-        </nav>
-    </header>
 
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
 
 
 
@@ -137,10 +111,18 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @*@await RenderSectionAsync("Login", required: false)*@
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
 
-<style>
+@*<style>
     .navbar-nav {
         margin-left: auto;
     }
@@ -161,4 +143,4 @@
         position: relative;
         left: 0;
     }
-</style>
+</style>*@
