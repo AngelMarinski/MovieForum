@@ -58,11 +58,8 @@ namespace MovieForum.Web.Controllers
             this.ViewData["SortBy"] = parameters.SortBy;
             this.ViewData["Rating"] = parameters.MinRating;
             this.ViewData["Genre"] = parameters.Genre;
-           /* if(parameters.Title != null)
-            {
-                this.ViewData["Title"] = parameters.Title;
-            }
-*/
+            this.ViewData["Title"] = parameters.Title;
+
             return View(movies);
         }
 
