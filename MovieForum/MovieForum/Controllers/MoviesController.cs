@@ -90,12 +90,30 @@ namespace MovieForum.Web.Controllers
                 ReleaseDate = movie.RealeaseDate,
                 GenreId = movie.GenreId,
                 Username = user.Username,
-                Cast = AddCastToMovie(movie.Cast.Split(",").ToList()),
                 ImagePath = this.UploadPhoto(movie.File) ?? "Images/default.jpg"
             };
 
+            var newMovie = new MovieDTO();
+            try
+            {
+                newMovie = await this.moviesService.PostAsync(movieDTO);
+            }
+            catch (Exception ex)
+            {
+                return this.View("Error", new ErrorViewModel
+                {
+                    RequestId = ex.Message
+                });
+            }
 
-            var newMovie = await this.moviesService.PostAsync(movieDTO);
+            foreach (var cast in movie.Cast.Split(",").ToList())
+            {
+                var full_name = cast.Split(' ').ToList();
+
+                var lastname = string.Join(" ", full_name.Skip(1).Take(full_name.Count - 1));
+
+                await this.moviesService.AddActorAsync(newMovie.Id, full_name[0], lastname);
+            }
 
             foreach (var tag in movie.Tags.Split(",").ToList())
             {
@@ -165,18 +183,50 @@ namespace MovieForum.Web.Controllers
 
                 if (post.Cast != null || post.Cast.Length != 0)
                 {
-                    movieDTO.Cast = new List<MovieActorDTO>(AddCastToMovie(post.Cast.Split(",").ToList()));
-                }
+                    var cast = post.Cast.Split(",").ToList();
+                    foreach(var x in movie.Cast)
+                    {
+                        var name = string.Format($"{x.Actor.FirstName} {x.Actor.LastName}");
+                        if (!cast.Any(y => y == name))
+                        {
+                            await this.moviesService.RemoveActorAsync(movie.Id, x.Actor.FirstName, x.Actor.LastName);
+                        }
+                    }
 
+                    foreach (var x in post.Cast.Split(","))
+                    {
+                        var full_name = x.Split(' ').ToList();
+
+                        var lastname = string.Join(" ", full_name.Skip(1).Take(full_name.Count - 1));
+                        
+                        if(!movie.Cast.Any(actor => actor.Actor.FirstName == full_name[0] 
+                                            && actor.Actor.LastName == lastname))
+                        {
+                            await this.moviesService.AddActorAsync(movie.Id, full_name[0], lastname);
+                        }
+                    }
+                }
                 if (post.Tags != null)
                 {
-                    foreach (var tag in post.Tags.Split(",").ToList())
+                    var tags = post.Tags.Split(",").ToList();
+
+
+                    foreach (var item in movie.Tags)
+                    {
+                        if (!tags.Any(y => y == item.TagName))
+                        {
+                            await this.moviesService.RemoveTagAsync(movie.Id, item.TagName);
+                        }
+                    }
+
+                    foreach (var tag in tags)
                     {
                         if(!movie.Tags.Any(x => x.TagName == tag))
                         {
                             await this.moviesService.AddTagAsync(post.MovieID, tag);
                         }
                     }
+
                 }
 
                 if(post.ReleaseDate != null)
@@ -189,7 +239,14 @@ namespace MovieForum.Web.Controllers
                     movieDTO.ImagePath = path;
                 }
 
-                await this.moviesService.UpdateAsync(post.MovieID, movieDTO);
+                try
+                {
+                    await this.moviesService.UpdateAsync(post.MovieID, movieDTO);
+                }
+                catch(Exception ex)
+                {
+                    return this.View("Error", new ErrorViewModel { RequestId = ex.Message });
+                }
 
                 return this.RedirectToAction("Movie", "Movies", new { id = post.MovieID });
             }

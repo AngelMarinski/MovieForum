@@ -71,6 +71,7 @@ namespace MovieForum
             services.AddScoped<ICommentServices, CommentServices>();
             services.AddScoped<IGenreServices, GenreServices>();
             services.AddScoped<IAuthHelper, AuthHelper>();
+            services.AddScoped<IActorServices, ActorServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -43,7 +43,7 @@
                         <div class="anime__details__text">
                             <div class="anime__details__title">
                                 <h3>@this.Model.MovieDTO.Title</h3>
-                                <span>@this.Model.MovieDTO.Username  Posted: @this.Model.MovieDTO.Posted</span>
+                                <span>@this.Model.MovieDTO.Username  Posted: @{((DateTime)this.Model.MovieDTO.Posted).ToString("MM/dd/yyyy h:mm tt");}</span>
                             </div>
                             <div class="anime__details__rating">
                                 <div class="rating">
@@ -78,7 +78,7 @@
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
                                             <li><span>Genre:</span> @this.Model.MovieDTO.Genre.Name</li>
-                                            <li><span>Release aired:</span> @this.Model.MovieDTO.ReleaseDate</li>
+                                            <li><span>Release aired:</span> @this.Model.MovieDTO.ReleaseDate.ToString("MMMM dd, yyyy")</li>
                                             <li>
                                                 <span>Tags:</span>
                                                 @string.Join(", ", this.Model.MovieDTO.Tags.Select(x => x.TagName))
@@ -130,7 +130,7 @@
                                         @{
                                             if (userCheck.Id != comment.AuthorId)
                                             {
-                                                <h6>@user.Username <span>@comment.PostedOn</span></h6>
+                                                <h6>@user.Username <span>@{((DateTime)comment.PostedOn).ToString("MM/dd/yyyy h:mm tt");}</span></h6>
                                                 <p>
                                                     @comment.Content
                                                 </p>
@@ -151,7 +151,7 @@
                                             }
                                             else
                                             {
-                                                <h6>@user.Username <span>@comment.PostedOn</span></h6>
+                                                <h6>@user.Username <span>@{((DateTime)comment.PostedOn).ToString("MM/dd/yyyy h:mm tt");}</span></h6>
                                                 <p>
                                                     @comment.Content
                                                 </p>                                               
