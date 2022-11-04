@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MovieForum.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -79,6 +79,7 @@ namespace MovieForum.Data.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsBlocked = table.Column<bool>(type: "bit", nullable: false),
+                    IsEmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -311,36 +312,36 @@ namespace MovieForum.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
-                values: new object[] { 2, null, "adminsemail@gmail.com", "Maggie", "defaultphoto.jpg", false, false, "TheBoss", "AQAAAAEAACcQAAAAEFWd3AHb9Rfv2f5fqvJSM6WgxD6/nYbckOiznUdfmWbFkXq+VWT20eqUkwJchckojQ==", null, 1, "Maggie" });
+                columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "IsEmailConfirmed", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
+                values: new object[] { 2, null, "adminsemail@gmail.com", "Maggie", "defaultphoto.jpg", false, false, true, "TheBoss", "AQAAAAEAACcQAAAAEOPth25SoBbmCojznYltNLJq5JIMI/4mHuGJ+qIP5Hwg/NGDTGe7UKoMy/vu7MZrGQ==", null, 1, "Maggie" });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
-                values: new object[] { 3, null, "morefakeemails@gmail.com", "Radoslav", "defaultphoto.jpg", false, false, "Berov", "AQAAAAEAACcQAAAAEGE4JekAp1WfqV/G8HnIJZv+hh2WcospCD5yCNngOym22QpGRpux+JK1A78iP0ShhQ==", null, 1, "Rado561" });
+                columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "IsEmailConfirmed", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
+                values: new object[] { 3, null, "morefakeemails@gmail.com", "Radoslav", "defaultphoto.jpg", false, false, true, "Berov", "AQAAAAEAACcQAAAAECsi3zbgIVXwWJWCMX6inYfpd73TCTtcWHxnhREEKKAZYK2YtFIWd1TFdp/mH20jdw==", null, 1, "Rado561" });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
-                values: new object[] { 1, null, "fakeemail@gmail.com", "Angel", "defaultphoto.jpg", false, false, "Marinski", "AQAAAAEAACcQAAAAEGRTFIxNHVg1x8BDDeeRSoXJrfLSa4mXNPFC5nJxU/OA15dHYWVR24TbFkPmPdIbtA==", null, 2, "AngelMarinski" });
+                columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "IsEmailConfirmed", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
+                values: new object[] { 1, null, "fakeemail@gmail.com", "Angel", "defaultphoto.jpg", false, false, true, "Marinski", "AQAAAAEAACcQAAAAELvDfad+xy4XUrIRDYsK8375ZfjxTb9IG0pqFBu9s/PDT73pcgJu8zXA5ifiiinC5g==", null, 2, "AngelMarinski" });
 
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "Id", "AuthorID", "Content", "DeletedOn", "GenreId", "ImagePath", "IsDeleted", "Posted", "ReleaseDate", "Title" },
-                values: new object[] { 2, 2, "The bes spiderman movie so far, I love Tom Holand", null, 13, "Images/Image_500.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 11, 1, 13, 16, 19, 543, DateTimeKind.Local).AddTicks(2751), "Spiderman: Far From Home" });
+                values: new object[] { 2, 2, "The bes spiderman movie so far, I love Tom Holand", null, 13, "Images/Image_500.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 11, 4, 16, 10, 14, 252, DateTimeKind.Local).AddTicks(1507), "Spiderman: Far From Home" });
 
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "Id", "AuthorID", "Content", "DeletedOn", "GenreId", "ImagePath", "IsDeleted", "Posted", "ReleaseDate", "Title" },
-                values: new object[] { 1, 1, "On of my favourite movies of all time", null, 5, "Images/Image_500.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 11, 1, 13, 16, 19, 543, DateTimeKind.Local).AddTicks(2217), "Top Gun the new one" });
+                values: new object[] { 1, 1, "On of my favourite movies of all time", null, 5, "Images/Image_500.jpg", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 11, 4, 16, 10, 14, 251, DateTimeKind.Local).AddTicks(9600), "Top Gun the new one" });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "AuthorId", "Content", "DeletedOn", "DisLikesCount", "IsDeleted", "LikesCount", "MovieId", "PostedOn" },
                 values: new object[,]
                 {
-                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 11, 1, 13, 16, 19, 542, DateTimeKind.Local).AddTicks(9547) },
-                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 11, 1, 13, 16, 19, 540, DateTimeKind.Local).AddTicks(9205) }
+                    { 2, 3, "unikalna produkciq siujeta e ubiec", null, 0, false, 0, 2, new DateTime(2022, 11, 4, 16, 10, 14, 250, DateTimeKind.Local).AddTicks(4255) },
+                    { 1, 1, "Pulna Boza", null, 0, false, 0, 1, new DateTime(2022, 11, 4, 16, 10, 14, 244, DateTimeKind.Local).AddTicks(2213) }
                 });
 
             migrationBuilder.InsertData(

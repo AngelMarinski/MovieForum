@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MovieForum.Data;
 using MovieForum.Data.Models;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Helpers;
 using MovieForum.Services.Interfaces;
+using MovieForum.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +20,13 @@ namespace MovieForum.Services.Services
     {
         private readonly MovieForumContext db;
         private readonly IMapper mapper;
+        private readonly IEmailService emailService;
+        private readonly IConfiguration configuration;
 
-        public UserServices(MovieForumContext context, IMapper mapper)
+        public UserServices(IEmailService emailService, IConfiguration configuration, MovieForumContext context, IMapper mapper)
         {
+            this.emailService = emailService;
+            this.configuration = configuration;
             this.db = context;
             this.mapper = mapper;
         }
@@ -280,6 +286,95 @@ namespace MovieForum.Services.Services
             return mapper.Map<UserDTO>(userToDelete);
         }
 
+        
+        public async Task GenerateForgotPasswordTokenAsync(User user)
+        {
+            var token = Guid.NewGuid().ToString("d").Substring(1, 8);
 
+            if (!string.IsNullOrEmpty(token))
+            {
+                await SendForgotPasswordEmail(user, token);
+            }
+        }
+
+        private async Task SendForgotPasswordEmail(User user, string token)
+        {
+            string appDomain = configuration.GetSection("Application:AppDomain").Value;
+            string confirmationLink = configuration.GetSection("Application:ForgotPassword").Value;
+
+            UserEmailOptions options = new UserEmailOptions
+            
+            {
+                ToEmails = new List<string>() { user.Email },
+                PlaceHolders = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("{{UserName}}", user.FirstName),
+                    new KeyValuePair<string, string>("{{Link}}",
+                        string.Format(appDomain + confirmationLink, user.Id, token))
+                }
+            };
+
+            await emailService.SendEmailForForgotPassword(options);
+        }
+
+        public async Task<bool> ResetPasswordAsync(ResetPasswordModel model)
+        {
+            var user = await GetUserAsync(int.Parse(model.UserId));
+            if (user != null)
+            {
+                var passHasher = new PasswordHasher<User>();
+                user.Password = passHasher.HashPassword(user, model.NewPassword);
+                await db.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task GenerateEmailConfirmationTokenAsync(User user)
+        {
+            if(user.Id == 0)
+            {
+                user = await GetUserAsync(user.Username);
+            }
+            var token = Guid.NewGuid().ToString("d").Substring(1, 8);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                await SendEmailConfirmationEmail(user, token);
+            }
+        }
+
+
+        private async Task SendEmailConfirmationEmail(User user, string token)
+        {
+            string appDomain = configuration.GetSection("Application:AppDomain").Value;
+            string confirmationLink = configuration.GetSection("Application:EmailConfirmation").Value;
+
+            UserEmailOptions options = new UserEmailOptions
+            {
+                ToEmails = new List<string>() { user.Email },
+                PlaceHolders = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("{{UserName}}", user.FirstName),
+                    new KeyValuePair<string, string>("{{Link}}",
+                        string.Format(appDomain + confirmationLink, user.Id, token))
+                }
+            };
+
+            await emailService.SendEmailForEmailConfirmation(options);
+        }
+
+
+        public async Task<bool> ConfirmEmailAsync(string uid, string token)
+        {            
+            var user = await GetUserAsync(int.Parse(uid));
+            if (user != null)
+            {
+                user.IsEmailConfirmed = true;
+                await db.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MovieForum.Data.Models;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Interfaces;
+using MovieForum.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,8 +27,14 @@ namespace MovieForum.Services.Interfaces
         Task<UserDTO> GetUserDTOByIdAsync(int id);
         Task<bool> IsExistingAsync(string email);
         Task<bool> IsExistingUsernameAsync(string username);
+
         Task BlockUser(int id);
         Task UnblockUser(int id);
         Task<int> UserCount();
+
+        Task GenerateForgotPasswordTokenAsync(User user);
+        Task<bool> ResetPasswordAsync(ResetPasswordModel model);
+        Task GenerateEmailConfirmationTokenAsync(User user);
+        Task<bool> ConfirmEmailAsync(string uid, string token);
     }
 }

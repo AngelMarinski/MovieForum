@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MovieForum.Data;
 using MovieForum.Services.DTOModels;
+using MovieForum.Services.Interfaces;
 using MovieForum.Services.Services;
 using MovieForum.Web.MappingConfig;
 using System;
@@ -18,6 +20,8 @@ namespace MovieForum.Tests.UserServiceTests
     {
         private static IMapper _mapper;
         private MovieForumContext context;
+        private readonly IEmailService emailService;
+        private readonly IConfiguration configuration;
 
         public PostAsync()
         {
@@ -60,7 +64,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var numberOfUsers = Helper.Users.Count;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             var actual = await service.PostAsync(user);
 
@@ -83,7 +87,7 @@ namespace MovieForum.Tests.UserServiceTests
                 Password = "1234asdfgh",
             };
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.PostAsync(user);
         }
@@ -104,7 +108,7 @@ namespace MovieForum.Tests.UserServiceTests
                 Password = "1234asdfgh",
             };
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.PostAsync(user);
         }
@@ -125,7 +129,7 @@ namespace MovieForum.Tests.UserServiceTests
                 Password = "1234asdfgh",
             };
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.PostAsync(user);
         }

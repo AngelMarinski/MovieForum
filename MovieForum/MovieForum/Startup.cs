@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Webgentle.Services.Models;
 
 namespace MovieForum
 {
@@ -71,6 +72,9 @@ namespace MovieForum
             services.AddScoped<ICommentServices, CommentServices>();
             services.AddScoped<IGenreServices, GenreServices>();
             services.AddScoped<IAuthHelper, AuthHelper>();
+            services.AddScoped<IEmailService, EmailService>();
+
+            services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

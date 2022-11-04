@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MovieForum.Data;
 using MovieForum.Services.DTOModels;
+using MovieForum.Services.Interfaces;
 using MovieForum.Services.Services;
 using MovieForum.Web.MappingConfig;
 using System;
@@ -17,6 +19,8 @@ namespace MovieForum.Tests.UserServiceTests
     {
         private static IMapper _mapper;
         private MovieForumContext context;
+        private readonly IEmailService emailService;
+        private readonly IConfiguration configuration;
 
         public UpdateAsync()
         {
@@ -58,7 +62,7 @@ namespace MovieForum.Tests.UserServiceTests
                 PhoneNumber = "+86 800 555 1234"
             };
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             var actual = await service.UpdateAsync(1, user);
 
@@ -85,7 +89,7 @@ namespace MovieForum.Tests.UserServiceTests
             };
 
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.UpdateAsync(1, user);
         }

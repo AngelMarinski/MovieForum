@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MovieForum.Data;
+using MovieForum.Services.Interfaces;
 using MovieForum.Services.Services;
 using MovieForum.Web.MappingConfig;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MovieForum.Tests.UserServiceTests
@@ -16,6 +16,8 @@ namespace MovieForum.Tests.UserServiceTests
     {
         private static IMapper _mapper;
         private MovieForumContext context;
+        private readonly IEmailService emailService;
+        private readonly IConfiguration configuration;
 
         public BlockUserAsync()
         {
@@ -49,7 +51,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var userId = 1;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration,context, _mapper);
 
             await service.BlockUser(userId);
 
@@ -65,7 +67,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var userId = 4;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.BlockUser(userId);
         }
@@ -78,7 +80,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var userId = 4;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.UnblockUser(userId);
 
@@ -94,7 +96,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var userId = 1;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.UnblockUser(userId);
         }

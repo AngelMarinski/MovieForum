@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MovieForum.Data;
 using MovieForum.Services.DTOModels;
+using MovieForum.Services.Interfaces;
 using MovieForum.Services.Services;
 using MovieForum.Web.MappingConfig;
 using System;
@@ -18,6 +20,8 @@ namespace MovieForum.Tests.UserServiceTests
     {
         private static IMapper _mapper;
         private MovieForumContext context;
+        private readonly IEmailService emailService;
+        private readonly IConfiguration configuration;
 
         public GetUserAsync()
         {
@@ -53,7 +57,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = Helper.Users.FirstOrDefault(x => x.Id == userId);
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration,context, _mapper);
 
             var actual = await service.GetUserAsync(userId);
 
@@ -69,7 +73,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var userId = int.MinValue;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.GetUserAsync(userId);
         }
@@ -85,7 +89,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = Helper.Users.FirstOrDefault(x => x.Id == userId);
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             var actual = await service.GetUserAsync(expected.Username);
 
@@ -101,7 +105,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var username = "dummytext";
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.GetUserAsync(username);
         }
@@ -116,7 +120,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = Helper.Users.FirstOrDefault(x => x.Email == email);
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             var actual = await service.GetUserByEmailAsync(email);
 
@@ -132,7 +136,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var email = "fOO@abv.bg";
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.GetUserByEmailAsync(email);
         }
@@ -143,7 +147,7 @@ namespace MovieForum.Tests.UserServiceTests
             await context.AddRangeAsync(Helper.Users);
             await context.SaveChangesAsync();
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             Assert.AreEqual(Helper.Users.Count, service.UserCount());
         }
@@ -158,7 +162,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = Helper.Users.FirstOrDefault(x => x.Id == id);
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             var actual = await service.GetUserDTOByIdAsync(id);
 
@@ -172,7 +176,7 @@ namespace MovieForum.Tests.UserServiceTests
             await context.AddRangeAsync(Helper.Users);
             await context.SaveChangesAsync();
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.GetUserDTOByIdAsync(int.MinValue);
         }
@@ -188,7 +192,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = context.Users.FirstOrDefaultAsync(x => x.Id == userId).Result.Comments;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
              
             var actual = new List<CommentDTO>(await service.GetAllCommentsAsync(userId));
 
@@ -203,7 +207,7 @@ namespace MovieForum.Tests.UserServiceTests
             await context.AddRangeAsync(Helper.Comments);
             await context.SaveChangesAsync();
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.GetAllCommentsAsync(int.MinValue);
         }
@@ -219,7 +223,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = Helper.Users.FirstOrDefault(x => x.Username == username).Comments;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             var actual = new List<CommentDTO>(await service.GetAllCommentsAsync(username));
 
@@ -234,7 +238,7 @@ namespace MovieForum.Tests.UserServiceTests
             await context.AddRangeAsync(Helper.Comments);
             await context.SaveChangesAsync();
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             await service.GetAllCommentsAsync("");
         }
@@ -250,7 +254,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = context.Users.FirstOrDefault(x => x.Id == id).Movies;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             var actual = new List<MovieDTO>(await service.GetAllMoviesAsync(id));
 
@@ -268,7 +272,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = context.Users.FirstOrDefault(x => x.Username == username).Movies;
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             var actual = new List<MovieDTO>(await service.GetAllMoviesAsync(username));
 
@@ -283,7 +287,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = Helper.Users.ToList();
 
-            var service = new UserServices(context, _mapper);
+            var service = new UserServices(emailService, configuration, context, _mapper);
 
             var actual = new List<UserDTO>(await service.GetAsync());
 

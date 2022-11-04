@@ -29,59 +29,96 @@ namespace MovieForum.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string email)
         {
-           // var userEmail = this.User.Identity.Name;
-            var user = await userService.GetUserByEmailAsync(email);
-            user.Movies = user.Movies.OrderByDescending(x => x.ReleaseDate).ToList();
-            return View(user);
+            try
+            {
+                var user = await userService.GetUserByEmailAsync(email);
+                user.Movies = user.Movies.OrderByDescending(x => x.ReleaseDate).ToList();
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+
+                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+            }
         }
 
         [HttpPost]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Search(string userSearch, int type)
         {
-            return View("AllUsers",await userService.Search(userSearch, type));
+            try
+            {
+                return View("AllUsers", await userService.Search(userSearch, type));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+            }
         }
 
         [HttpGet]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> AllUsers()
         {
-            return View(await userService.GetAllUsersAsync());
-        }
-
-        [HttpGet]
-        [Authorize(Policy ="Admin")]
-        public async Task<IActionResult> Block(int id)
-        {
-            await userService.BlockUser(id);
-            var user = await userService.GetUserDTOByIdAsync(id);
-            return RedirectToAction("Index",new { user.Email });
+            try
+            {
+                return View(await userService.GetAllUsersAsync());
+            }
+            catch (Exception ex)
+            {
+                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+            }
         }
 
         [HttpGet]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult>Unblock(int id)
+        public async Task<IActionResult> Block(int id)
         {
-            await userService.UnblockUser(id); 
-            var user = await userService.GetUserDTOByIdAsync(id);
-            return RedirectToAction("Index", new { user.Email });
+            try
+            {
+                await userService.BlockUser(id);
+                var user = await userService.GetUserDTOByIdAsync(id);
+                return RedirectToAction("Index", new { user.Email });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> Unblock(int id)
+        {
+            try
+            {
+                await userService.UnblockUser(id);
+                var user = await userService.GetUserDTOByIdAsync(id);
+                return RedirectToAction("Index", new { user.Email });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+            }
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Update()
         {
-            var user = await userService.GetUserByEmailAsync(this.User.Identity.Name);
+            
+                var user = await userService.GetUserByEmailAsync(this.User.Identity.Name);
 
-            var update = new UpdateUserViewModel
-            {
-                Password = user.Password,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                ImagePath = user.ImagePath
-            };
-            return this.View(update);
+                var update = new UpdateUserViewModel
+                {
+                    Password = user.Password,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    ImagePath = user.ImagePath
+                };
+                return this.View(update);
+            
         }
 
         [HttpPost]

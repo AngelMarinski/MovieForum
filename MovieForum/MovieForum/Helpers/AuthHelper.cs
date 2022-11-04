@@ -27,14 +27,21 @@ namespace MovieForum.Web.Helpers
             {
                 var user = await userServices.GetUserByEmailAsync(email);
 
-                var passHasher = new PasswordHasher<User>();
-                var result = passHasher.VerifyHashedPassword(user, user.Password, password);
-
-                if (result != PasswordVerificationResult.Success)
+                if (user.IsEmailConfirmed)
                 {
-                    throw new AuthenticationException();
+
+                    var passHasher = new PasswordHasher<User>();
+                    var result = passHasher.VerifyHashedPassword(user, user.Password, password);
+
+                    if (result != PasswordVerificationResult.Success)
+                    {
+                        throw new AuthenticationException();
+                    }
+
+                    return user;
                 }
 
+                user = null;
                 return user;
             }
             catch (Exception)

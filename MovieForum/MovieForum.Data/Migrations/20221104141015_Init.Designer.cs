@@ -10,8 +10,8 @@ using MovieForum.Data;
 namespace MovieForum.Data.Migrations
 {
     [DbContext(typeof(MovieForumContext))]
-    [Migration("20221101111620_init")]
-    partial class init
+    [Migration("20221104141015_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -119,7 +119,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 1,
-                            PostedOn = new DateTime(2022, 11, 1, 13, 16, 19, 540, DateTimeKind.Local).AddTicks(9205)
+                            PostedOn = new DateTime(2022, 11, 4, 16, 10, 14, 244, DateTimeKind.Local).AddTicks(2213)
                         },
                         new
                         {
@@ -130,7 +130,7 @@ namespace MovieForum.Data.Migrations
                             IsDeleted = false,
                             LikesCount = 0,
                             MovieId = 2,
-                            PostedOn = new DateTime(2022, 11, 1, 13, 16, 19, 542, DateTimeKind.Local).AddTicks(9547)
+                            PostedOn = new DateTime(2022, 11, 4, 16, 10, 14, 250, DateTimeKind.Local).AddTicks(4255)
                         });
                 });
 
@@ -478,6 +478,9 @@ namespace MovieForum.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsEmailConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(32)
@@ -522,8 +525,9 @@ namespace MovieForum.Data.Migrations
                             ImagePath = "defaultphoto.jpg",
                             IsBlocked = false,
                             IsDeleted = false,
+                            IsEmailConfirmed = true,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAEGRTFIxNHVg1x8BDDeeRSoXJrfLSa4mXNPFC5nJxU/OA15dHYWVR24TbFkPmPdIbtA==",
+                            Password = "AQAAAAEAACcQAAAAELvDfad+xy4XUrIRDYsK8375ZfjxTb9IG0pqFBu9s/PDT73pcgJu8zXA5ifiiinC5g==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -535,8 +539,9 @@ namespace MovieForum.Data.Migrations
                             ImagePath = "defaultphoto.jpg",
                             IsBlocked = false,
                             IsDeleted = false,
+                            IsEmailConfirmed = true,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAEFWd3AHb9Rfv2f5fqvJSM6WgxD6/nYbckOiznUdfmWbFkXq+VWT20eqUkwJchckojQ==",
+                            Password = "AQAAAAEAACcQAAAAEOPth25SoBbmCojznYltNLJq5JIMI/4mHuGJ+qIP5Hwg/NGDTGe7UKoMy/vu7MZrGQ==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -548,8 +553,9 @@ namespace MovieForum.Data.Migrations
                             ImagePath = "defaultphoto.jpg",
                             IsBlocked = false,
                             IsDeleted = false,
+                            IsEmailConfirmed = true,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAEGE4JekAp1WfqV/G8HnIJZv+hh2WcospCD5yCNngOym22QpGRpux+JK1A78iP0ShhQ==",
+                            Password = "AQAAAAEAACcQAAAAECsi3zbgIVXwWJWCMX6inYfpd73TCTtcWHxnhREEKKAZYK2YtFIWd1TFdp/mH20jdw==",
                             RoleId = 1,
                             Username = "Rado561"
                         });
@@ -616,7 +622,7 @@ namespace MovieForum.Data.Migrations
                             ImagePath = "Images/Image_500.jpg",
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 11, 1, 13, 16, 19, 543, DateTimeKind.Local).AddTicks(2217),
+                            ReleaseDate = new DateTime(2022, 11, 4, 16, 10, 14, 251, DateTimeKind.Local).AddTicks(9600),
                             Title = "Top Gun the new one"
                         },
                         new
@@ -628,7 +634,7 @@ namespace MovieForum.Data.Migrations
                             ImagePath = "Images/Image_500.jpg",
                             IsDeleted = false,
                             Posted = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReleaseDate = new DateTime(2022, 11, 1, 13, 16, 19, 543, DateTimeKind.Local).AddTicks(2751),
+                            ReleaseDate = new DateTime(2022, 11, 4, 16, 10, 14, 252, DateTimeKind.Local).AddTicks(1507),
                             Title = "Spiderman: Far From Home"
                         });
                 });

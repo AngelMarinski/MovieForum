@@ -33,6 +33,7 @@ namespace MovieForum.Data.Models
 
         [Required]
         public bool IsBlocked { get; set; }
+        public bool IsEmailConfirmed { get; set; }
 
         public string ImagePath { get; set; }
 
