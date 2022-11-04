@@ -585,10 +585,11 @@ ol {
 	background: #070720;
 }
 
-.header__logo {
+.header__logo  {
 	padding: 20px 0 17px;
 }
 
+   
 .header__logo a {
 	display: inline-block;
 }
@@ -1130,8 +1131,8 @@ ol {
 }
     .product__item__pic img {
         border-radius: 10px;
-        min-height: 350px;
-        max-height:350px;
+        min-height: 380px;
+        max-height:380px;
         max-width: 300px;
         min-width: 300px;
     }
@@ -1476,8 +1477,8 @@ ol {
 
     .anime__details__pic img {
         border-radius: 10px;
-        min-height: 330px;
-        max-height: 330px;
+        min-height: 350px;
+        max-height: 350px;
     }
 
     .anime__details__pic .comment {
