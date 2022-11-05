@@ -59,11 +59,11 @@
                                             @{
                                                 if (this.Model.MovieDTO.RatedBy.Contains(userCheck.Id))
                                                 {
-                                                    <button type="submit" class="btn btn-secondary" disabled style="background: lightgrey">Rate</button>
+                                                    <button type="submit" class="btn btn-secondary" disabled style="background: lightgrey; margin-top:10px">Rate</button>
                                                 }
                                                 else
                                                 {
-                                                    <button type="submit" class="btn btn-success">Rate</button>
+                                                    <button type="submit" class="btn btn-success" style="margin-top:10px">Rate</button>
                                                 }
                                             }
                                             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
