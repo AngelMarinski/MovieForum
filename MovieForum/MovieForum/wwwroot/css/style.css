@@ -1095,7 +1095,7 @@ ol {
 
 .product {
     padding-bottom: 0px;
-    padding-top: 40px;
+    padding-top: 4px;
 }
 
 .product-page {
@@ -1837,6 +1837,7 @@ ol {
 
 .sort-by-div {
     margin-bottom: 10px;
+    display: inline-flex;
 }
 /*---------------------
   Breadcrumb
@@ -2289,4 +2290,13 @@ ol {
 pageSize-Dropdown{
     margin-top:20px;
     border-radius: 30px;
+}
+
+
+#volume, #genreDropdown, #sortByDropdown{
+    margin-right: 10px;
+}
+
+#clear-filters.btn.btn-danger{
+    margin-left: 10px;
 }

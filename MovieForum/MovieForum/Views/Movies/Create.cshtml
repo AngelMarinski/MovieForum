@@ -15,33 +15,33 @@
 
 </head>
 <body>
-    <div class="create-edit-form">
-        <form asp-controller="Movies" asp-action="Create" method="post">
+    <div class="create-edit-form-container">
+        <form asp-controller="Movies" asp-action="Create" method="post" enctype="multipart/form-data">
             <button type="submit" disabled style="display:none" aria-hidden="true"></button>
             <div>
                 <label asp-for="Title" class="form-label"></label>
-                <input asp-for="Title" type="text" class="form-input" />
+                <input asp-for="Title" type="text" class="create-edit-form" />
                 <br />
                 <span asp-validation-for="Title" class="form-error" style="color: red"></span>
                 <br />
             </div>
             <div>
                 <label asp-for="Content" class="form-label"></label>
-                <input asp-for="Content" type="text" class="form-input" />
+                <textarea asp-for="Content" type="text" class="create-edit-form"></textarea>
                 <br />
                 <span asp-validation-for="Content" class="form-error" style="color: red"></span>
                 <br />
             </div>
             <div>
                 <label asp-for="GenreId" class="form-label"></label>
-                <select asp-items="@genres" asp-for="GenreId" class="form-input"></select>
+                <select asp-items="@genres" asp-for="GenreId" class="create-edit-form"></select>
                 <span asp-validation-for="GenreId" class="form-error" style="color: red"></span>
                 <br />
                 <br />
             </div>
             <div>
                 <label asp-for="RealeaseDate" class="form-label"></label>
-                <input asp-for="RealeaseDate" type="date" value="@DateTime.Now" class="form-input" />
+                <input asp-for="RealeaseDate" type="date" value="@DateTime.Now" class="create-edit-form" />
                 <span asp-validation-for="RealeaseDate" class="form-error" style="color: red"></span>
                 <br />
                 <br />
@@ -55,7 +55,7 @@
             </div>
             <div>
                 <label asp-for="Tags" class="form-label"></label>
-                <input asp-for="Tags" type="text" id="tags" value="" data-role="tagsinput" placeholder="Add tags" />
+                <input asp-for="Tags" type="text" id="tags" value="" data-role="tagsinput" placeholder="Add tags"  />
                 <br />
                 <br />
             </div>
@@ -66,7 +66,7 @@
                 <br />
             </div>
             <div>
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary create-edit-form" />
             </div>
         </form>
     </div>

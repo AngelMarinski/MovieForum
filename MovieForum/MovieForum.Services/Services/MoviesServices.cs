@@ -214,7 +214,7 @@ namespace MovieForum.Services
             {
                 var list = result;
                 result = Enumerable.Empty<MovieDTO>().AsQueryable();
-                result.Concat(from item in list
+                result = (from item in list
                               from tags in item.Tags
                               where tags.TagName.ToLower().Contains(parameters.Tag.ToLower())
                               select item);
@@ -251,7 +251,7 @@ namespace MovieForum.Services
                 }
             }
             int totalPages = (result.Count() + 1) / parameters.PageSize;
-            if((result.Count() + 1) % parameters.PageSize != 0)
+            if(result.Count() % parameters.PageSize != 0)
             {
                 totalPages++;
             }

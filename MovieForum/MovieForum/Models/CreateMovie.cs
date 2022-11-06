@@ -31,5 +31,6 @@ namespace MovieForum.Web.Models
         public string Tags { get; set; }
 
         public IFormFile File { get; set; }
+
     }
 }

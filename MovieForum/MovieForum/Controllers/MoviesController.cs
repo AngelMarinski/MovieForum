@@ -60,7 +60,9 @@ namespace MovieForum.Web.Controllers
             this.ViewData["Genre"] = parameters.Genre;
             this.ViewData["PageSize"] = parameters.PageSize;
             this.ViewData["Title"] = parameters.Title;
-            this.ViewData["Search"] = parameters.Search;
+            this.ViewData["Tag"] = parameters.Tag;
+            this.ViewData["Username"] = parameters.Username;
+            this.ViewData["Year"] = parameters.Year;
 
             return View(movies);
         }
@@ -90,6 +92,7 @@ namespace MovieForum.Web.Controllers
                 Title = movie.Title,
                 Content = movie.Content,
                 ReleaseDate = movie.RealeaseDate,
+                Posted = DateTime.Now,
                 GenreId = movie.GenreId,
                 Username = user.Username,
                 ImagePath = this.UploadPhoto(movie.File) ?? "Images/default.jpg"
@@ -178,8 +181,8 @@ namespace MovieForum.Web.Controllers
                 var movieDTO = new MovieDTO
                 {
                     Id = post.MovieID,
-                    Title = post.Title,
-                    Content = post.Content,
+                    Title = post.Title ?? movie.Title,
+                    Content = post.Content ?? movie.Content,
                     GenreId = (int)post.GenreId,
                 };
 
@@ -333,7 +336,7 @@ namespace MovieForum.Web.Controllers
                 file.CopyTo(stream);
                 stream.Flush();
             }
-            return path;
+            return $"Images/{newFileName}";
         }
     }
 }
