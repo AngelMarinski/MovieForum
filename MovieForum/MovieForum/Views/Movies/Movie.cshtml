@@ -49,8 +49,8 @@
                                 <div class="rating">
                                     @*<a href="#"><i class="fa fa-star"></i></a>*@
 
-                                    <button class="fa fa-star" onclick="openForm()"></button>
-                                    <div class="form-popup" id="myFormRate">
+                                    <button class="fa fa-star" onclick="openRateForm()"></button>
+                                    <div class="formRate-popup" id="myFormRate">
                                         <form asp-controller="Movies" asp-action="Rate" method="post" class="form-container">
                                             <input asp-for="rateMovieView.Rate" type="number" min="0" max="10">
                                             <input type="hidden" asp-for="rateMovieView.MovieId" value="@this.Model.MovieDTO.Id">
@@ -66,7 +66,7 @@
                                                     <button type="submit" class="btn btn-success" style="margin-top:10px">Rate</button>
                                                 }
                                             }
-                                            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                            <button type="button" class="btn cancel" onclick="closeRateForm()">Close</button>
                                         </form>
                                     </div>
                                 </div>
@@ -236,11 +236,12 @@
     }
 </script>
 <script>
-    function openForm() {
+    function openRateForm() {
         document.getElementById("myFormRate").style.display = "block";
     }
 
-    function closeForm() {
+    function closeRateForm() {
         document.getElementById("myFormRate").style.display = "none";
     }
+ </script>
 </html>
