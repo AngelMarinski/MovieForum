@@ -9,9 +9,8 @@ namespace MovieForum.Web.Models
 {
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress(ErrorMessage = "Email and password combination doesn't match")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Email/username and password combination doesn't match")]        
+        public string Credential { get; set; }
 
         [Required]
         [MinLength(8)]

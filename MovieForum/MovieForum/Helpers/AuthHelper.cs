@@ -21,11 +21,20 @@ namespace MovieForum.Web.Helpers
             this.userServices = userServices;
         }
 
-        public async Task<User> TryLogin(string email, string password)
+        public async Task<User> TryLogin(string credential, string password)
         {
             try
             {
-                var user = await userServices.GetUserByEmailAsync(email);
+                var user = new User();
+                 
+                if (credential.Contains('@'))
+                {
+                     user = await userServices.GetUserByEmailAsync(credential);
+                }
+                else
+                {
+                    user = await userServices.GetUserAsync(credential);
+                }
 
                 if (user.IsEmailConfirmed)
                 {

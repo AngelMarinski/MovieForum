@@ -162,8 +162,23 @@ namespace MovieForum.Web.Controllers
             }
 
 
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Logout", "Auth");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string email)
+        {
+            try
+            {
+                await userService.DeleteAsync(email);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+            }
+        }
+
         private string UploadPhoto(IFormFile file)
         {
             if (file == null)

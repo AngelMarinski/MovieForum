@@ -56,7 +56,7 @@ namespace MovieForum.Tests.UserServiceTests
 
             var expected = await service.GetUserDTOByIdAsync(userId);
 
-            var actual = await service.DeleteAsync(userId);
+            var actual = await service.DeleteAsync(expected.Email);
 
             Assert.AreEqual(expected.Username, actual.Username);
             Assert.IsTrue(await context.Users.AnyAsync(x => x.Id == actual.UserId 
