@@ -50,7 +50,7 @@
                                     @*<a href="#"><i class="fa fa-star"></i></a>*@
 
                                     <button class="fa fa-star" onclick="openForm()"></button>
-                                    <div class="form-popup" id="myForm">
+                                    <div class="form-popup" id="myFormRate">
                                         <form asp-controller="Movies" asp-action="Rate" method="post" class="form-container">
                                             <input asp-for="rateMovieView.Rate" type="number" min="0" max="10">
                                             <input type="hidden" asp-for="rateMovieView.MovieId" value="@this.Model.MovieDTO.Id">
@@ -171,7 +171,7 @@
                                                     <div class="form-popup" id="myForm">
                                                         <form asp-controller="Comment" asp-action="Edit" method="post" class="form-container">
 
-                                                            <textarea asp-for=" commentViewModel.Content" rows="10" cols="30" placeholder="@comment.Content"></textarea>
+                                                            <textarea asp-for="commentViewModel.Content" rows="10" cols="30" placeholder="@comment.Content"></textarea>
                                                             <span asp-validation-for="commentViewModel.Content" class="form-error"></span>
                                                             <input type="hidden" asp-for="commentViewModel.MovieId" value="@this.Model.MovieDTO.Id">
                                                             <input type="hidden" asp-for="commentViewModel.Id" value="@comment.Id">
@@ -235,4 +235,12 @@
         document.getElementById("myForm").style.display = "none";
     }
 </script>
+<script>
+    function openForm() {
+        document.getElementById("myFormRate").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("myFormRate").style.display = "none";
+    }
 </html>

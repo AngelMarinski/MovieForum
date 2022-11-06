@@ -60,6 +60,7 @@ namespace MovieForum.Web.Controllers
             this.ViewData["Genre"] = parameters.Genre;
             this.ViewData["PageSize"] = parameters.PageSize;
             this.ViewData["Title"] = parameters.Title;
+            this.ViewData["Search"] = parameters.Search;
 
             return View(movies);
         }
