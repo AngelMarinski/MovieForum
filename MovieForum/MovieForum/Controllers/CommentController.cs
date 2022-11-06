@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieForum.Services.DTOModels;
 using MovieForum.Services.Interfaces;
 using MovieForum.Web.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,7 +50,7 @@ namespace MovieForum.Web.Controllers
                 AuthorId = user.Id,
                 Content = comment.commentViewModel.Content,
                 MovieId = comment.commentViewModel.MovieId,
-                PostedOn = System.DateTime.Now   
+                PostedOn = DateTime.Now   
             };
 
             var check = await services.PostAsync(result);
@@ -88,6 +89,7 @@ namespace MovieForum.Web.Controllers
             return this.RedirectToAction("Movie", "Movies", new { id = comment.commentViewModel.MovieId });
         }
 
+      
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Edit(MovieCommentWrap comment)
