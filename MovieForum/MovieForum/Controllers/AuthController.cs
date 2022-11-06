@@ -88,9 +88,9 @@ namespace MovieForum.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!await userService.IsExistingAsync(model.Email))
+            if (!await userService.IsExistingAsync(model.Credential) && !await userService.IsExistingUsernameAsync(model.Credential))
             {
-                this.ModelState.AddModelError("Email", "Incorrect combination of email and password.");
+                this.ModelState.AddModelError("Credential", "Incorrect combination of email/username and password.");
                 return this.View(model);
             }
 
@@ -101,7 +101,7 @@ namespace MovieForum.Web.Controllers
 
             try
             {
-                var user = await authHelper.TryLogin(model.Email, model.Password);
+                var user = await authHelper.TryLogin(model.Credential, model.Password);
 
                 if(user == null)
                 {

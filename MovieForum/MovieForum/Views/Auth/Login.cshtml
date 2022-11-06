@@ -45,9 +45,9 @@
                     <div class="login__form">
                         <form asp-controller="Auth" asp-action="Login">
                             <div class="input__item">
-                                <input asp-for="Email" type="text" placeholder="Email address">
+                                <input asp-for="Credential" type="text" placeholder="Email or Username">
                                 <span class="icon_mail"></span>                                
-                                 <span asp-validation-for="Email"></span>
+                                 <span asp-validation-for="Credential"></span>
                             </div>
                             <div class="input__item">
                                 <input asp-for="Password" type="password" placeholder="Password">

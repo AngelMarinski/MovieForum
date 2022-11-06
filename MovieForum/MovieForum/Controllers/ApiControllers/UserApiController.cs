@@ -74,12 +74,12 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        [Route("{email}")]
+        public async Task<IActionResult> DeleteUser(string email)
         {
             try
             {
-                var user = await userService.DeleteAsync(id);
+                var user = await userService.DeleteAsync(email);
                 return this.Ok(user);
             }
             catch (Exception ex)
@@ -152,7 +152,7 @@ namespace MovieForum.Web.Controllers
         {
             try
             {
-                var user = await authHelper.TryLogin(userModel.Email, userModel.Password);
+                var user = await authHelper.TryLogin(userModel.Credential, userModel.Password);
                 return this.Ok("Logged in successfully");
             }
             catch (Exception ex)

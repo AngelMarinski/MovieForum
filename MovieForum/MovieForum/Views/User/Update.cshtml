@@ -1,6 +1,5 @@
 ﻿@model UpdateUserViewModel
 <html>
-<titile>Update User</titile>
 <!-- Css Styles -->
 <link href="/css/profile.css" rel="stylesheet">
 <link rel="stylesheet"
@@ -15,6 +14,9 @@
                 <div class="col-md-3">
                     <div class="text-center">
                         <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
+                    </div>
+                    <div class="text-center">
+                        <a asp-route-email="@Model.Email" asp-action="Delete" asp-controller="User" class="btn btn-primary" type="submit" style="background-color: #e53637; border: none; margin-top: 25px;">Delete Profile</a>
                     </div>
                 </div>
 

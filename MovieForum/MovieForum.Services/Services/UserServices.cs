@@ -85,7 +85,7 @@ namespace MovieForum.Services.Services
 
         public async Task<int> UserCount()
         {
-            var numOfUsers = await GetAsync();
+            var numOfUsers = await GetAllUsersAsync();
             return numOfUsers.Count();
         }
 
@@ -211,6 +211,7 @@ namespace MovieForum.Services.Services
 
             var user = mapper.Map<User>(obj);
             user.RoleId = 2;
+            user.RoleId = 2;
             user.Role = null;
 
             var passHasher = new PasswordHasher<User>();
@@ -274,9 +275,9 @@ namespace MovieForum.Services.Services
             return mapper.Map<UserDTO>(userToUpdate);
         }
 
-        public async Task<UserDTO> DeleteAsync(int id)
+        public async Task<UserDTO> DeleteAsync(string email)
         {
-            var userToDelete = await GetUserAsync(id);
+            var userToDelete = await GetUserByEmailAsync(email);
 
             userToDelete.DeletedOn = DateTime.Now;
 
