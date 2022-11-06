@@ -83,7 +83,7 @@ namespace MovieForum.Controllers
 
                 return this.Ok(movies);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }
@@ -156,12 +156,13 @@ namespace MovieForum.Controllers
                     Tags = post.Tags == null ? null : new List<MovieTagsDTO>(post.Tags),
                 };
 
-                if(post.GenreId != null)
+
+                if (post.GenreId != null)
                 {
                     movieDTO.GenreId = (int)post.GenreId;
                 }
 
-                if(post.ReleaseDate != null)
+                if (post.ReleaseDate != null)
                 {
                     movieDTO.ReleaseDate = (DateTime)post.ReleaseDate;
                 }
@@ -173,9 +174,36 @@ namespace MovieForum.Controllers
 
                 var movie = await this.moviesService.UpdateAsync(id, movieDTO);
 
+                if (post.Cast != null)
+                {
+                    foreach (var item in post.Cast)
+                    {
+                        await this.moviesService.AddActorAsync(movie.Id, item.Actor.FirstName,
+                            item.Actor.LastName);
+                    }
+                }
+                if (post.Tags != null)
+                {
+                    foreach (var item in movie.Tags)
+                    {
+                        if (!post.Tags.Any(y => y.TagName == item.TagName))
+                        {
+                            await this.moviesService.RemoveTagAsync(movie.Id, item.TagName);
+                        }
+                    }
+
+                    foreach (var tag in post.Tags)
+                    {
+                        if (!movie.Tags.Any(x => x.TagName == tag.TagName))
+                        {
+                            await this.moviesService.AddTagAsync(movie.Id, tag.TagName);
+                        }
+                    }
+                }
+
                 return this.Ok(movie);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }
@@ -191,7 +219,7 @@ namespace MovieForum.Controllers
 
                 return this.Ok(movieDTO);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }
@@ -237,7 +265,7 @@ namespace MovieForum.Controllers
 
                 return this.Ok(movie);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }
@@ -261,7 +289,7 @@ namespace MovieForum.Controllers
                 file.CopyTo(stream);
                 stream.Flush();
             }
-            return path;
+            return $"Images/{newFileName}";
         }
     }
 }
